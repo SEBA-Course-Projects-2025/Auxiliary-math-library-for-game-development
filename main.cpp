@@ -1,6 +1,7 @@
 #include "library.h"
 
-int main() {
-  hello();
-  return 0;
+int main()
+{
+    hello();
+    return 0;
 }

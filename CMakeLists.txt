@@ -4,3 +4,5 @@ project(Auxiliary_math_library_for_game_development)
 set(CMAKE_CXX_STANDARD 20)
 
 add_library(Auxiliary_math_library_for_game_development STATIC library.cpp)
+add_executable(Main main.cpp)
+target_link_libraries(Main PRIVATE Auxiliary_math_library_for_game_development)

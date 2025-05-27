@@ -3,4 +3,5 @@
 
 void hello();
 
+int add(int a, int b);
 #endif  // AUXILIARY_MATH_LIBRARY_FOR_GAME_DEVELOPMENT_LIBRARY_H

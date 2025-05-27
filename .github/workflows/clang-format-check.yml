@@ -16,7 +16,6 @@ jobs:
 
       - name: Run clang-format check
         run: |
-          # Знайти всі C++ файли (можеш змінити перелік розширень)
           files=$(find . -regex '.*\.\(cpp\|hpp\|cc\|hh\|c\|h\)' -not -path "./build/*")
           failed=0
           for file in $files; do

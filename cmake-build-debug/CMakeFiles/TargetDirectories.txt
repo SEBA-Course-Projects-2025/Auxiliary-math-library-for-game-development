@@ -1,4 +1,4 @@
-/Users/niklesunenko/CLionProjects/Auxiliary-math-library-for-game-development/cmake-build-debug/CMakeFiles/Auxiliary_math_library_for_game_development.dir
-/Users/niklesunenko/CLionProjects/Auxiliary-math-library-for-game-development/cmake-build-debug/CMakeFiles/Main.dir
-/Users/niklesunenko/CLionProjects/Auxiliary-math-library-for-game-development/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/niklesunenko/CLionProjects/Auxiliary-math-library-for-game-development/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+D:/University/Internship_2/Auxiliary-math-library-for-game-development/cmake-build-debug/CMakeFiles/Auxiliary_math_library_for_game_development.dir
+D:/University/Internship_2/Auxiliary-math-library-for-game-development/cmake-build-debug/CMakeFiles/Main.dir
+D:/University/Internship_2/Auxiliary-math-library-for-game-development/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/University/Internship_2/Auxiliary-math-library-for-game-development/cmake-build-debug/CMakeFiles/rebuild_cache.dir

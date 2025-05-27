@@ -1,0 +1,39 @@
+# CMake build directory
+cmake-build-*/
+build/
+
+# Compiled object files
+*.o
+*.obj
+
+# Compiled binary executables
+*.exe
+*.out
+*.app
+*.dll
+*.so
+*.dylib
+
+# CLion settings (optional, safe to ignore for team projects)
+.idea/
+*.iml
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+install_manifest.txt
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.DS_Store
+
+# Backup files
+*~
+*.bak
+
+# clang-format temporary
+.clang-format.tmp

@@ -484,3 +484,38 @@ events:
         
       exitCode: 0
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.30/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.30/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.30/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "cmake-build-debug/_deps/googletest-src/googletest/cmake/internal_utils.cmake:65 (find_package)"
+      - "cmake-build-debug/_deps/googletest-src/googletest/CMakeLists.txt:88 (config_compiler_and_linker)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/Users/niklesunenko/CLionProjects/Auxiliary-math-library-for-game-development/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-aNnQQA"
+      binary: "/Users/niklesunenko/CLionProjects/Auxiliary-math-library-for-game-development/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-aNnQQA"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_OSX_ARCHITECTURES: ""
+      CMAKE_OSX_DEPLOYMENT_TARGET: ""
+      CMAKE_OSX_SYSROOT: "/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/niklesunenko/CLionProjects/Auxiliary-math-library-for-game-development/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-aNnQQA'
+        
+        Run Build Command(s): /Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja -v cmTC_2febe
+        [1/2] /Library/Developer/CommandLineTools/usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD  -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics -MD -MT CMakeFiles/cmTC_2febe.dir/src.c.o -MF CMakeFiles/cmTC_2febe.dir/src.c.o.d -o CMakeFiles/cmTC_2febe.dir/src.c.o -c /Users/niklesunenko/CLionProjects/Auxiliary-math-library-for-game-development/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-aNnQQA/src.c
+        [2/2] : && /Library/Developer/CommandLineTools/usr/bin/cc -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/cmTC_2febe.dir/src.c.o -o cmTC_2febe   && :
+        
+      exitCode: 0
+...

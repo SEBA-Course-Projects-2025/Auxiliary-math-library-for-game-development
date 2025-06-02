@@ -55,10 +55,34 @@ class Vector2
     {
         return static_cast<float>(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_);
     }
-    float magnitude_sqr() const { return std::sqrt(magnitude_sqr()); }
-    float area(const Vector2 &other) const;
-    float angle(const Vector2 &other) const;
-    float dot(const Vector2 &other) const;
+
+    float magnitude_sqr() const { return std::sqrt(magnitude()); }
+
+    float area(const Vector2 &other) const
+    {
+        return static_cast<float>(std::abs(static_cast<double>(x_) * other.y() - static_cast<double>(y_) * other.x()));
+    }
+
+    float angle(const Vector2 &other) const {
+        float mag1 = magnitude();
+        float mag2 = other.magnitude();
+
+        if (mag1 == 0.0f || mag2 == 0.0f) {
+            return 0.0f;
+        }
+
+        float cos_angle = other.dot() / (mag1 * mag2);
+
+        if (cos_angle > 1.0f) cos_angle = 1.0f;
+        if (cos_angle < -1.0f) cos_angle = -1.0f;
+
+        return std::acos(cos_angle);
+    }
+
+    float dot(const Vector2 &other) const
+    {
+        return x_ * other.x_ + y_ * other.y_;
+    }
 
     Vector2 mad(const Vector2 &other, float scalar) const;
 

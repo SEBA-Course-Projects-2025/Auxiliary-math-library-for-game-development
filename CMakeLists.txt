@@ -18,8 +18,12 @@ enable_testing()
 add_executable(Main main.cpp)
 target_link_libraries(Main PRIVATE Auxiliary_math_library_for_game_development)
 
-add_executable(Test Test.cpp)
-target_link_libraries(Test gtest_main Auxiliary_math_library_for_game_development)
+add_executable(Test
+        Test.cpp
+        tests/vector2.cpp
+)
+target_include_directories(Test PRIVATE Auxiliary_math_library_for_game_development)
+
 
 include(GoogleTest)
 gtest_discover_tests(Test)

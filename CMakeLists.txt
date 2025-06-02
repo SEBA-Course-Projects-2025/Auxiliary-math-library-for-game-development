@@ -16,7 +16,7 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(Main main.cpp)
-target_link_libraries(Main Auxiliary_math_library_for_game_development)
+target_link_libraries(Main PRIVATE Auxiliary_math_library_for_game_development)
 
 add_executable(Test Test.cpp)
 target_link_libraries(Test gtest_main Auxiliary_math_library_for_game_development)

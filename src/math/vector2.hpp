@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 
 namespace math
 {
@@ -64,6 +65,8 @@ class Vector2
             std::abs(static_cast<double>(x_) * other.y() - static_cast<double>(y_) * other.x()));
     }
 
+    float dot(const Vector2 &other) const { return x_ * other.x_ + y_ * other.y_; }
+
     float angle(const Vector2 &other) const
     {
         float mag1 = magnitude();
@@ -74,7 +77,7 @@ class Vector2
             return 0.0f;
         }
 
-        float cos_angle = other.dot() / (mag1 * mag2);
+        float cos_angle = dot(other) / (mag1 * mag2);
 
         if (cos_angle > 1.0f)
             cos_angle = 1.0f;
@@ -83,8 +86,6 @@ class Vector2
 
         return std::acos(cos_angle);
     }
-
-    float dot(const Vector2 &other) const { return x_ * other.x_ + y_ * other.y_; }
 
     Vector2 mad(const Vector2 &other, float scalar) const
     {

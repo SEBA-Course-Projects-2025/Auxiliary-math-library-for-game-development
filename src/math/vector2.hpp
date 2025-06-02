@@ -1,8 +1,10 @@
 #pragma once
 
-namespace math {
-class Vector2 {
-public:
+namespace math
+{
+class Vector2
+{
+   public:
     Vector2() : x_(0.0f), y_(0.0f) {}
     Vector2(float x, float y) : x_(x), y_(y) {}
 
@@ -13,27 +15,41 @@ public:
 
     Vector2 add(const Vector2 &other) const
     {
-        return Vector2(static_cast<float>(static_cast<double>(x_) + static_cast<double>(other.x())),
-            static_cast<float>(static_cast<double>(y_) + static_cast<double>(other.y())));
-    };
+        return Vector2(static_cast<float>(static_cast<double>(x_) + other.x()),
+                       static_cast<float>(static_cast<double>(y_) + other.y()));
+    }
+
     Vector2 sub(const Vector2 &other) const
     {
-        return Vector2(static_cast<float>(static_cast<double>(x_) - static_cast<double>(other.x())),
-            static_cast<float>(static_cast<double>(y_) - static_cast<double>(other.y())));
-    };
+        return Vector2(static_cast<float>(static_cast<double>(x_) - other.x()),
+                       static_cast<float>(static_cast<double>(y_) - other.y()));
+    }
+
     Vector2 mul(const Vector2 &other) const
     {
-        return Vector2(static_cast<float>(static_cast<double>(x_) * static_cast<double>(other.x())),
-            static_cast<float>(static_cast<double>(y_) * static_cast<double>(other.y())));
-    };
+        return Vector2(static_cast<float>(static_cast<double>(x_) * other.x()),
+                       static_cast<float>(static_cast<double>(y_) * other.y()));
+    }
+
     Vector2 div(const Vector2 &other) const
     {
-        return Vector2(static_cast<float>(static_cast<double>(x_) / static_cast<double>(other.x())),
-            static_cast<float>(static_cast<double>(y_) / static_cast<double>(other.y())));
-    };
+        return Vector2(static_cast<float>(static_cast<double>(x_) / other.x()),
+                       static_cast<float>(static_cast<double>(y_) / other.y()));
+    }
 
-    Vector2 scale(float scalar) const;
-    Vector2 normalize() const;
+    Vector2 scale(float scalar) const
+    {
+        return Vector2(static_cast<float>(static_cast<double>(x_) * scalar),
+                       static_cast<float>(static_cast<double>(y_) * scalar));
+    }
+
+    Vector2 normalize() const
+    {
+        double length = std::sqrt(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_);
+        if (length == 0.0)
+            return Vector2(0.0f, 0.0f);
+        return Vector2(static_cast<float>(x_ / length), static_cast<float>(y_ / length));
+    }
 
     float magnitude() const;
     float magnitude_sqr() const;
@@ -44,10 +60,10 @@ public:
     Vector2 mad(const Vector2 &other, float scalar) const;
 
     bool equal(const Vector2 &other) const;
-    bool operator==(const Vector2& other) const;
+    bool operator==(const Vector2 &other) const;
 
-private:
+   private:
     float x_;
     float y_;
 };
-}
+}  // namespace math

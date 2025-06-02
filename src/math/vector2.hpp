@@ -51,8 +51,11 @@ class Vector2
         return Vector2(static_cast<float>(x_ / length), static_cast<float>(y_ / length));
     }
 
-    float magnitude() const;
-    float magnitude_sqr() const;
+    float magnitude() const
+    {
+        return static_cast<float>(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_);
+    }
+    float magnitude_sqr() const { return std::sqrt(magnitude_sqr()); }
     float area(const Vector2 &other) const;
     float angle(const Vector2 &other) const;
     float dot(const Vector2 &other) const;

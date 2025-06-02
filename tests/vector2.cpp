@@ -1,9 +1,11 @@
-#include <gtest/gtest.h>
 #include "src/math/vector2.hpp"
+
+#include <gtest/gtest.h>
 
 using math::Vector2;
 
-TEST(Vector2Test, Add) {
+TEST(Vector2Test, Add)
+{
     Vector2 v1(1.5f, 2.5f);
     Vector2 v2(3.0f, 4.0f);
     Vector2 result = v1.add(v2);
@@ -11,7 +13,8 @@ TEST(Vector2Test, Add) {
     EXPECT_FLOAT_EQ(result.y(), 6.5f);
 }
 
-TEST(Vector2Test, Sub) {
+TEST(Vector2Test, Sub)
+{
     Vector2 v1(5.0f, 7.0f);
     Vector2 v2(2.0f, 3.0f);
     Vector2 result = v1.sub(v2);
@@ -19,7 +22,8 @@ TEST(Vector2Test, Sub) {
     EXPECT_FLOAT_EQ(result.y(), 4.0f);
 }
 
-TEST(Vector2Test, Mul) {
+TEST(Vector2Test, Mul)
+{
     Vector2 v1(2.0f, 3.0f);
     Vector2 v2(4.0f, 5.0f);
     Vector2 result = v1.mul(v2);
@@ -27,7 +31,8 @@ TEST(Vector2Test, Mul) {
     EXPECT_FLOAT_EQ(result.y(), 15.0f);
 }
 
-TEST(Vector2Test, Div) {
+TEST(Vector2Test, Div)
+{
     Vector2 v1(8.0f, 9.0f);
     Vector2 v2(2.0f, 3.0f);
     Vector2 result = v1.div(v2);
@@ -35,7 +40,8 @@ TEST(Vector2Test, Div) {
     EXPECT_FLOAT_EQ(result.y(), 3.0f);
 }
 
-TEST(Vector2Test, DivByZero) {
+TEST(Vector2Test, DivByZero)
+{
     Vector2 v1(1.0f, 1.0f);
     Vector2 v2(0.0f, 1.0f);
     Vector2 result = v1.div(v2);

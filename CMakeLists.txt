@@ -1,10 +1,19 @@
-cmake_minimum_required(VERSION 3.30)
+cmake_minimum_required(VERSION 3.14)
 project(Auxiliary_math_library_for_game_development)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_library(Auxiliary_math_library_for_game_development STATIC library.cpp)
+# === Додати бібліотеку ===
+add_library(Auxiliary_math_library_for_game_development
+        library.cpp
+)
 
+target_include_directories(Auxiliary_math_library_for_game_development PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+# === GoogleTest через FetchContent ===
 include(FetchContent)
 FetchContent_Declare(
         googletest
@@ -18,8 +27,17 @@ enable_testing()
 add_executable(Main main.cpp)
 target_link_libraries(Main PRIVATE Auxiliary_math_library_for_game_development)
 
-add_executable(Test Test.cpp)
-target_link_libraries(Test gtest_main Auxiliary_math_library_for_game_development)
+add_executable(Test
+        Test.cpp
+        tests/vector2.cpp
+)
+target_include_directories(Test PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+target_link_libraries(Test PRIVATE
+        gtest_main
+        Auxiliary_math_library_for_game_development
+)
 
 include(GoogleTest)
 gtest_discover_tests(Test)

@@ -22,10 +22,8 @@ class Vector2
 
     Vector2 add(float x, float y) const
     {
-        return Vector2(
-            static_cast<float>(static_cast<double>(x_) + static_cast<double>(x)),
-            static_cast<float>(static_cast<double>(y_) + static_cast<double>(y))
-        );
+        return Vector2(static_cast<float>(static_cast<double>(x_) + static_cast<double>(x)),
+                       static_cast<float>(static_cast<double>(y_) + static_cast<double>(y)));
     }
 
     Vector2 sub(const Vector2 &other) const
@@ -60,12 +58,12 @@ class Vector2
         return Vector2(static_cast<float>(x_ / length), static_cast<float>(y_ / length));
     }
 
-    Vector2 negate() const
-    {
-        return Vector2(-x_, -y_);
-    }
+    Vector2 negate() const { return Vector2(-x_, -y_); }
 
-    float magnitude_sqr() const { return static_cast<float>(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_); }
+    float magnitude_sqr() const
+    {
+        return static_cast<float>(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_);
+    }
 
     float magnitude() const { return std::sqrt(magnitude_sqr()); }
 
@@ -113,9 +111,10 @@ class Vector2
 
     bool operator==(const Vector2 &other) const { return equal(other); }
 
-    Vector2& operator=(const Vector2 &other)
+    Vector2 &operator=(const Vector2 &other)
     {
-        if (this != &other) {
+        if (this != &other)
+        {
             x_ = other.x_;
             y_ = other.y_;
         }

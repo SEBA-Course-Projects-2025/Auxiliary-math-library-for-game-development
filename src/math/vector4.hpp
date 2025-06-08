@@ -452,7 +452,7 @@ class Vector4
         double length = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
                                   static_cast<double>(y_) * static_cast<double>(y_) +
                                   static_cast<double>(x_) * static_cast<double>(z_) +
-                                  static_cast<double>(x_) * static_cast<double>(w_) );
+                                  static_cast<double>(x_) * static_cast<double>(w_));
 
         assert(length != 0.0 && "Cannot normalize a zero-length vector");
 
@@ -461,6 +461,15 @@ class Vector4
         z_ = static_cast<float>(static_cast<double>(z_) / length);
         w_ = static_cast<float>(static_cast<double>(w_) / length);
 
+        return *this;
+    }
+
+    Vector4 &negate()
+    {
+        x_ = -x_;
+        y_ = -y_;
+        z_ = -z_;
+        w_ = -w_;
         return *this;
     }
 

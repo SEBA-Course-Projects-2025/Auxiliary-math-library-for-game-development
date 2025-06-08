@@ -108,10 +108,15 @@ class Vector2
 
     float magnitude_sqr() const
     {
-        return static_cast<float>(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_);
+        return static_cast<float>(static_cast<double>(x_) * static_cast<double>(x_) +
+                                  static_cast<double>(y_) * static_cast<double>(y_));
     }
 
-    float magnitude() const { return std::sqrt(magnitude_sqr()); }
+    float magnitude() const
+    {
+        return static_cast<float>(std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
+                                            static_cast<double>(y_) * static_cast<double>(y_)));
+    }
 
     float area(const Vector2 &other) const
     {

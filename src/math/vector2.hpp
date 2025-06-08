@@ -20,7 +20,9 @@ class Vector2
         return *this;
     }
 
-    Vector2 &add(float x, float y)
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    Vector2 &add(T x, T y)
     {
         x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(x));
         y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(y));
@@ -34,7 +36,9 @@ class Vector2
         return *this;
     }
 
-    Vector2 &sub(float x, float y)
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    Vector2 &sub(T x, T y)
     {
         x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(x));
         y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(y));
@@ -48,7 +52,9 @@ class Vector2
         return *this;
     }
 
-    Vector2 &mul(float x, float y)
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    Vector2 &mul(T x, T y)
     {
         x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(x));
         y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(y));
@@ -62,17 +68,22 @@ class Vector2
         return *this;
     }
 
-    Vector2 &div(float x, float y)
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    Vector2 &div(T x, T y)
     {
         x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(x));
         y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(y));
         return *this;
     }
 
-    Vector2 scale(float scalar) const
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    Vector2 &scale(T scalar)
     {
-        return Vector2(static_cast<float>(static_cast<double>(x_) * scalar),
-                       static_cast<float>(static_cast<double>(y_) * scalar));
+        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(scalar));
+        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(scalar));
+        return *this;
     }
 
     Vector2 normalize() const

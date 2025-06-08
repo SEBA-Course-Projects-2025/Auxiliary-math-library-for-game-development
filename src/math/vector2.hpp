@@ -140,24 +140,32 @@ class Vector2
                                   static_cast<double>(y_) * static_cast<double>(other.y()));
     }
 
+    float cos(const Vector2 &other) const
+    {
+        double dot = static_cast<double>(x_) * static_cast<double>(other.x()) + static_cast<double>(y_) * static_cast<double>(other.y());
+        double mag1 = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) + static_cast<double>(y_) * static_cast<double>(y_));
+        double mag2 = std::sqrt(static_cast<double>(other.x()) * static_cast<double>(other.x()) +
+                                static_cast<double>(other.y()) * static_cast<double>(other.y()));
+
+        assert(mag1 != 0.0 && mag2 != 0.0 && "Cannot compute angle with a zero-magnitude vector");
+
+        double cosTheta = dot / (mag1 * mag2);
+
+        return static_cast<float>(cosTheta);
+    }
+
     float angle(const Vector2 &other) const
     {
-        float mag1 = magnitude();
-        float mag2 = other.magnitude();
+        double dot = static_cast<double>(x_) * static_cast<double>(other.x()) + static_cast<double>(y_) * static_cast<double>(other.y());
+        double mag1 = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) + static_cast<double>(y_) * static_cast<double>(y_));
+        double mag2 = std::sqrt(static_cast<double>(other.x()) * static_cast<double>(other.x()) +
+                                static_cast<double>(other.y()) * static_cast<double>(other.y()));
 
-        if (mag1 == 0.0f || mag2 == 0.0f)
-        {
-            return 0.0f;
-        }
+        assert(mag1 != 0.0 && mag2 != 0.0 && "Cannot compute angle with a zero-magnitude vector");
 
-        float cos_angle = dot(other) / (mag1 * mag2);
+        double cosTheta = dot / (mag1 * mag2);
 
-        if (cos_angle > 1.0f)
-            cos_angle = 1.0f;
-        if (cos_angle < -1.0f)
-            cos_angle = -1.0f;
-
-        return std::acos(cos_angle);
+        return static_cast<float>(std::acos(cosTheta));
     }
 
     Vector2 mad(const Vector2 &other, float scalar) const

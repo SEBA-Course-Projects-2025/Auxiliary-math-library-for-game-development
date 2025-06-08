@@ -13,34 +13,60 @@ class Vector2
     void setX(float x) { x_ = x; }
     void setY(float y) { y_ = y; }
 
-    Vector2 add(const Vector2 &other) const
+    Vector2 &add(const Vector2 &other)
     {
-        return Vector2(static_cast<float>(static_cast<double>(x_) + other.x()),
-                       static_cast<float>(static_cast<double>(y_) + other.y()));
+        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(other.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(other.y()));
+        return *this;
     }
 
-    Vector2 add(float x, float y) const
+    Vector2 &add(float x, float y)
     {
-        return Vector2(static_cast<float>(static_cast<double>(x_) + static_cast<double>(x)),
-                       static_cast<float>(static_cast<double>(y_) + static_cast<double>(y)));
+        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(y));
+        return *this;
     }
 
-    Vector2 sub(const Vector2 &other) const
+    Vector2 &sub(const Vector2 &other)
     {
-        return Vector2(static_cast<float>(static_cast<double>(x_) - other.x()),
-                       static_cast<float>(static_cast<double>(y_) - other.y()));
+        x_ = static_cast<float>(static_cast<double>(x_) - static_cast<double>(other.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) - static_cast<double>(other.y()));
+        return *this;
     }
 
-    Vector2 mul(const Vector2 &other) const
+    Vector2 &sub(float x, float y)
     {
-        return Vector2(static_cast<float>(static_cast<double>(x_) * other.x()),
-                       static_cast<float>(static_cast<double>(y_) * other.y()));
+        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(y));
+        return *this;
     }
 
-    Vector2 div(const Vector2 &other) const
+    Vector2 &mul(const Vector2 &other)
     {
-        return Vector2(static_cast<float>(static_cast<double>(x_) / other.x()),
-                       static_cast<float>(static_cast<double>(y_) / other.y()));
+        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(other.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(other.y()));
+        return *this;
+    }
+
+    Vector2 &mul(float x, float y)
+    {
+        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(y));
+        return *this;
+    }
+
+    Vector2 &div(const Vector2 &other)
+    {
+        x_ = static_cast<float>(static_cast<double>(x_) / static_cast<double>(other.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) / static_cast<double>(other.y()));
+        return *this;
+    }
+
+    Vector2 &div(float x, float y)
+    {
+        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(y));
+        return *this;
     }
 
     Vector2 scale(float scalar) const

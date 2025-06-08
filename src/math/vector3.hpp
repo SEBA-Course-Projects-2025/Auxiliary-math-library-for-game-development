@@ -11,13 +11,22 @@ class Vector3
    public:
     template <typename T>
         requires std::is_arithmetic_v<T>
-    Vector3(T x, T y, T z) : x_(static_cast<float>(x)), y_(static_cast<float>(y)), z_(static_cast<float>(z)) {}
+    Vector3(T x, T y, T z)
+        : x_(static_cast<float>(x)), y_(static_cast<float>(y)), z_(static_cast<float>(z))
+    {
+    }
     template <typename T>
         requires std::is_arithmetic_v<T>
-    Vector3(Vector2 const &v, T z) : x_(static_cast<float>(v.x())), y_(static_cast<float>(v.y())), z_(static_cast<float>(z)) {}
+    Vector3(Vector2 const &v, T z)
+        : x_(static_cast<float>(v.x())), y_(static_cast<float>(v.y())), z_(static_cast<float>(z))
+    {
+    }
     template <typename T>
         requires std::is_arithmetic_v<T>
-    Vector3(T x, Vector2 const &v) : x_(static_cast<float>(x)), y_(static_cast<float>(v.x())), z_(static_cast<float>(v.y())) {}
+    Vector3(T x, Vector2 const &v)
+        : x_(static_cast<float>(x)), y_(static_cast<float>(v.x())), z_(static_cast<float>(v.y()))
+    {
+    }
 
     float x() const { return x_; }
     float y() const { return y_; }

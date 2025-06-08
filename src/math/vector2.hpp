@@ -6,7 +6,6 @@ namespace math
 class Vector2
 {
    public:
-    Vector2() : x_(0.0f), y_(0.0f) {}
     Vector2(float x, float y) : x_(x), y_(y) {}
 
     float x() const { return x_; }

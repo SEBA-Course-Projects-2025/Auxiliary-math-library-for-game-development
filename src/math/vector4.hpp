@@ -489,6 +489,99 @@ class Vector4
                                             static_cast<double>(w_) * static_cast<double>(w_)));
     }
 
+    float dot(const Vector4 &other) const
+    {
+        return static_cast<float>(static_cast<double>(x_) * static_cast<double>(other.x()) +
+                                  static_cast<double>(y_) * static_cast<double>(other.y()) +
+                                  static_cast<double>(z_) * static_cast<double>(other.z()) +
+                                  static_cast<double>(w_) * static_cast<double>(other.w()));
+    }
+
+    float cos(const Vector4 &other) const
+    {
+        double dotProduct = static_cast<double>(x_) * static_cast<double>(other.x()) +
+                            static_cast<double>(y_) * static_cast<double>(other.y()) +
+                            static_cast<double>(z_) * static_cast<double>(other.z()) +
+                            static_cast<double>(w_) * static_cast<double>(other.w());
+
+        double mag1 = std::sqrt(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_ +
+                                static_cast<double>(z_) * z_ + static_cast<double>(w_) * w_);
+
+        double mag2 = std::sqrt(static_cast<double>(other.x()) * other.x() +
+                                static_cast<double>(other.y()) * other.y() +
+                                static_cast<double>(other.z()) * other.z() +
+                                static_cast<double>(other.w()) * other.w());
+
+        assert(mag1 != 0.0 && mag2 != 0.0 && "Cannot compute angle with a zero-magnitude vector");
+
+        double cosTheta = dotProduct / (mag1 * mag2);
+        return static_cast<float>(cosTheta);
+    }
+
+    float angle(const Vector4 &other) const
+    {
+        double dotProduct = static_cast<double>(x_) * static_cast<double>(other.x()) +
+                            static_cast<double>(y_) * static_cast<double>(other.y()) +
+                            static_cast<double>(z_) * static_cast<double>(other.z()) +
+                            static_cast<double>(w_) * static_cast<double>(other.w());
+
+        double mag1 = std::sqrt(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_ +
+                                static_cast<double>(z_) * z_ + static_cast<double>(w_) * w_);
+
+        double mag2 = std::sqrt(static_cast<double>(other.x()) * other.x() +
+                                static_cast<double>(other.y()) * other.y() +
+                                static_cast<double>(other.z()) * other.z() +
+                                static_cast<double>(other.w()) * other.w());
+
+        assert(mag1 != 0.0 && mag2 != 0.0 && "Cannot compute angle with a zero-magnitude vector");
+
+        double cosTheta = dotProduct / (mag1 * mag2);
+        return static_cast<float>(std::acos(cosTheta));
+    }
+
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    Vector4 &mad(const Vector4 &other, T scalar)
+    {
+        x_ = static_cast<float>(static_cast<double>(x_) +
+                                static_cast<double>(other.x()) * static_cast<double>(scalar));
+        y_ = static_cast<float>(static_cast<double>(y_) +
+                                static_cast<double>(other.y()) * static_cast<double>(scalar));
+        z_ = static_cast<float>(static_cast<double>(z_) +
+                                static_cast<double>(other.z()) * static_cast<double>(scalar));
+        w_ = static_cast<float>(static_cast<double>(w_) +
+                                static_cast<double>(other.w()) * static_cast<double>(scalar));
+        return *this;
+    }
+
+    bool equal(const Vector4 &other) const
+    {
+        constexpr double epsilon = 1e-5f;
+        return std::abs(static_cast<double>(x_) - static_cast<double>(other.x_)) < epsilon &&
+               std::abs(static_cast<double>(y_) - static_cast<double>(other.y_)) < epsilon &&
+               std::abs(static_cast<double>(z_) - static_cast<double>(other.z_)) < epsilon &&
+               std::abs(static_cast<double>(w_) - static_cast<double>(other.w_)) < epsilon;
+    }
+
+    bool operator==(const Vector4 &other) const
+    {
+        constexpr double epsilon = 1e-5f;
+        return std::abs(static_cast<double>(x_) - static_cast<double>(other.x_)) < epsilon &&
+               std::abs(static_cast<double>(y_) - static_cast<double>(other.y_)) < epsilon &&
+               std::abs(static_cast<double>(z_) - static_cast<double>(other.z_)) < epsilon &&
+               std::abs(static_cast<double>(w_) - static_cast<double>(other.w_)) < epsilon;
+    }
+
+    Vector4 &operator=(const Vector4 &other)
+    {
+        x_ = other.x_;
+        y_ = other.y_;
+        z_ = other.z_;
+        w_ = other.w_;
+
+        return *this;
+    }
+
    private:
     float x_;
     float y_;

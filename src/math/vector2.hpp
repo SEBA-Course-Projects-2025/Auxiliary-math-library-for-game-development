@@ -193,12 +193,17 @@ class Vector2
 
     bool equal(const Vector2 &other) const
     {
-        constexpr float epsilon = 1e-5f;
-        return (std::abs(static_cast<double>(x_) - other.x_) < epsilon) &&
-               (std::abs(static_cast<double>(y_) - other.y_) < epsilon);
+        constexpr double epsilon = 1e-5f;
+        return std::abs(static_cast<double>(x_) - static_cast<double>(other.x_)) < epsilon &&
+               std::abs(static_cast<double>(y_) - static_cast<double>(other.y_)) < epsilon;
     }
 
-    bool operator==(const Vector2 &other) const { return equal(other); }
+    bool operator==(const Vector2 &other) const
+    {
+        constexpr double epsilon = 1e-5f;
+        return std::abs(static_cast<double>(x_) - static_cast<double>(other.x_)) < epsilon &&
+               std::abs(static_cast<double>(y_) - static_cast<double>(other.y_)) < epsilon;
+    }
 
     Vector2 &operator=(const Vector2 &other)
     {

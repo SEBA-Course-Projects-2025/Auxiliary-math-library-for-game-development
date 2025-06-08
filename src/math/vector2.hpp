@@ -121,10 +121,15 @@ class Vector2
     float area(const Vector2 &other) const
     {
         return static_cast<float>(
-            std::abs(static_cast<double>(x_) * other.y() - static_cast<double>(y_) * other.x()));
+            std::abs(static_cast<double>(x_) * static_cast<double>(other.y()) -
+                     static_cast<double>(y_) * static_cast<double>(other.x())));
     }
 
-    float dot(const Vector2 &other) const { return x_ * other.x_ + y_ * other.y_; }
+    float dot(const Vector2 &other) const
+    {
+        return static_cast<float>(static_cast<double>(x_) * static_cast<double>(other.x()) +
+                                  static_cast<double>(y_) * static_cast<double>(other.y()));
+    }
 
     float angle(const Vector2 &other) const
     {

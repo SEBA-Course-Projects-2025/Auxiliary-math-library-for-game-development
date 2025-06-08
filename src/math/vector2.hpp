@@ -9,18 +9,26 @@ class Vector2
    public:
     template <typename T>
         requires std::is_arithmetic_v<T>
-    Vector2(T x, T y) : x_(static_cast<float>(x)), y_(static_cast<float>(y)) {}
+    Vector2(T x, T y) : x_(static_cast<float>(x)), y_(static_cast<float>(y))
+    {
+    }
 
     float x() const { return x_; }
     float y() const { return y_; }
 
     template <typename T>
         requires std::is_arithmetic_v<T>
-    void setX(T x) { x_ = static_cast<float>(x); }
+    void setX(T x)
+    {
+        x_ = static_cast<float>(x);
+    }
 
     template <typename T>
         requires std::is_arithmetic_v<T>
-    void setY(T y) { y_ = static_cast<float>(y); }
+    void setY(T y)
+    {
+        y_ = static_cast<float>(y);
+    }
 
     Vector2 &add(const Vector2 &other)
     {
@@ -142,8 +150,10 @@ class Vector2
 
     float cos(const Vector2 &other) const
     {
-        double dot = static_cast<double>(x_) * static_cast<double>(other.x()) + static_cast<double>(y_) * static_cast<double>(other.y());
-        double mag1 = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) + static_cast<double>(y_) * static_cast<double>(y_));
+        double dot = static_cast<double>(x_) * static_cast<double>(other.x()) +
+                     static_cast<double>(y_) * static_cast<double>(other.y());
+        double mag1 = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
+                                static_cast<double>(y_) * static_cast<double>(y_));
         double mag2 = std::sqrt(static_cast<double>(other.x()) * static_cast<double>(other.x()) +
                                 static_cast<double>(other.y()) * static_cast<double>(other.y()));
 
@@ -156,8 +166,10 @@ class Vector2
 
     float angle(const Vector2 &other) const
     {
-        double dot = static_cast<double>(x_) * static_cast<double>(other.x()) + static_cast<double>(y_) * static_cast<double>(other.y());
-        double mag1 = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) + static_cast<double>(y_) * static_cast<double>(y_));
+        double dot = static_cast<double>(x_) * static_cast<double>(other.x()) +
+                     static_cast<double>(y_) * static_cast<double>(other.y());
+        double mag1 = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
+                                static_cast<double>(y_) * static_cast<double>(y_));
         double mag2 = std::sqrt(static_cast<double>(other.x()) * static_cast<double>(other.x()) +
                                 static_cast<double>(other.y()) * static_cast<double>(other.y()));
 
@@ -168,11 +180,15 @@ class Vector2
         return static_cast<float>(std::acos(cosTheta));
     }
 
-    Vector2 mad(const Vector2 &other, float scalar) const
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    Vector2 &mad(const Vector2 &other, T scalar)
     {
-        return Vector2(
-            static_cast<float>(static_cast<double>(x_) + static_cast<double>(other.x_) * scalar),
-            static_cast<float>(static_cast<double>(y_) + static_cast<double>(other.y_) * scalar));
+        x_ = static_cast<float>(static_cast<double>(x_) +
+                                static_cast<double>(other.x()) * static_cast<double>(scalar));
+        y_ = static_cast<float>(static_cast<double>(y_) +
+                                static_cast<double>(other.y()) * static_cast<double>(scalar));
+        return *this;
     }
 
     bool equal(const Vector2 &other) const

@@ -207,11 +207,9 @@ class Vector2
 
     Vector2 &operator=(const Vector2 &other)
     {
-        if (this != &other)
-        {
-            x_ = other.x_;
-            y_ = other.y_;
-        }
+        x_ = other.x_;
+        y_ = other.y_;
+
         return *this;
     }
 

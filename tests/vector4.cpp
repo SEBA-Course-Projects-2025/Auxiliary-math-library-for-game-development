@@ -1,7 +1,9 @@
+#include "src/math/vector4.hpp"
+
 #include <gtest/gtest.h>
+
 #include "src/math/vector2.hpp"
 #include "src/math/vector3.hpp"
-#include "src/math/vector4.hpp"
 
 using math::Vector2;
 using math::Vector3;
@@ -105,7 +107,8 @@ TEST(Vector4ConstructorTest, ConstructWithLargeValues)
     EXPECT_FLOAT_EQ(v.w(), -3.4e+38f);
 }
 
-TEST(Vector4AddTest, AddFourNumericValues) {
+TEST(Vector4AddTest, AddFourNumericValues)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.add(5, 6.0f, 7.0, 8u);
     EXPECT_FLOAT_EQ(v.x(), 6.0f);
@@ -114,7 +117,8 @@ TEST(Vector4AddTest, AddFourNumericValues) {
     EXPECT_FLOAT_EQ(v.w(), 12.0f);
 }
 
-TEST(Vector4AddTest, AddVector2AndTwoNumericValues) {
+TEST(Vector4AddTest, AddVector2AndTwoNumericValues)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     Vector2 v2(5.0f, 6.0f);
     v.add(v2, 7, 8.0f);
@@ -124,7 +128,8 @@ TEST(Vector4AddTest, AddVector2AndTwoNumericValues) {
     EXPECT_FLOAT_EQ(v.w(), 12.0f);
 }
 
-TEST(Vector4AddTest, AddNumericValueVector2AndNumericValue) {
+TEST(Vector4AddTest, AddNumericValueVector2AndNumericValue)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     Vector2 v2(6.0f, 7.0f);
     v.add(5, v2, 8.0f);
@@ -134,7 +139,8 @@ TEST(Vector4AddTest, AddNumericValueVector2AndNumericValue) {
     EXPECT_FLOAT_EQ(v.w(), 12.0f);
 }
 
-TEST(Vector4AddTest, AddTwoNumericValuesAndVector2) {
+TEST(Vector4AddTest, AddTwoNumericValuesAndVector2)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     Vector2 v2(7.0f, 8.0f);
     v.add(5, 6.0f, v2);
@@ -144,7 +150,8 @@ TEST(Vector4AddTest, AddTwoNumericValuesAndVector2) {
     EXPECT_FLOAT_EQ(v.w(), 12.0f);
 }
 
-TEST(Vector4AddTest, AddTwoVector2s) {
+TEST(Vector4AddTest, AddTwoVector2s)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     Vector2 v1(5.0f, 6.0f);
     Vector2 v2(7.0f, 8.0f);
@@ -155,7 +162,8 @@ TEST(Vector4AddTest, AddTwoVector2s) {
     EXPECT_FLOAT_EQ(v.w(), 12.0f);
 }
 
-TEST(Vector4AddTest, AddVector3AndNumericValue) {
+TEST(Vector4AddTest, AddVector3AndNumericValue)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     Vector3 v3(5.0f, 6.0f, 7.0f);
     v.add(v3, 8.0f);
@@ -165,7 +173,8 @@ TEST(Vector4AddTest, AddVector3AndNumericValue) {
     EXPECT_FLOAT_EQ(v.w(), 12.0f);
 }
 
-TEST(Vector4AddTest, AddNumericValueAndVector3) {
+TEST(Vector4AddTest, AddNumericValueAndVector3)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     Vector3 v3(6.0f, 7.0f, 8.0f);
     v.add(5, v3);
@@ -175,7 +184,8 @@ TEST(Vector4AddTest, AddNumericValueAndVector3) {
     EXPECT_FLOAT_EQ(v.w(), 12.0f);
 }
 
-TEST(Vector4AddTest, AddVector4) {
+TEST(Vector4AddTest, AddVector4)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     Vector4 other(5.0f, 6.0f, 7.0f, 8.0f);
     v.add(other);
@@ -185,7 +195,8 @@ TEST(Vector4AddTest, AddVector4) {
     EXPECT_FLOAT_EQ(v.w(), 12.0f);
 }
 
-TEST(Vector4SubTest, SubFourNumericValues) {
+TEST(Vector4SubTest, SubFourNumericValues)
+{
     Vector4 v(10.0f, 10.0f, 10.0f, 10.0f);
     v.sub(1, 2.0f, 3.0, 4u);
     EXPECT_FLOAT_EQ(v.x(), 9.0f);
@@ -194,7 +205,8 @@ TEST(Vector4SubTest, SubFourNumericValues) {
     EXPECT_FLOAT_EQ(v.w(), 6.0f);
 }
 
-TEST(Vector4SubTest, SubVector2AndTwoNumericValues) {
+TEST(Vector4SubTest, SubVector2AndTwoNumericValues)
+{
     Vector4 v(10.0f, 10.0f, 10.0f, 10.0f);
     Vector2 v2(1.0f, 2.0f);
     v.sub(v2, 3, 4.0f);
@@ -204,7 +216,8 @@ TEST(Vector4SubTest, SubVector2AndTwoNumericValues) {
     EXPECT_FLOAT_EQ(v.w(), 6.0f);
 }
 
-TEST(Vector4SubTest, SubNumericValueVector2AndNumericValue) {
+TEST(Vector4SubTest, SubNumericValueVector2AndNumericValue)
+{
     Vector4 v(10.0f, 10.0f, 10.0f, 10.0f);
     Vector2 v2(2.0f, 3.0f);
     v.sub(1, v2, 4.0f);
@@ -214,7 +227,8 @@ TEST(Vector4SubTest, SubNumericValueVector2AndNumericValue) {
     EXPECT_FLOAT_EQ(v.w(), 6.0f);
 }
 
-TEST(Vector4SubTest, SubTwoNumericValuesAndVector2) {
+TEST(Vector4SubTest, SubTwoNumericValuesAndVector2)
+{
     Vector4 v(10.0f, 10.0f, 10.0f, 10.0f);
     Vector2 v2(3.0f, 4.0f);
     v.sub(1, 2.0f, v2);
@@ -224,7 +238,8 @@ TEST(Vector4SubTest, SubTwoNumericValuesAndVector2) {
     EXPECT_FLOAT_EQ(v.w(), 6.0f);
 }
 
-TEST(Vector4SubTest, SubTwoVector2s) {
+TEST(Vector4SubTest, SubTwoVector2s)
+{
     Vector4 v(10.0f, 10.0f, 10.0f, 10.0f);
     Vector2 v1(1.0f, 2.0f);
     Vector2 v2(3.0f, 4.0f);
@@ -235,7 +250,8 @@ TEST(Vector4SubTest, SubTwoVector2s) {
     EXPECT_FLOAT_EQ(v.w(), 6.0f);
 }
 
-TEST(Vector4SubTest, SubVector3AndNumericValue) {
+TEST(Vector4SubTest, SubVector3AndNumericValue)
+{
     Vector4 v(10.0f, 10.0f, 10.0f, 10.0f);
     Vector3 v3(1.0f, 2.0f, 3.0f);
     v.sub(v3, 4.0f);
@@ -245,7 +261,8 @@ TEST(Vector4SubTest, SubVector3AndNumericValue) {
     EXPECT_FLOAT_EQ(v.w(), 6.0f);
 }
 
-TEST(Vector4SubTest, SubNumericValueAndVector3) {
+TEST(Vector4SubTest, SubNumericValueAndVector3)
+{
     Vector4 v(10.0f, 10.0f, 10.0f, 10.0f);
     Vector3 v3(2.0f, 3.0f, 4.0f);
     v.sub(1, v3);
@@ -255,7 +272,8 @@ TEST(Vector4SubTest, SubNumericValueAndVector3) {
     EXPECT_FLOAT_EQ(v.w(), 6.0f);
 }
 
-TEST(Vector4SubTest, SubVector4) {
+TEST(Vector4SubTest, SubVector4)
+{
     Vector4 v(10.0f, 10.0f, 10.0f, 10.0f);
     Vector4 other(1.0f, 2.0f, 3.0f, 4.0f);
     v.sub(other);
@@ -265,7 +283,8 @@ TEST(Vector4SubTest, SubVector4) {
     EXPECT_FLOAT_EQ(v.w(), 6.0f);
 }
 
-TEST(Vector4MulTest, MulFourNumericValues) {
+TEST(Vector4MulTest, MulFourNumericValues)
+{
     Vector4 v(2.0f, 3.0f, 4.0f, 5.0f);
     v.mul(2, 3.0f, 4.0, 5u);
     EXPECT_FLOAT_EQ(v.x(), 4.0f);
@@ -274,7 +293,8 @@ TEST(Vector4MulTest, MulFourNumericValues) {
     EXPECT_FLOAT_EQ(v.w(), 25.0f);
 }
 
-TEST(Vector4MulTest, MulVector2AndTwoNumericValues) {
+TEST(Vector4MulTest, MulVector2AndTwoNumericValues)
+{
     Vector4 v(2.0f, 3.0f, 4.0f, 5.0f);
     Vector2 v2(2.0f, 3.0f);
     v.mul(v2, 4, 5.0f);
@@ -284,7 +304,8 @@ TEST(Vector4MulTest, MulVector2AndTwoNumericValues) {
     EXPECT_FLOAT_EQ(v.w(), 25.0f);
 }
 
-TEST(Vector4MulTest, MulNumericValueVector2AndNumericValue) {
+TEST(Vector4MulTest, MulNumericValueVector2AndNumericValue)
+{
     Vector4 v(2.0f, 3.0f, 4.0f, 5.0f);
     Vector2 v2(3.0f, 4.0f);
     v.mul(2, v2, 5.0f);
@@ -294,7 +315,8 @@ TEST(Vector4MulTest, MulNumericValueVector2AndNumericValue) {
     EXPECT_FLOAT_EQ(v.w(), 25.0f);
 }
 
-TEST(Vector4MulTest, MulTwoNumericValuesAndVector2) {
+TEST(Vector4MulTest, MulTwoNumericValuesAndVector2)
+{
     Vector4 v(2.0f, 3.0f, 4.0f, 5.0f);
     Vector2 v2(4.0f, 5.0f);
     v.mul(2, 3.0f, v2);
@@ -304,7 +326,8 @@ TEST(Vector4MulTest, MulTwoNumericValuesAndVector2) {
     EXPECT_FLOAT_EQ(v.w(), 25.0f);
 }
 
-TEST(Vector4MulTest, MulTwoVector2s) {
+TEST(Vector4MulTest, MulTwoVector2s)
+{
     Vector4 v(2.0f, 3.0f, 4.0f, 5.0f);
     Vector2 v1(2.0f, 3.0f);
     Vector2 v2(4.0f, 5.0f);
@@ -315,7 +338,8 @@ TEST(Vector4MulTest, MulTwoVector2s) {
     EXPECT_FLOAT_EQ(v.w(), 25.0f);
 }
 
-TEST(Vector4MulTest, MulVector3AndNumericValue) {
+TEST(Vector4MulTest, MulVector3AndNumericValue)
+{
     Vector4 v(2.0f, 3.0f, 4.0f, 5.0f);
     Vector3 v3(2.0f, 3.0f, 4.0f);
     v.mul(v3, 5.0f);
@@ -325,7 +349,8 @@ TEST(Vector4MulTest, MulVector3AndNumericValue) {
     EXPECT_FLOAT_EQ(v.w(), 25.0f);
 }
 
-TEST(Vector4MulTest, MulNumericValueAndVector3) {
+TEST(Vector4MulTest, MulNumericValueAndVector3)
+{
     Vector4 v(2.0f, 3.0f, 4.0f, 5.0f);
     Vector3 v3(3.0f, 4.0f, 5.0f);
     v.mul(2, v3);
@@ -335,7 +360,8 @@ TEST(Vector4MulTest, MulNumericValueAndVector3) {
     EXPECT_FLOAT_EQ(v.w(), 25.0f);
 }
 
-TEST(Vector4MulTest, MulVector4) {
+TEST(Vector4MulTest, MulVector4)
+{
     Vector4 v(2.0f, 3.0f, 4.0f, 5.0f);
     Vector4 other(2.0f, 3.0f, 4.0f, 5.0f);
     v.mul(other);
@@ -345,7 +371,8 @@ TEST(Vector4MulTest, MulVector4) {
     EXPECT_FLOAT_EQ(v.w(), 25.0f);
 }
 
-TEST(Vector4DivTest, DivFourNumericValues) {
+TEST(Vector4DivTest, DivFourNumericValues)
+{
     Vector4 v(20.0f, 30.0f, 40.0f, 50.0f);
     v.div(2, 3.0f, 4.0, 5u);
     EXPECT_FLOAT_EQ(v.x(), 10.0f);
@@ -354,7 +381,8 @@ TEST(Vector4DivTest, DivFourNumericValues) {
     EXPECT_FLOAT_EQ(v.w(), 10.0f);
 }
 
-TEST(Vector4DivTest, DivVector2AndTwoNumericValues) {
+TEST(Vector4DivTest, DivVector2AndTwoNumericValues)
+{
     Vector4 v(20.0f, 30.0f, 40.0f, 50.0f);
     Vector2 v2(2.0f, 3.0f);
     v.div(v2, 4, 5.0f);
@@ -364,7 +392,8 @@ TEST(Vector4DivTest, DivVector2AndTwoNumericValues) {
     EXPECT_FLOAT_EQ(v.w(), 10.0f);
 }
 
-TEST(Vector4DivTest, DivNumericValueVector2AndNumericValue) {
+TEST(Vector4DivTest, DivNumericValueVector2AndNumericValue)
+{
     Vector4 v(20.0f, 30.0f, 40.0f, 50.0f);
     Vector2 v2(3.0f, 4.0f);
     v.div(2, v2, 5.0f);
@@ -374,7 +403,8 @@ TEST(Vector4DivTest, DivNumericValueVector2AndNumericValue) {
     EXPECT_FLOAT_EQ(v.w(), 10.0f);
 }
 
-TEST(Vector4DivTest, DivTwoNumericValuesAndVector2) {
+TEST(Vector4DivTest, DivTwoNumericValuesAndVector2)
+{
     Vector4 v(20.0f, 30.0f, 40.0f, 50.0f);
     Vector2 v2(4.0f, 5.0f);
     v.div(2, 3.0f, v2);
@@ -384,7 +414,8 @@ TEST(Vector4DivTest, DivTwoNumericValuesAndVector2) {
     EXPECT_FLOAT_EQ(v.w(), 10.0f);
 }
 
-TEST(Vector4DivTest, DivTwoVector2s) {
+TEST(Vector4DivTest, DivTwoVector2s)
+{
     Vector4 v(20.0f, 30.0f, 40.0f, 50.0f);
     Vector2 v1(2.0f, 3.0f);
     Vector2 v2(4.0f, 5.0f);
@@ -395,7 +426,8 @@ TEST(Vector4DivTest, DivTwoVector2s) {
     EXPECT_FLOAT_EQ(v.w(), 10.0f);
 }
 
-TEST(Vector4DivTest, DivVector3AndNumericValue) {
+TEST(Vector4DivTest, DivVector3AndNumericValue)
+{
     Vector4 v(20.0f, 30.0f, 40.0f, 50.0f);
     Vector3 v3(2.0f, 3.0f, 4.0f);
     v.div(v3, 5.0f);
@@ -405,7 +437,8 @@ TEST(Vector4DivTest, DivVector3AndNumericValue) {
     EXPECT_FLOAT_EQ(v.w(), 10.0f);
 }
 
-TEST(Vector4DivTest, DivNumericValueAndVector3) {
+TEST(Vector4DivTest, DivNumericValueAndVector3)
+{
     Vector4 v(20.0f, 30.0f, 40.0f, 50.0f);
     Vector3 v3(3.0f, 4.0f, 5.0f);
     v.div(2, v3);
@@ -415,7 +448,8 @@ TEST(Vector4DivTest, DivNumericValueAndVector3) {
     EXPECT_FLOAT_EQ(v.w(), 10.0f);
 }
 
-TEST(Vector4DivTest, DivVector4) {
+TEST(Vector4DivTest, DivVector4)
+{
     Vector4 v(20.0f, 30.0f, 40.0f, 50.0f);
     Vector4 other(2.0f, 3.0f, 4.0f, 5.0f);
     v.div(other);
@@ -425,7 +459,8 @@ TEST(Vector4DivTest, DivVector4) {
     EXPECT_FLOAT_EQ(v.w(), 10.0f);
 }
 
-TEST(Vector4EdgeCasesTest, AddWithZero) {
+TEST(Vector4EdgeCasesTest, AddWithZero)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.add(0, 0.0f, 0.0, 0u);
     EXPECT_FLOAT_EQ(v.x(), 1.0f);
@@ -434,7 +469,8 @@ TEST(Vector4EdgeCasesTest, AddWithZero) {
     EXPECT_FLOAT_EQ(v.w(), 4.0f);
 }
 
-TEST(Vector4EdgeCasesTest, SubWithZero) {
+TEST(Vector4EdgeCasesTest, SubWithZero)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.sub(0, 0.0f, 0.0, 0u);
     EXPECT_FLOAT_EQ(v.x(), 1.0f);
@@ -443,7 +479,8 @@ TEST(Vector4EdgeCasesTest, SubWithZero) {
     EXPECT_FLOAT_EQ(v.w(), 4.0f);
 }
 
-TEST(Vector4EdgeCasesTest, MulWithOne) {
+TEST(Vector4EdgeCasesTest, MulWithOne)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.mul(1, 1.0f, 1.0, 1u);
     EXPECT_FLOAT_EQ(v.x(), 1.0f);
@@ -452,7 +489,8 @@ TEST(Vector4EdgeCasesTest, MulWithOne) {
     EXPECT_FLOAT_EQ(v.w(), 4.0f);
 }
 
-TEST(Vector4EdgeCasesTest, DivByOne) {
+TEST(Vector4EdgeCasesTest, DivByOne)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.div(1, 1.0f, 1.0, 1u);
     EXPECT_FLOAT_EQ(v.x(), 1.0f);
@@ -461,7 +499,8 @@ TEST(Vector4EdgeCasesTest, DivByOne) {
     EXPECT_FLOAT_EQ(v.w(), 4.0f);
 }
 
-TEST(Vector4EdgeCasesTest, AddWithLargeNumbers) {
+TEST(Vector4EdgeCasesTest, AddWithLargeNumbers)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.add(1e10, 2e10f, 3e10, 4e10);
     EXPECT_FLOAT_EQ(v.x(), 1.0f + 1e10f);
@@ -470,7 +509,8 @@ TEST(Vector4EdgeCasesTest, AddWithLargeNumbers) {
     EXPECT_FLOAT_EQ(v.w(), 4.0f + 4e10f);
 }
 
-TEST(Vector4EdgeCasesTest, SubWithLargeNumbers) {
+TEST(Vector4EdgeCasesTest, SubWithLargeNumbers)
+{
     Vector4 v(1e20f, 2e20f, 3e20f, 4e20f);
     v.sub(1e10, 2e10f, 3e10, 4e10);
     EXPECT_FLOAT_EQ(v.x(), 1e20f - 1e10f);
@@ -479,7 +519,8 @@ TEST(Vector4EdgeCasesTest, SubWithLargeNumbers) {
     EXPECT_FLOAT_EQ(v.w(), 4e20f - 4e10f);
 }
 
-TEST(Vector4EdgeCasesTest, MulWithLargeNumbers) {
+TEST(Vector4EdgeCasesTest, MulWithLargeNumbers)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.mul(1e10, 2e10f, 3e10, 4e10);
     EXPECT_FLOAT_EQ(v.x(), 1.0f * 1e10f);
@@ -488,7 +529,8 @@ TEST(Vector4EdgeCasesTest, MulWithLargeNumbers) {
     EXPECT_FLOAT_EQ(v.w(), 4.0f * 4e10f);
 }
 
-TEST(Vector4EdgeCasesTest, DivWithLargeNumbers) {
+TEST(Vector4EdgeCasesTest, DivWithLargeNumbers)
+{
     Vector4 v(1e20f, 2e20f, 3e20f, 4e20f);
     v.div(1e10, 2e10f, 3e10, 4e10);
     EXPECT_FLOAT_EQ(v.x(), 1e20f / 1e10f);
@@ -497,7 +539,8 @@ TEST(Vector4EdgeCasesTest, DivWithLargeNumbers) {
     EXPECT_FLOAT_EQ(v.w(), 4e20f / 4e10f);
 }
 
-TEST(Vector4EdgeCasesTest, AddWithMixedTypes) {
+TEST(Vector4EdgeCasesTest, AddWithMixedTypes)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.add(1, 2.0f, 3u, 4.0);
     EXPECT_FLOAT_EQ(v.x(), 2.0f);
@@ -506,7 +549,8 @@ TEST(Vector4EdgeCasesTest, AddWithMixedTypes) {
     EXPECT_FLOAT_EQ(v.w(), 8.0f);
 }
 
-TEST(Vector4EdgeCasesTest, SubWithMixedTypes) {
+TEST(Vector4EdgeCasesTest, SubWithMixedTypes)
+{
     Vector4 v(10.0f, 10.0f, 10.0f, 10.0f);
     v.sub(1, 2.0f, 3u, 4.0);
     EXPECT_FLOAT_EQ(v.x(), 9.0f);
@@ -515,7 +559,8 @@ TEST(Vector4EdgeCasesTest, SubWithMixedTypes) {
     EXPECT_FLOAT_EQ(v.w(), 6.0f);
 }
 
-TEST(Vector4EdgeCasesTest, MulWithMixedTypes) {
+TEST(Vector4EdgeCasesTest, MulWithMixedTypes)
+{
     Vector4 v(2.0f, 2.0f, 2.0f, 2.0f);
     v.mul(1, 2.0f, 3u, 4.0);
     EXPECT_FLOAT_EQ(v.x(), 2.0f);
@@ -524,7 +569,8 @@ TEST(Vector4EdgeCasesTest, MulWithMixedTypes) {
     EXPECT_FLOAT_EQ(v.w(), 8.0f);
 }
 
-TEST(Vector4EdgeCasesTest, DivWithMixedTypes) {
+TEST(Vector4EdgeCasesTest, DivWithMixedTypes)
+{
     Vector4 v(20.0f, 20.0f, 20.0f, 20.0f);
     v.div(1, 2.0f, 4u, 5.0);
     EXPECT_FLOAT_EQ(v.x(), 20.0f);
@@ -533,7 +579,8 @@ TEST(Vector4EdgeCasesTest, DivWithMixedTypes) {
     EXPECT_FLOAT_EQ(v.w(), 4.0f);
 }
 
-TEST(Vector4ScaleTest, ScaleWithPositiveInteger) {
+TEST(Vector4ScaleTest, ScaleWithPositiveInteger)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.scale(2);
     EXPECT_FLOAT_EQ(v.x(), 2.0f);
@@ -542,7 +589,8 @@ TEST(Vector4ScaleTest, ScaleWithPositiveInteger) {
     EXPECT_FLOAT_EQ(v.w(), 8.0f);
 }
 
-TEST(Vector4ScaleTest, ScaleWithPositiveFloat) {
+TEST(Vector4ScaleTest, ScaleWithPositiveFloat)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.scale(2.5f);
     EXPECT_FLOAT_EQ(v.x(), 2.5f);
@@ -551,7 +599,8 @@ TEST(Vector4ScaleTest, ScaleWithPositiveFloat) {
     EXPECT_FLOAT_EQ(v.w(), 10.0f);
 }
 
-TEST(Vector4ScaleTest, ScaleWithNegativeValue) {
+TEST(Vector4ScaleTest, ScaleWithNegativeValue)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.scale(-1);
     EXPECT_FLOAT_EQ(v.x(), -1.0f);
@@ -560,7 +609,8 @@ TEST(Vector4ScaleTest, ScaleWithNegativeValue) {
     EXPECT_FLOAT_EQ(v.w(), -4.0f);
 }
 
-TEST(Vector4ScaleTest, ScaleWithZero) {
+TEST(Vector4ScaleTest, ScaleWithZero)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.scale(0);
     EXPECT_FLOAT_EQ(v.x(), 0.0f);
@@ -569,7 +619,8 @@ TEST(Vector4ScaleTest, ScaleWithZero) {
     EXPECT_FLOAT_EQ(v.w(), 0.0f);
 }
 
-TEST(Vector4ScaleTest, ScaleWithLargeNumber) {
+TEST(Vector4ScaleTest, ScaleWithLargeNumber)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.scale(1e10);
     EXPECT_FLOAT_EQ(v.x(), 1.0f * 1e10f);
@@ -578,7 +629,8 @@ TEST(Vector4ScaleTest, ScaleWithLargeNumber) {
     EXPECT_FLOAT_EQ(v.w(), 4.0f * 1e10f);
 }
 
-TEST(Vector4ScaleTest, ScaleWithSmallNumber) {
+TEST(Vector4ScaleTest, ScaleWithSmallNumber)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.scale(1e-10);
     EXPECT_FLOAT_EQ(v.x(), 1.0f * 1e-10f);
@@ -587,14 +639,16 @@ TEST(Vector4ScaleTest, ScaleWithSmallNumber) {
     EXPECT_FLOAT_EQ(v.w(), 4.0f * 1e-10f);
 }
 
-TEST(Vector4NormalizeTest, NormalizeNonZeroVector) {
+TEST(Vector4NormalizeTest, NormalizeNonZeroVector)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.normalize();
     float mag = v.magnitude();
     EXPECT_NEAR(mag, 1.0f, 1e-6f);
 }
 
-TEST(Vector4NormalizeTest, NormalizeAlreadyUnitVector) {
+TEST(Vector4NormalizeTest, NormalizeAlreadyUnitVector)
+{
     Vector4 v(1.0f, 0.0f, 0.0f, 0.0f);
     v.normalize();
     EXPECT_NEAR(v.x(), 1.0f, 1e-6f);
@@ -603,19 +657,22 @@ TEST(Vector4NormalizeTest, NormalizeAlreadyUnitVector) {
     EXPECT_NEAR(v.w(), 0.0f, 1e-6f);
 }
 
-TEST(Vector4NormalizeTest, NormalizeNegativeVector) {
+TEST(Vector4NormalizeTest, NormalizeNegativeVector)
+{
     Vector4 v(-1.0f, -2.0f, -3.0f, -4.0f);
     v.normalize();
     float mag = v.magnitude();
     EXPECT_NEAR(mag, 1.0f, 1e-6f);
 }
 
-TEST(Vector4NormalizeDeathTest, NormalizeZeroVector) {
+TEST(Vector4NormalizeDeathTest, NormalizeZeroVector)
+{
     Vector4 v(0.0f, 0.0f, 0.0f, 0.0f);
     EXPECT_DEATH(v.normalize(), "Cannot normalize a zero-length vector");
 }
 
-TEST(Vector4NegateTest, NegatePositiveVector) {
+TEST(Vector4NegateTest, NegatePositiveVector)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.negate();
     EXPECT_FLOAT_EQ(v.x(), -1.0f);
@@ -624,7 +681,8 @@ TEST(Vector4NegateTest, NegatePositiveVector) {
     EXPECT_FLOAT_EQ(v.w(), -4.0f);
 }
 
-TEST(Vector4NegateTest, NegateNegativeVector) {
+TEST(Vector4NegateTest, NegateNegativeVector)
+{
     Vector4 v(-1.0f, -2.0f, -3.0f, -4.0f);
     v.negate();
     EXPECT_FLOAT_EQ(v.x(), 1.0f);
@@ -633,7 +691,8 @@ TEST(Vector4NegateTest, NegateNegativeVector) {
     EXPECT_FLOAT_EQ(v.w(), 4.0f);
 }
 
-TEST(Vector4NegateTest, NegateMixedVector) {
+TEST(Vector4NegateTest, NegateMixedVector)
+{
     Vector4 v(1.0f, -2.0f, 3.0f, -4.0f);
     v.negate();
     EXPECT_FLOAT_EQ(v.x(), -1.0f);
@@ -642,72 +701,83 @@ TEST(Vector4NegateTest, NegateMixedVector) {
     EXPECT_FLOAT_EQ(v.w(), 4.0f);
 }
 
-TEST(Vector4MagnitudeSqrTest, MagnitudeSqrPositiveVector) {
+TEST(Vector4MagnitudeSqrTest, MagnitudeSqrPositiveVector)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     float result = v.magnitude_sqr();
     EXPECT_FLOAT_EQ(result, 1.0f + 4.0f + 9.0f + 16.0f);
 }
 
-TEST(Vector4MagnitudeSqrTest, MagnitudeSqrNegativeVector) {
+TEST(Vector4MagnitudeSqrTest, MagnitudeSqrNegativeVector)
+{
     Vector4 v(-1.0f, -2.0f, -3.0f, -4.0f);
     float result = v.magnitude_sqr();
     EXPECT_FLOAT_EQ(result, 1.0f + 4.0f + 9.0f + 16.0f);
 }
 
-TEST(Vector4MagnitudeSqrTest, MagnitudeSqrZeroVector) {
+TEST(Vector4MagnitudeSqrTest, MagnitudeSqrZeroVector)
+{
     Vector4 v(0.0f, 0.0f, 0.0f, 0.0f);
     float result = v.magnitude_sqr();
     EXPECT_FLOAT_EQ(result, 0.0f);
 }
 
-TEST(Vector4MagnitudeSqrTest, MagnitudeSqrLargeVector) {
+TEST(Vector4MagnitudeSqrTest, MagnitudeSqrLargeVector)
+{
     Vector4 v(1e10f, 2e10f, 3e10f, 4e10f);
     float result = v.magnitude_sqr();
     EXPECT_FLOAT_EQ(result, 1e20f + 4e20f + 9e20f + 16e20f);
 }
 
-TEST(Vector4MagnitudeTest, MagnitudePositiveVector) {
+TEST(Vector4MagnitudeTest, MagnitudePositiveVector)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     float result = v.magnitude();
     float expected = std::sqrt(1.0f + 4.0f + 9.0f + 16.0f);
     EXPECT_FLOAT_EQ(result, expected);
 }
 
-TEST(Vector4MagnitudeTest, MagnitudeNegativeVector) {
+TEST(Vector4MagnitudeTest, MagnitudeNegativeVector)
+{
     Vector4 v(-1.0f, -2.0f, -3.0f, -4.0f);
     float result = v.magnitude();
     float expected = std::sqrt(1.0f + 4.0f + 9.0f + 16.0f);
     EXPECT_FLOAT_EQ(result, expected);
 }
 
-TEST(Vector4MagnitudeTest, MagnitudeZeroVector) {
+TEST(Vector4MagnitudeTest, MagnitudeZeroVector)
+{
     Vector4 v(0.0f, 0.0f, 0.0f, 0.0f);
     float result = v.magnitude();
     EXPECT_FLOAT_EQ(result, 0.0f);
 }
 
-TEST(Vector4MagnitudeTest, MagnitudeLargeVector) {
+TEST(Vector4MagnitudeTest, MagnitudeLargeVector)
+{
     Vector4 v(1e10f, 2e10f, 3e10f, 4e10f);
     float result = v.magnitude();
     float expected = std::sqrt(1e20f + 4e20f + 9e20f + 16e20f);
     EXPECT_FLOAT_EQ(result, expected);
 }
 
-TEST(Vector4MagnitudeTest, MagnitudeSmallVector) {
+TEST(Vector4MagnitudeTest, MagnitudeSmallVector)
+{
     Vector4 v(1e-10f, 2e-10f, 3e-10f, 4e-10f);
     float result = v.magnitude();
     float expected = std::sqrt(1e-20f + 4e-20f + 9e-20f + 16e-20f);
     EXPECT_FLOAT_EQ(result, expected);
 }
 
-TEST(Vector4NormalizeEdgeCase, NormalizeAfterScaling) {
+TEST(Vector4NormalizeEdgeCase, NormalizeAfterScaling)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.scale(100.0f);
     v.normalize();
     EXPECT_NEAR(v.magnitude(), 1.0f, 1e-6f);
 }
 
-TEST(Vector4EdgeCase, ScaleThenNegate) {
+TEST(Vector4EdgeCase, ScaleThenNegate)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     v.scale(-2.0f);
     v.negate();
@@ -717,71 +787,83 @@ TEST(Vector4EdgeCase, ScaleThenNegate) {
     EXPECT_FLOAT_EQ(v.w(), 8.0f);
 }
 
-TEST(Vector4EdgeCase, MagnitudeAfterNormalize) {
+TEST(Vector4EdgeCase, MagnitudeAfterNormalize)
+{
     Vector4 v(5.0f, 0.0f, 0.0f, 0.0f);
     v.normalize();
     EXPECT_FLOAT_EQ(v.magnitude(), 1.0f);
     EXPECT_FLOAT_EQ(v.magnitude_sqr(), 1.0f);
 }
 
-TEST(Vector4DotTest, BasicDotProduct) {
+TEST(Vector4DotTest, BasicDotProduct)
+{
     Vector4 v1(1.0f, 2.0f, 3.0f, 4.0f);
     Vector4 v2(2.0f, 3.0f, 4.0f, 5.0f);
     EXPECT_FLOAT_EQ(v1.dot(v2), 40.0f);
 }
 
-TEST(Vector4DotTest, DotProductWithSelf) {
+TEST(Vector4DotTest, DotProductWithSelf)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     EXPECT_FLOAT_EQ(v.dot(v), 30.0f);
 }
 
-TEST(Vector4DotTest, DotProductWithNegativeValues) {
+TEST(Vector4DotTest, DotProductWithNegativeValues)
+{
     Vector4 v1(1.0f, -2.0f, 3.0f, -4.0f);
     Vector4 v2(-2.0f, 3.0f, -4.0f, 5.0f);
     EXPECT_FLOAT_EQ(v1.dot(v2), -40.0f);
 }
 
-TEST(Vector4DotTest, DotProductWithLargeValues) {
+TEST(Vector4DotTest, DotProductWithLargeValues)
+{
     Vector4 v1(1e10f, 2e10f, 3e10f, 4e10f);
     Vector4 v2(2e10f, 3e10f, 4e10f, 5e10f);
     EXPECT_FLOAT_EQ(v1.dot(v2), 4e21f);
 }
 
-TEST(Vector4CosTest, CosBetweenSameVectors) {
+TEST(Vector4CosTest, CosBetweenSameVectors)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     EXPECT_FLOAT_EQ(v.cos(v), 1.0f);
 }
 
-TEST(Vector4CosTest, CosBetweenOrthogonalVectors) {
+TEST(Vector4CosTest, CosBetweenOrthogonalVectors)
+{
     Vector4 v1(1.0f, 0.0f, 0.0f, 0.0f);
     Vector4 v2(0.0f, 1.0f, 0.0f, 0.0f);
     EXPECT_FLOAT_EQ(v1.cos(v2), 0.0f);
 }
 
-TEST(Vector4CosTest, CosBetweenOppositeVectors) {
+TEST(Vector4CosTest, CosBetweenOppositeVectors)
+{
     Vector4 v1(1.0f, 2.0f, 3.0f, 4.0f);
     Vector4 v2(-1.0f, -2.0f, -3.0f, -4.0f);
     EXPECT_FLOAT_EQ(v1.cos(v2), -1.0f);
 }
 
-TEST(Vector4AngleTest, AngleBetweenSameVectors) {
+TEST(Vector4AngleTest, AngleBetweenSameVectors)
+{
     Vector4 v(1.0f, 2.0f, 3.0f, 4.0f);
     EXPECT_FLOAT_EQ(v.angle(v), 0.0f);
 }
 
-TEST(Vector4AngleTest, AngleBetweenOrthogonalVectors) {
+TEST(Vector4AngleTest, AngleBetweenOrthogonalVectors)
+{
     Vector4 v1(1.0f, 0.0f, 0.0f, 0.0f);
     Vector4 v2(0.0f, 1.0f, 0.0f, 0.0f);
     EXPECT_FLOAT_EQ(v1.angle(v2), M_PI_2);
 }
 
-TEST(Vector4AngleTest, AngleBetweenOppositeVectors) {
+TEST(Vector4AngleTest, AngleBetweenOppositeVectors)
+{
     Vector4 v1(1.0f, 0.0f, 0.0f, 0.0f);
     Vector4 v2(-1.0f, 0.0f, 0.0f, 0.0f);
     EXPECT_FLOAT_EQ(v1.angle(v2), M_PI);
 }
 
-TEST(Vector4MadTest, MadWithFloatScalar) {
+TEST(Vector4MadTest, MadWithFloatScalar)
+{
     Vector4 v1(1.0f, 2.0f, 3.0f, 4.0f);
     Vector4 v2(0.1f, 0.2f, 0.3f, 0.4f);
     v1.mad(v2, 2.0f);
@@ -791,7 +873,8 @@ TEST(Vector4MadTest, MadWithFloatScalar) {
     EXPECT_FLOAT_EQ(v1.w(), 4.8f);
 }
 
-TEST(Vector4MadTest, MadWithIntScalar) {
+TEST(Vector4MadTest, MadWithIntScalar)
+{
     Vector4 v1(1.0f, 2.0f, 3.0f, 4.0f);
     Vector4 v2(0.1f, 0.2f, 0.3f, 0.4f);
     v1.mad(v2, 2);
@@ -801,7 +884,8 @@ TEST(Vector4MadTest, MadWithIntScalar) {
     EXPECT_FLOAT_EQ(v1.w(), 4.8f);
 }
 
-TEST(Vector4MadTest, MadWithLargeScalar) {
+TEST(Vector4MadTest, MadWithLargeScalar)
+{
     Vector4 v1(1.0f, 2.0f, 3.0f, 4.0f);
     Vector4 v2(1e10f, 2e10f, 3e10f, 4e10f);
     v1.mad(v2, 1e-10f);
@@ -811,37 +895,43 @@ TEST(Vector4MadTest, MadWithLargeScalar) {
     EXPECT_FLOAT_EQ(v1.w(), 8.0f);
 }
 
-TEST(Vector4EqualTest, EqualVectors) {
+TEST(Vector4EqualTest, EqualVectors)
+{
     Vector4 v1(1.0f, 2.0f, 3.0f, 4.0f);
     Vector4 v2(1.0f + 1e-6f, 2.0f + 1e-6f, 3.0f + 1e-6f, 4.0f + 1e-6f);
     EXPECT_TRUE(v1.equal(v2));
 }
 
-TEST(Vector4EqualTest, NotEqualVectors) {
+TEST(Vector4EqualTest, NotEqualVectors)
+{
     Vector4 v1(1.0f, 2.0f, 3.0f, 4.0f);
     Vector4 v2(1.1f, 2.1f, 3.1f, 4.1f);
     EXPECT_FALSE(v1.equal(v2));
 }
 
-TEST(Vector4EqualTest, EqualWithDifferentTypes) {
+TEST(Vector4EqualTest, EqualWithDifferentTypes)
+{
     Vector4 v1(1.0f, 2.0f, 3.0f, 4.0f);
     Vector4 v2(1.0, 2.0, 3.0, 4.0);
     EXPECT_TRUE(v1.equal(v2));
 }
 
-TEST(Vector4OperatorEqualTest, EqualVectors) {
+TEST(Vector4OperatorEqualTest, EqualVectors)
+{
     Vector4 v1(1.0f, 2.0f, 3.0f, 4.0f);
     Vector4 v2(1.0f + 1e-6f, 2.0f + 1e-6f, 3.0f + 1e-6f, 4.0f + 1e-6f);
     EXPECT_TRUE(v1 == v2);
 }
 
-TEST(Vector4OperatorEqualTest, NotEqualVectors) {
+TEST(Vector4OperatorEqualTest, NotEqualVectors)
+{
     Vector4 v1(1.0f, 2.0f, 3.0f, 4.0f);
     Vector4 v2(1.1f, 2.1f, 3.1f, 4.1f);
     EXPECT_FALSE(v1 == v2);
 }
 
-TEST(Vector4OperatorAssignmentTest, BasicAssignment) {
+TEST(Vector4OperatorAssignmentTest, BasicAssignment)
+{
     Vector4 v1(1.0f, 2.0f, 3.0f, 4.0f);
     Vector4 v2(0, 0, 0, 0);
     v2 = v1;
@@ -851,7 +941,8 @@ TEST(Vector4OperatorAssignmentTest, BasicAssignment) {
     EXPECT_FLOAT_EQ(v2.w(), 4.0f);
 }
 
-TEST(Vector4OperatorAssignmentTest, SelfAssignment) {
+TEST(Vector4OperatorAssignmentTest, SelfAssignment)
+{
     Vector4 v1(1.0f, 2.0f, 3.0f, 4.0f);
     v1 = v1;
     EXPECT_FLOAT_EQ(v1.x(), 1.0f);
@@ -860,13 +951,15 @@ TEST(Vector4OperatorAssignmentTest, SelfAssignment) {
     EXPECT_FLOAT_EQ(v1.w(), 4.0f);
 }
 
-TEST(Vector4CosTest, ZeroMagnitudeVectors) {
+TEST(Vector4CosTest, ZeroMagnitudeVectors)
+{
     Vector4 v1(0.0f, 0.0f, 0.0f, 0.0f);
     Vector4 v2(1.0f, 2.0f, 3.0f, 4.0f);
     EXPECT_DEATH(v1.cos(v2), "Cannot compute angle with a zero-magnitude vector");
 }
 
-TEST(Vector4AngleTest, ZeroMagnitudeVectors) {
+TEST(Vector4AngleTest, ZeroMagnitudeVectors)
+{
     Vector4 v1(0.0f, 0.0f, 0.0f, 0.0f);
     Vector4 v2(1.0f, 2.0f, 3.0f, 4.0f);
     EXPECT_DEATH(v1.angle(v2), "Cannot compute angle with a zero-magnitude vector");

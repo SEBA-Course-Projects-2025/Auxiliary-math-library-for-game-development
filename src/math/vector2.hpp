@@ -86,15 +86,25 @@ class Vector2
         return *this;
     }
 
-    Vector2 normalize() const
+    Vector2 &normalize()
     {
-        double length = std::sqrt(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_);
-        if (length == 0.0)
-            return Vector2(0.0f, 0.0f);
-        return Vector2(static_cast<float>(x_ / length), static_cast<float>(y_ / length));
+        double length = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
+                                  static_cast<double>(y_) * static_cast<double>(y_));
+
+        assert(length != 0.0 && "Cannot normalize a zero-length vector");
+
+        x_ = static_cast<float>(static_cast<double>(x_) / length);
+        y_ = static_cast<float>(static_cast<double>(y_) / length);
+
+        return *this;
     }
 
-    Vector2 negate() const { return Vector2(-x_, -y_); }
+    Vector2 &negate()
+    {
+        x_ = -x_;
+        y_ = -y_;
+        return *this;
+    }
 
     float magnitude_sqr() const
     {

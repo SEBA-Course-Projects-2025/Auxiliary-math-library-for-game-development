@@ -436,6 +436,34 @@ class Vector4
         return *this;
     }
 
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    Vector4 &scale(T scalar)
+    {
+        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(scalar));
+        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(scalar));
+        z_ = static_cast<float>(static_cast<double>(z_) * static_cast<double>(scalar));
+        w_ = static_cast<float>(static_cast<double>(w_) * static_cast<double>(scalar));
+        return *this;
+    }
+
+    Vector4 &normalize()
+    {
+        double length = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
+                                  static_cast<double>(y_) * static_cast<double>(y_) +
+                                  static_cast<double>(x_) * static_cast<double>(z_) +
+                                  static_cast<double>(x_) * static_cast<double>(w_) );
+
+        assert(length != 0.0 && "Cannot normalize a zero-length vector");
+
+        x_ = static_cast<float>(static_cast<double>(x_) / length);
+        y_ = static_cast<float>(static_cast<double>(y_) / length);
+        z_ = static_cast<float>(static_cast<double>(z_) / length);
+        w_ = static_cast<float>(static_cast<double>(w_) / length);
+
+        return *this;
+    }
+
    private:
     float x_;
     float y_;

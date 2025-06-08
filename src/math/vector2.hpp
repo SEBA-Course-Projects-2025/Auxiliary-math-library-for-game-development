@@ -30,6 +30,11 @@ class Vector2
         y_ = static_cast<float>(y);
     }
 
+    bool isValid() const
+    {
+        return std::isfinite(x_) && std::isfinite(y_);
+    }
+
     Vector2 &add(const Vector2 &other)
     {
         x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(other.x()));

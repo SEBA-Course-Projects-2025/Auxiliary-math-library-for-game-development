@@ -1,4 +1,5 @@
 #pragma once
+#include <cassert>
 #include <cmath>
 
 #include "vector2.hpp"
@@ -8,16 +9,48 @@ namespace math
 class Vector3
 {
    public:
-    Vector3(float x, float y, float z) : x_(x), y_(y), z_(z) {}
-    Vector3(Vector2 const &v, float z) : x_(v.x()), y_(v.y()), z_(z) {}
-    Vector3(float x, Vector2 const &v) : x_(x), y_(v.x()), z_(v.y()) {}
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    Vector3(T x, T y, T z)
+        : x_(static_cast<float>(x)), y_(static_cast<float>(y)), z_(static_cast<float>(z))
+    {
+    }
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    Vector3(Vector2 const &v, T z)
+        : x_(static_cast<float>(v.x())), y_(static_cast<float>(v.y())), z_(static_cast<float>(z))
+    {
+    }
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    Vector3(T x, Vector2 const &v)
+        : x_(static_cast<float>(x)), y_(static_cast<float>(v.x())), z_(static_cast<float>(v.y()))
+    {
+    }
 
     float x() const { return x_; }
     float y() const { return y_; }
     float z() const { return z_; }
-    void setX(float x) { x_ = x; }
-    void setY(float y) { y_ = y; }
-    void setZ(float z) { z_ = z; }
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    void setX(T x)
+    {
+        x_ = static_cast<float>(x);
+    }
+
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    void setY(T y)
+    {
+        y_ = static_cast<float>(y);
+    }
+
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    void setZ(T z)
+    {
+        z_ = static_cast<float>(z);
+    }
 
     Vector3 &add(const Vector3 &other)
     {

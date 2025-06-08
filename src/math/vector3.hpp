@@ -216,7 +216,7 @@ class Vector3
 
     bool isValid() const { return std::isfinite(x_) && std::isfinite(y_) && std::isfinite(z_); }
 
-    Vector3& normalize()
+    Vector3 &normalize()
     {
         double length = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
                                   static_cast<double>(y_) * static_cast<double>(y_) +
@@ -231,7 +231,7 @@ class Vector3
         return *this;
     }
 
-    Vector3& negate()
+    Vector3 &negate()
     {
         x_ = -x_;
         y_ = -y_;
@@ -241,29 +241,23 @@ class Vector3
 
     float magnitude_sqr() const
     {
-        return static_cast<float>(
-            static_cast<double>(x_) * static_cast<double>(x_) +
-            static_cast<double>(y_) * static_cast<double>(y_) +
-            static_cast<double>(z_) * static_cast<double>(z_)
-        );
+        return static_cast<float>(static_cast<double>(x_) * static_cast<double>(x_) +
+                                  static_cast<double>(y_) * static_cast<double>(y_) +
+                                  static_cast<double>(z_) * static_cast<double>(z_));
     }
 
     float magnitude() const
     {
-        return static_cast<float>(std::sqrt(
-            static_cast<double>(x_) * static_cast<double>(x_) +
-            static_cast<double>(y_) * static_cast<double>(y_) +
-            static_cast<double>(z_) * static_cast<double>(z_)
-        ));
+        return static_cast<float>(std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
+                                            static_cast<double>(y_) * static_cast<double>(y_) +
+                                            static_cast<double>(z_) * static_cast<double>(z_)));
     }
 
     float dot(const Vector3 &other) const
     {
-        return static_cast<float>(
-            static_cast<double>(x_) * static_cast<double>(other.x()) +
-            static_cast<double>(y_) * static_cast<double>(other.y()) +
-            static_cast<double>(z_) * static_cast<double>(other.z())
-        );
+        return static_cast<float>(static_cast<double>(x_) * static_cast<double>(other.x()) +
+                                  static_cast<double>(y_) * static_cast<double>(other.y()) +
+                                  static_cast<double>(z_) * static_cast<double>(other.z()));
     }
 
     float cos(const Vector3 &other) const

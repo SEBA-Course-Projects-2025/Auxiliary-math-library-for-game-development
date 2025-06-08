@@ -473,6 +473,22 @@ class Vector4
         return *this;
     }
 
+    float magnitude_sqr() const
+    {
+        return static_cast<float>(static_cast<double>(x_) * static_cast<double>(x_) +
+                                  static_cast<double>(y_) * static_cast<double>(y_) +
+                                  static_cast<double>(z_) * static_cast<double>(z_) +
+                                  static_cast<double>(w_) * static_cast<double>(w_));
+    }
+
+    float magnitude() const
+    {
+        return static_cast<float>(std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
+                                            static_cast<double>(y_) * static_cast<double>(y_) +
+                                            static_cast<double>(z_) * static_cast<double>(z_) +
+                                            static_cast<double>(w_) * static_cast<double>(w_)));
+    }
+
    private:
     float x_;
     float y_;

@@ -7,12 +7,20 @@ namespace math
 class Vector2
 {
    public:
-    Vector2(float x, float y) : x_(x), y_(y) {}
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    Vector2(T x, T y) : x_(static_cast<float>(x)), y_(static_cast<float>(y)) {}
 
     float x() const { return x_; }
     float y() const { return y_; }
-    void setX(float x) { x_ = x; }
-    void setY(float y) { y_ = y; }
+
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    void setX(T x) { x_ = static_cast<float>(x); }
+
+    template <typename T>
+        requires std::is_arithmetic_v<T>
+    void setY(T y) { y_ = static_cast<float>(y); }
 
     Vector2 &add(const Vector2 &other)
     {

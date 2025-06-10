@@ -30,6 +30,7 @@ target_link_libraries(Main PRIVATE Auxiliary_math_library_for_game_development)
 add_executable(Test
         Test.cpp
         tests/vector2.cpp
+        tests/vector3.cpp
 )
 target_include_directories(Test PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src

@@ -11,7 +11,6 @@ TEST(Vector2ConstructorTest, ConstructFromTwoScalars)
     EXPECT_FLOAT_EQ(v.y(), 2.5f);
 }
 
-
 TEST(Vector2ConstructorTest, ConstructFromVector2)
 {
     Vector2 v1(1.0f, 2.0f);
@@ -19,7 +18,6 @@ TEST(Vector2ConstructorTest, ConstructFromVector2)
     EXPECT_FLOAT_EQ(v.x(), 1.0f);
     EXPECT_FLOAT_EQ(v.y(), 2.0f);
 }
-
 
 TEST(Vector2ConstructorTest, ConstructWithNegativeValues)
 {
@@ -440,4 +438,3 @@ TEST(Vector2EqualTest, NotEqualVectors)
     Vector2 v2(1.01f, 2.01f);
     EXPECT_FALSE(v1.equal(v2));
 }
-

@@ -9,24 +9,29 @@ class Vector2
 {
    public:
     template <typename A, typename B>
-        requires (std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
-    Vector2(A x, B y) : x_(static_cast<float>(x)), y_(static_cast<float>(y)) {}
+        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
+    Vector2(A x, B y) : x_(static_cast<float>(x)), y_(static_cast<float>(y))
+    {
+    }
 
     float x() const { return x_; }
     float y() const { return y_; }
 
     template <typename T>
         requires std::is_arithmetic_v<T>
-    void setX(T x) { x_ = static_cast<float>(x); }
+    void setX(T x)
+    {
+        x_ = static_cast<float>(x);
+    }
 
     template <typename T>
         requires std::is_arithmetic_v<T>
-    void setY(T y) { y_ = static_cast<float>(y); }
-
-    bool isValid() const
+    void setY(T y)
     {
-        return std::isfinite(x_) && std::isfinite(y_);
+        y_ = static_cast<float>(y);
     }
+
+    bool isValid() const { return std::isfinite(x_) && std::isfinite(y_); }
 
     Vector2& add(const Vector2& other)
     {
@@ -36,7 +41,7 @@ class Vector2
     }
 
     template <typename A, typename B>
-        requires (std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
+        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
     Vector2& add(A x, B y)
     {
         x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(x));
@@ -52,7 +57,7 @@ class Vector2
     }
 
     template <typename A, typename B>
-        requires (std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
+        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
     Vector2& sub(A x, B y)
     {
         x_ = static_cast<float>(static_cast<double>(x_) - static_cast<double>(x));
@@ -68,7 +73,7 @@ class Vector2
     }
 
     template <typename A, typename B>
-        requires (std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
+        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
     Vector2& mul(A x, B y)
     {
         x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(x));
@@ -84,7 +89,7 @@ class Vector2
     }
 
     template <typename A, typename B>
-        requires (std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
+        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
     Vector2& div(A x, B y)
     {
         x_ = static_cast<float>(static_cast<double>(x_) / static_cast<double>(x));
@@ -192,10 +197,7 @@ class Vector2
                std::abs(static_cast<double>(y_) - static_cast<double>(other.y_)) < epsilon;
     }
 
-    bool operator==(const Vector2& other) const
-    {
-        return equal(other);
-    }
+    bool operator==(const Vector2& other) const { return equal(other); }
 
     Vector2& operator=(const Vector2& other)
     {

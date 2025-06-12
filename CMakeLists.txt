@@ -1,14 +1,14 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.19)
 project(Auxiliary_math_library_for_game_development)
 
 set(CMAKE_CXX_STANDARD 20)
 
 # === Додати бібліотеку ===
 add_library(Auxiliary_math_library_for_game_development
-        library.cpp
+        INTERFACE
 )
 
-target_include_directories(Auxiliary_math_library_for_game_development PUBLIC
+target_include_directories(Auxiliary_math_library_for_game_development INTERFACE
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
@@ -24,11 +24,8 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(Main main.cpp)
-target_link_libraries(Main PRIVATE Auxiliary_math_library_for_game_development)
 
 add_executable(Test
-        Test.cpp
         tests/vector2.cpp
         tests/vector3.cpp
         tests/vector4.cpp

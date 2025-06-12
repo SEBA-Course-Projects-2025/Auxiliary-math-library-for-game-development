@@ -318,3 +318,180 @@ TEST(Vector3NegateTest, NegateMixedVector)
     EXPECT_FLOAT_EQ(v.y(), 2.0f);
     EXPECT_FLOAT_EQ(v.z(), -3.0f);
 }
+
+TEST(Vector3MagnitudeSqrTest, MagnitudeSqrPositiveVector)
+{
+    Vector3 v(1.0f, 2.0f, 3.0f);
+    float result = v.magnitude_sqr();
+    EXPECT_FLOAT_EQ(result, 1.0f + 4.0f + 9.0f);
+}
+
+TEST(Vector3MagnitudeSqrTest, MagnitudeSqrNegativeVector)
+{
+    Vector3 v(-1.0f, -2.0f, -3.0f);
+    float result = v.magnitude_sqr();
+    EXPECT_FLOAT_EQ(result, 1.0f + 4.0f + 9.0f);
+}
+
+TEST(Vector3MagnitudeSqrTest, MagnitudeSqrZeroVector)
+{
+    Vector3 v(0.0f, 0.0f, 0.0f);
+    float result = v.magnitude_sqr();
+    EXPECT_FLOAT_EQ(result, 0.0f);
+}
+
+TEST(Vector3MagnitudeSqrTest, MagnitudeSqrLargeVector)
+{
+    Vector3 v(1e10f, 2e10f, 3e10f);
+    float result = v.magnitude_sqr();
+    EXPECT_FLOAT_EQ(result, 1e20f + 4e20f + 9e20f);
+}
+
+TEST(Vector3MagnitudeTest, MagnitudePositiveVector)
+{
+    Vector3 v(1.0f, 2.0f, 3.0f);
+    float result = v.magnitude();
+    float expected = std::sqrt(1.0f + 4.0f + 9.0f);
+    EXPECT_FLOAT_EQ(result, expected);
+}
+
+TEST(Vector3MagnitudeTest, MagnitudeNegativeVector)
+{
+    Vector3 v(-1.0f, -2.0f, -3.0f);
+    float result = v.magnitude();
+    float expected = std::sqrt(1.0f + 4.0f + 9.0f);
+    EXPECT_FLOAT_EQ(result, expected);
+}
+
+TEST(Vector3MagnitudeTest, MagnitudeZeroVector)
+{
+    Vector3 v(0.0f, 0.0f, 0.0f);
+    float result = v.magnitude();
+    EXPECT_FLOAT_EQ(result, 0.0f);
+}
+
+TEST(Vector3MagnitudeTest, MagnitudeLargeVector)
+{
+    Vector3 v(1e10f, 2e10f, 3e10f);
+    float result = v.magnitude();
+    float expected = std::sqrt(1e20f + 4e20f + 9e20f);
+    EXPECT_FLOAT_EQ(result, expected);
+}
+
+TEST(Vector3MagnitudeTest, MagnitudeSmallVector)
+{
+    Vector3 v(1e-10f, 2e-10f, 3e-10f);
+    float result = v.magnitude();
+    float expected = std::sqrt(1e-20f + 4e-20f + 9e-20f);
+    EXPECT_FLOAT_EQ(result, expected);
+}
+
+TEST(Vector3NormalizeEdgeCase, NormalizeAfterScaling)
+{
+    Vector3 v(1.0f, 2.0f, 3.0f);
+    v.scale(100.0f);
+    v.normalize();
+    EXPECT_NEAR(v.magnitude(), 1.0f, 1e-6f);
+}
+
+TEST(Vector3EdgeCase, ScaleThenNegate)
+{
+    Vector3 v(1.0f, 2.0f, 3.0f);
+    v.scale(-2.0f);
+    v.negate();
+    EXPECT_FLOAT_EQ(v.x(), 2.0f);
+    EXPECT_FLOAT_EQ(v.y(), 4.0f);
+    EXPECT_FLOAT_EQ(v.z(), 6.0f);
+}
+
+TEST(Vector3EdgeCase, MagnitudeAfterNormalize)
+{
+    Vector3 v(5.0f, 0.0f, 0.0f);
+    v.normalize();
+    EXPECT_FLOAT_EQ(v.magnitude(), 1.0f);
+    EXPECT_FLOAT_EQ(v.magnitude_sqr(), 1.0f);
+}
+
+TEST(Vector3CosTest, CosBetweenSameVectors)
+{
+    Vector3 v(1.0f, 2.0f, 3.0f);
+    EXPECT_FLOAT_EQ(v.cos(v), 1.0f);
+}
+
+TEST(Vector3CosTest, CosBetweenOrthogonalVectors)
+{
+    Vector3 v1(1.0f, 0.0f, 0.0f);
+    Vector3 v2(0.0f, 1.0f, 0.0f);
+    EXPECT_FLOAT_EQ(v1.cos(v2), 0.0f);
+}
+
+TEST(Vector3CosTest, CosBetweenOppositeVectors)
+{
+    Vector3 v1(1.0f, 2.0f, 3.0f);
+    Vector3 v2(-1.0f, -2.0f, -3.0f);
+    EXPECT_FLOAT_EQ(v1.cos(v2), -1.0f);
+}
+
+TEST(Vector3AngleTest, AngleBetweenSameVectors)
+{
+    Vector3 v(1.0f, 2.0f, 3.0f);
+    EXPECT_FLOAT_EQ(v.angle(v), 0.0f);
+}
+
+TEST(Vector3AngleTest, AngleBetweenOrthogonalVectors)
+{
+    Vector3 v1(1.0f, 0.0f, 0.0f);
+    Vector3 v2(0.0f, 1.0f, 0.0f);
+    EXPECT_FLOAT_EQ(v1.angle(v2), M_PI_2);
+}
+
+TEST(Vector3AngleTest, AngleBetweenOppositeVectors)
+{
+    Vector3 v1(1.0f, 0.0f, 0.0f);
+    Vector3 v2(-1.0f, 0.0f, 0.0f);
+    EXPECT_FLOAT_EQ(v1.angle(v2), M_PI);
+}
+
+TEST(Vector3MadTest, MadWithFloatScalar)
+{
+    Vector3 v1(1.0f, 2.0f, 3.0f);
+    Vector3 v2(0.1f, 0.2f, 0.3f);
+    v1.mad(v2, 2.0f);
+    EXPECT_FLOAT_EQ(v1.x(), 1.2f);
+    EXPECT_FLOAT_EQ(v1.y(), 2.4f);
+    EXPECT_FLOAT_EQ(v1.z(), 3.6f);
+}
+
+TEST(Vector3MadTest, MadWithIntScalar)
+{
+    Vector3 v1(1.0f, 2.0f, 3.0f);
+    Vector3 v2(0.1f, 0.2f, 0.3f);
+    v1.mad(v2, 2);
+    EXPECT_FLOAT_EQ(v1.x(), 1.2f);
+    EXPECT_FLOAT_EQ(v1.y(), 2.4f);
+    EXPECT_FLOAT_EQ(v1.z(), 3.6f);
+}
+
+TEST(Vector3MadTest, MadWithLargeScalar)
+{
+    Vector3 v1(1.0f, 2.0f, 3.0f);
+    Vector3 v2(1e10f, 2e10f, 3e10f);
+    v1.mad(v2, 1e-10f);
+    EXPECT_FLOAT_EQ(v1.x(), 2.0f);
+    EXPECT_FLOAT_EQ(v1.y(), 4.0f);
+    EXPECT_FLOAT_EQ(v1.z(), 6.0f);
+}
+
+TEST(Vector3EqualTest, EqualVectors)
+{
+    Vector3 v1(1.0f, 2.0f, 3.0f);
+    Vector3 v2(1.0f + 1e-6f, 2.0f + 1e-6f, 3.0f + 1e-6f);
+    EXPECT_TRUE(v1.equal(v2));
+}
+
+TEST(Vector3EqualTest, NotEqualVectors)
+{
+    Vector3 v1(1.0f, 2.0f, 3.0f);
+    Vector3 v2(1.1f, 2.1f, 3.1f);
+    EXPECT_FALSE(v1.equal(v2));
+}

@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 # === Додати бібліотеку ===
 add_library(Auxiliary_math_library_for_game_development
-        library.cpp
+        INTERFACE
 )
 
 target_include_directories(Auxiliary_math_library_for_game_development PUBLIC

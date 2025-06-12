@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.19)
 project(Auxiliary_math_library_for_game_development)
 
 set(CMAKE_CXX_STANDARD 20)

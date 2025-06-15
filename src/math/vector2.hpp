@@ -5,12 +5,13 @@
 
 namespace math
 {
+template <typename V>
 class Vector2
 {
    public:
     template <typename A, typename B>
         requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
-    Vector2(A x, B y) : x_(static_cast<float>(x)), y_(static_cast<float>(y))
+    Vector2(A x, B y) : x_(static_cast<V>(x)), y_(static_cast<V>(y))
     {
     }
 
@@ -21,22 +22,22 @@ class Vector2
         requires std::is_arithmetic_v<T>
     void setX(T x)
     {
-        x_ = static_cast<float>(x);
+        x_ = static_cast<V>(x);
     }
 
     template <typename T>
         requires std::is_arithmetic_v<T>
     void setY(T y)
     {
-        y_ = static_cast<float>(y);
+        y_ = static_cast<V>(y);
     }
 
     bool isValid() const { return std::isfinite(x_) && std::isfinite(y_); }
 
     Vector2& add(const Vector2& other)
     {
-        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(other.x()));
-        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(other.y()));
+        x_ = static_cast<V>(static_cast<double>(x_) + static_cast<double>(other.x()));
+        y_ = static_cast<V>(static_cast<double>(y_) + static_cast<double>(other.y()));
         return *this;
     }
 
@@ -44,15 +45,15 @@ class Vector2
         requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
     Vector2& add(A x, B y)
     {
-        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(x));
-        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(y));
+        x_ = static_cast<V>(static_cast<double>(x_) + static_cast<double>(x));
+        y_ = static_cast<V>(static_cast<double>(y_) + static_cast<double>(y));
         return *this;
     }
 
     Vector2& sub(const Vector2& other)
     {
-        x_ = static_cast<float>(static_cast<double>(x_) - static_cast<double>(other.x()));
-        y_ = static_cast<float>(static_cast<double>(y_) - static_cast<double>(other.y()));
+        x_ = static_cast<V>(static_cast<double>(x_) - static_cast<double>(other.x()));
+        y_ = static_cast<V>(static_cast<double>(y_) - static_cast<double>(other.y()));
         return *this;
     }
 
@@ -60,15 +61,15 @@ class Vector2
         requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
     Vector2& sub(A x, B y)
     {
-        x_ = static_cast<float>(static_cast<double>(x_) - static_cast<double>(x));
-        y_ = static_cast<float>(static_cast<double>(y_) - static_cast<double>(y));
+        x_ = static_cast<V>(static_cast<double>(x_) - static_cast<double>(x));
+        y_ = static_cast<V>(static_cast<double>(y_) - static_cast<double>(y));
         return *this;
     }
 
     Vector2& mul(const Vector2& other)
     {
-        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(other.x()));
-        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(other.y()));
+        x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(other.x()));
+        y_ = static_cast<V>(static_cast<double>(y_) * static_cast<double>(other.y()));
         return *this;
     }
 
@@ -76,15 +77,15 @@ class Vector2
         requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
     Vector2& mul(A x, B y)
     {
-        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(x));
-        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(y));
+        x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(x));
+        y_ = static_cast<V>(static_cast<double>(y_) * static_cast<double>(y));
         return *this;
     }
 
     Vector2& div(const Vector2& other)
     {
-        x_ = static_cast<float>(static_cast<double>(x_) / static_cast<double>(other.x()));
-        y_ = static_cast<float>(static_cast<double>(y_) / static_cast<double>(other.y()));
+        x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(other.x()));
+        y_ = static_cast<V>(static_cast<double>(y_) / static_cast<double>(other.y()));
         return *this;
     }
 
@@ -92,8 +93,8 @@ class Vector2
         requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
     Vector2& div(A x, B y)
     {
-        x_ = static_cast<float>(static_cast<double>(x_) / static_cast<double>(x));
-        y_ = static_cast<float>(static_cast<double>(y_) / static_cast<double>(y));
+        x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(x));
+        y_ = static_cast<V>(static_cast<double>(y_) / static_cast<double>(y));
         return *this;
     }
 
@@ -101,8 +102,8 @@ class Vector2
         requires std::is_arithmetic_v<T>
     Vector2& scale(T scalar)
     {
-        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(scalar));
-        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(scalar));
+        x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(scalar));
+        y_ = static_cast<V>(static_cast<double>(y_) * static_cast<double>(scalar));
         return *this;
     }
 
@@ -113,8 +114,8 @@ class Vector2
 
         assert(length > 0.0 && "Cannot normalize a zero-length vector");
 
-        x_ = static_cast<float>(static_cast<double>(x_) / length);
-        y_ = static_cast<float>(static_cast<double>(y_) / length);
+        x_ = static_cast<V>(static_cast<double>(x_) / length);
+        y_ = static_cast<V>(static_cast<double>(y_) / length);
 
         return *this;
     }
@@ -128,26 +129,26 @@ class Vector2
 
     float magnitude_sqr() const
     {
-        return static_cast<float>(static_cast<double>(x_) * static_cast<double>(x_) +
+        return static_cast<V>(static_cast<double>(x_) * static_cast<double>(x_) +
                                   static_cast<double>(y_) * static_cast<double>(y_));
     }
 
     float magnitude() const
     {
-        return static_cast<float>(std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
+        return static_cast<V>(std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
                                             static_cast<double>(y_) * static_cast<double>(y_)));
     }
 
     float area(const Vector2& other) const
     {
-        return static_cast<float>(
+        return static_cast<V>(
             std::abs(static_cast<double>(x_) * static_cast<double>(other.y()) -
                      static_cast<double>(y_) * static_cast<double>(other.x())));
     }
 
     float dot(const Vector2& other) const
     {
-        return static_cast<float>(static_cast<double>(x_) * static_cast<double>(other.x()) +
+        return static_cast<V>(static_cast<double>(x_) * static_cast<double>(other.x()) +
                                   static_cast<double>(y_) * static_cast<double>(other.y()));
     }
 
@@ -162,7 +163,7 @@ class Vector2
 
         assert(mag1 > 0.0 && mag2 > 0.0 && "Cannot compute angle with a zero-magnitude vector");
 
-        return static_cast<float>(dot / (mag1 * mag2));
+        return static_cast<V>(dot / (mag1 * mag2));
     }
 
     float angle(const Vector2& other) const
@@ -176,16 +177,16 @@ class Vector2
 
         assert(mag1 > 0.0 && mag2 > 0.0 && "Cannot compute angle with a zero-magnitude vector");
 
-        return static_cast<float>(std::acos(dot / (mag1 * mag2)));
+        return static_cast<V>(std::acos(dot / (mag1 * mag2)));
     }
 
     template <typename T>
         requires std::is_arithmetic_v<T>
     Vector2& mad(const Vector2& other, T scalar)
     {
-        x_ = static_cast<float>(static_cast<double>(x_) +
+        x_ = static_cast<V>(static_cast<double>(x_) +
                                 static_cast<double>(other.x()) * static_cast<double>(scalar));
-        y_ = static_cast<float>(static_cast<double>(y_) +
+        y_ = static_cast<V>(static_cast<double>(y_) +
                                 static_cast<double>(other.y()) * static_cast<double>(scalar));
         return *this;
     }

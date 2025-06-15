@@ -1,7 +1,6 @@
 #pragma once
 #include <cassert>
 #include <cmath>
-#include <type_traits>
 
 #include "vector2.hpp"
 

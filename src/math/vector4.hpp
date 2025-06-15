@@ -23,7 +23,7 @@ class Vector4
 
     template <typename C, typename D>
         requires(std::is_arithmetic_v<C> && std::is_arithmetic_v<D>)
-    Vector4(Vector2 const &v, C z, D w)
+    Vector4(Vector2 const &v, C z, D w) noexcept
         : x_(static_cast<V>(v.x())),
           y_(static_cast<V>(v.y())),
           z_(static_cast<V>(z)),
@@ -579,7 +579,7 @@ class Vector4
                std::abs(static_cast<double>(w_) - static_cast<double>(other.w_)) < epsilon;
     }
 
-    bool operator==(const Vector4 &other) const
+    bool operator==(const Vector4 &other) const noexcept
     {
         constexpr double epsilon = 1e-5f;
         return std::abs(static_cast<double>(x_) - static_cast<double>(other.x_)) < epsilon &&
@@ -588,7 +588,7 @@ class Vector4
                std::abs(static_cast<double>(w_) - static_cast<double>(other.w_)) < epsilon;
     }
 
-    Vector4 &operator=(const Vector4 &other)
+    Vector4 &operator=(const Vector4 &other) noexcept
     {
         x_ = other.x_;
         y_ = other.y_;

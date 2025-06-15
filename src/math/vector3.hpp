@@ -20,7 +20,7 @@ class Vector3
 
     template <typename T>
         requires std::is_arithmetic_v<T>
-    Vector3(Vector2 const &v, T z)
+    Vector3(Vector2 const &v, T z) noexcept
         : x_(static_cast<V>(v.x())), y_(static_cast<V>(v.y())), z_(static_cast<V>(z))
     {
     }
@@ -318,7 +318,7 @@ class Vector3
                std::abs(static_cast<double>(z_) - static_cast<double>(other.z_)) < epsilon;
     }
 
-    bool operator==(const Vector3 &other) const
+    bool operator==(const Vector3 &other) const noexcept
     {
         constexpr double epsilon = 1e-5;
         return std::abs(static_cast<double>(x_) - static_cast<double>(other.x_)) < epsilon &&
@@ -326,7 +326,7 @@ class Vector3
                std::abs(static_cast<double>(z_) - static_cast<double>(other.z_)) < epsilon;
     }
 
-    Vector3 &operator=(const Vector3 &other)
+    Vector3 &operator=(const Vector3 &other) noexcept
     {
         x_ = other.x_;
         y_ = other.y_;

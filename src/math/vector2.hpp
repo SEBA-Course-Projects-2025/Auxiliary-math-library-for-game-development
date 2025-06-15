@@ -11,7 +11,7 @@ class Vector2
    public:
     template <typename A, typename B>
         requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
-    Vector2(A x, B y) : x_(static_cast<V>(x)), y_(static_cast<V>(y))
+    Vector2(A x, B y) noexcept : x_(static_cast<V>(x)), y_(static_cast<V>(y))
     {
     }
 
@@ -198,9 +198,9 @@ class Vector2
                std::abs(static_cast<double>(y_) - static_cast<double>(other.y_)) < epsilon;
     }
 
-    bool operator==(const Vector2& other) const { return equal(other); }
+    bool operator==(const Vector2& other) const noexcept { return equal(other); }
 
-    Vector2& operator=(const Vector2& other)
+    Vector2& operator=(const Vector2& other) noexcept
     {
         x_ = other.x_;
         y_ = other.y_;

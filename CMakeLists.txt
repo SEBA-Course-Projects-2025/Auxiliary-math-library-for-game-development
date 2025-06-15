@@ -10,7 +10,7 @@ add_library(Auxiliary_math_library_for_game_development
 
 target_include_directories(Auxiliary_math_library_for_game_development INTERFACE
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 # === GoogleTest через FetchContent ===
@@ -31,7 +31,7 @@ add_executable(Test
         tests/vector4.cpp
 )
 target_include_directories(Test PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 target_link_libraries(Test PRIVATE
         gtest_main

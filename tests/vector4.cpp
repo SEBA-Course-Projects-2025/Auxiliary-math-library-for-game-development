@@ -1,9 +1,9 @@
-#include "src/math/vector4.hpp"
+#include "include/math/vector4.hpp"
 
 #include <gtest/gtest.h>
 
-#include "src/math/vector2.hpp"
-#include "src/math/vector3.hpp"
+#include "include/math/vector2.hpp"
+#include "include/math/vector3.hpp"
 
 using math::Vector2;
 using math::Vector3;

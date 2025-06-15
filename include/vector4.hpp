@@ -4,7 +4,7 @@
 #include "vector2.hpp"
 #include "vector3.hpp"
 
-namespace math
+namespace ksemath
 {
 template <typename V>
 class Vector4

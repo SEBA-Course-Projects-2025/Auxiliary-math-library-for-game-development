@@ -17,14 +17,14 @@ class Vector3
     {
     }
 
-    template <arithmetic T>
-    Vector3(Vector2 const &v, T z) noexcept
+    template <arithmetic T, arithmetic V2>
+    Vector3(Vector2<V2> const &v, T z) noexcept
         : x_(static_cast<V>(v.x())), y_(static_cast<V>(v.y())), z_(static_cast<V>(z))
     {
     }
 
-    template <arithmetic T>
-    Vector3(T x, Vector2 const &v)
+    template <arithmetic T, arithmetic V2>
+    Vector3(T x, Vector2<V2> const &v)
         : x_(static_cast<V>(x)), y_(static_cast<V>(v.x())), z_(static_cast<V>(v.y()))
     {
     }
@@ -68,8 +68,8 @@ class Vector3
         return *this;
     }
 
-    template <arithmetic T>
-    Vector3 &add(Vector2 const &v, T z)
+    template <arithmetic T, arithmetic V2>
+    Vector3 &add(Vector2<V2> const &v, T z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) + static_cast<double>(v.x()));
         y_ = static_cast<V>(static_cast<double>(y_) + static_cast<double>(v.y()));
@@ -77,8 +77,8 @@ class Vector3
         return *this;
     }
 
-    template <arithmetic T>
-    Vector3 &add(T x, Vector2 const &v)
+    template <arithmetic T, arithmetic V2>
+    Vector3 &add(T x, Vector2<V2> const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) + static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) + static_cast<double>(v.x()));
@@ -103,8 +103,8 @@ class Vector3
         return *this;
     }
 
-    template <arithmetic T>
-    Vector3 &sub(Vector2 const &v, T z)
+    template <arithmetic T, arithmetic V2>
+    Vector3 &sub(Vector2<V2> const &v, T z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) - static_cast<double>(v.x()));
         y_ = static_cast<V>(static_cast<double>(y_) - static_cast<double>(v.y()));
@@ -112,8 +112,8 @@ class Vector3
         return *this;
     }
 
-    template <arithmetic T>
-    Vector3 &sub(T x, Vector2 const &v)
+    template <arithmetic T, arithmetic V2>
+    Vector3 &sub(T x, Vector2<V2> const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) - static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) - static_cast<double>(v.x()));
@@ -138,8 +138,8 @@ class Vector3
         return *this;
     }
 
-    template <arithmetic T>
-    Vector3 &mul(Vector2 const &v, T z)
+    template <arithmetic T, arithmetic V2>
+    Vector3 &mul(Vector2<V2> const &v, T z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(v.x()));
         y_ = static_cast<V>(static_cast<double>(y_) * static_cast<double>(v.y()));
@@ -147,8 +147,8 @@ class Vector3
         return *this;
     }
 
-    template <arithmetic T>
-    Vector3 &mul(T x, Vector2 const &v)
+    template <arithmetic T, arithmetic V2>
+    Vector3 &mul(T x, Vector2<V2> const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) * static_cast<double>(v.x()));
@@ -173,8 +173,8 @@ class Vector3
         return *this;
     }
 
-    template <arithmetic T>
-    Vector3 &div(Vector2 const &v, T z)
+    template <arithmetic T, arithmetic V2>
+    Vector3 &div(Vector2<V2> const &v, T z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(v.x()));
         y_ = static_cast<V>(static_cast<double>(y_) / static_cast<double>(v.y()));
@@ -182,8 +182,8 @@ class Vector3
         return *this;
     }
 
-    template <arithmetic T>
-    Vector3 &div(T x, Vector2 const &v)
+    template <arithmetic T, arithmetic V2>
+    Vector3 &div(T x, Vector2<V2> const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) / static_cast<double>(v.x()));

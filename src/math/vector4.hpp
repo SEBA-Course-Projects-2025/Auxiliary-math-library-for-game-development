@@ -19,8 +19,8 @@ class Vector4
     {
     }
 
-    template <arithmetic C, arithmetic D>
-    Vector4(Vector2 const &v, C z, D w) noexcept
+    template <arithmetic C, arithmetic D, arithmetic V2>
+    Vector4(Vector2<V2> const &v, C z, D w) noexcept
         : x_(static_cast<V>(v.x())),
           y_(static_cast<V>(v.y())),
           z_(static_cast<V>(z)),
@@ -28,8 +28,8 @@ class Vector4
     {
     }
 
-    template <arithmetic A, arithmetic D>
-    Vector4(A x, Vector2 const &v, D w)
+    template <arithmetic A, arithmetic D, arithmetic V2>
+    Vector4(A x, Vector2<V2> const &v, D w)
         : x_(static_cast<V>(x)),
           y_(static_cast<V>(v.x())),
           z_(static_cast<V>(v.y())),
@@ -37,8 +37,8 @@ class Vector4
     {
     }
 
-    template <arithmetic A, arithmetic B>
-    Vector4(A x, B y, Vector2 const &v)
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4(A x, B y, Vector2<V2> const &v)
         : x_(static_cast<V>(x)),
           y_(static_cast<V>(y)),
           z_(static_cast<V>(v.x())),
@@ -46,7 +46,8 @@ class Vector4
     {
     }
 
-    Vector4(Vector2 const &v1, Vector2 const &v2)
+    template <arithmetic V21, arithmetic V22>
+    Vector4(Vector2<V21> const &v1, Vector2<V22> const &v2)
         : x_(static_cast<V>(v1.x())),
           y_(static_cast<V>(v1.y())),
           z_(static_cast<V>(v2.x())),
@@ -54,8 +55,8 @@ class Vector4
     {
     }
 
-    template <arithmetic D>
-    Vector4(Vector3 const &v, D w)
+    template <arithmetic D, arithmetic V3>
+    Vector4(Vector3<V3> const &v, D w)
         : x_(static_cast<V>(v.x())),
           y_(static_cast<V>(v.y())),
           z_(static_cast<V>(v.z())),
@@ -63,8 +64,8 @@ class Vector4
     {
     }
 
-    template <arithmetic A>
-    Vector4(A x, Vector3 const &v)
+    template <arithmetic A, arithmetic V3>
+    Vector4(A x, Vector3<V3> const &v)
         : x_(static_cast<V>(x)),
           y_(static_cast<V>(v.x())),
           z_(static_cast<V>(v.y())),
@@ -111,8 +112,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A, arithmetic B>
-    Vector4 &add(Vector2 const &v, A z, B w)
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &add(Vector2<V2> const &v, A z, B w)
     {
         x_ = static_cast<V>(static_cast<double>(x_) + static_cast<double>(v.x()));
         y_ = static_cast<V>(static_cast<double>(y_) + static_cast<double>(v.y()));
@@ -121,8 +122,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A, arithmetic B>
-    Vector4 &add(A x, Vector2 const &v, B w)
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &add(A x, Vector2<V2> const &v, B w)
     {
         x_ = static_cast<V>(static_cast<double>(x_) + static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) + static_cast<double>(v.x()));
@@ -131,8 +132,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A, arithmetic B>
-    Vector4 &add(A x, B y, Vector2 const &v)
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &add(A x, B y, Vector2<V2> const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) + static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) + static_cast<double>(y));
@@ -141,7 +142,8 @@ class Vector4
         return *this;
     }
 
-    Vector4 &add(Vector2 const &v1, Vector2 const &v2)
+    template <arithmetic V21, arithmetic V22>
+    Vector4 &add(Vector2<V21> const &v1, Vector2<V22> const &v2)
     {
         x_ = static_cast<V>(static_cast<double>(x_) + static_cast<double>(v1.x()));
         y_ = static_cast<V>(static_cast<double>(y_) + static_cast<double>(v1.y()));
@@ -150,8 +152,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A>
-    Vector4 &add(Vector3 const &v, A w)
+    template <arithmetic A, arithmetic V3>
+    Vector4 &add(Vector3<V3> const &v, A w)
     {
         x_ = static_cast<V>(static_cast<double>(x_) + static_cast<double>(v.x()));
         y_ = static_cast<V>(static_cast<double>(y_) + static_cast<double>(v.y()));
@@ -160,8 +162,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A>
-    Vector4 &add(A x, Vector3 const &v)
+    template <arithmetic A, arithmetic V3>
+    Vector4 &add(A x, Vector3<V3> const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) + static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) + static_cast<double>(v.x()));
@@ -189,8 +191,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A, arithmetic B>
-    Vector4 &sub(Vector2 const &v, A z, B w)
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &sub(Vector2<V2> const &v, A z, B w)
     {
         x_ = static_cast<V>(static_cast<double>(x_) - static_cast<double>(v.x()));
         y_ = static_cast<V>(static_cast<double>(y_) - static_cast<double>(v.y()));
@@ -199,8 +201,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A, arithmetic B>
-    Vector4 &sub(A x, Vector2 const &v, B z)
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &sub(A x, Vector2<V2> const &v, B z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) - static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) - static_cast<double>(v.x()));
@@ -209,8 +211,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A, arithmetic B>
-    Vector4 &sub(A x, B y, Vector2 const &v)
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &sub(A x, B y, Vector2<V2> const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) - static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) - static_cast<double>(y));
@@ -219,7 +221,8 @@ class Vector4
         return *this;
     }
 
-    Vector4 &sub(Vector2 const &v1, Vector2 const &v2)
+    template <arithmetic V21, arithmetic V22>
+    Vector4 &sub(Vector2<V21> const &v1, Vector2<V22> const &v2)
     {
         x_ = static_cast<V>(static_cast<double>(x_) - static_cast<double>(v1.x()));
         y_ = static_cast<V>(static_cast<double>(y_) - static_cast<double>(v1.y()));
@@ -228,8 +231,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A>
-    Vector4 &sub(Vector3 const &v, A w)
+    template <arithmetic A, arithmetic V3>
+    Vector4 &sub(Vector3<V3> const &v, A w)
     {
         x_ = static_cast<V>(static_cast<double>(x_) - static_cast<double>(v.x()));
         y_ = static_cast<V>(static_cast<double>(y_) - static_cast<double>(v.y()));
@@ -238,8 +241,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A>
-    Vector4 &sub(A x, Vector3 const &v)
+    template <arithmetic A, arithmetic V3>
+    Vector4 &sub(A x, Vector3<V3> const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) - static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) - static_cast<double>(v.x()));
@@ -267,8 +270,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A, arithmetic B>
-    Vector4 &mul(Vector2 const &v, A z, B w)
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &mul(Vector2<V2> const &v, A z, B w)
     {
         x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(v.x()));
         y_ = static_cast<V>(static_cast<double>(y_) * static_cast<double>(v.y()));
@@ -277,8 +280,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A, arithmetic B>
-    Vector4 &mul(A x, Vector2 const &v, B z)
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &mul(A x, Vector2<V2> const &v, B z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) * static_cast<double>(v.x()));
@@ -287,8 +290,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A, arithmetic B>
-    Vector4 &mul(A x, B y, Vector2 const &v)
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &mul(A x, B y, Vector2<V2> const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) * static_cast<double>(y));
@@ -297,7 +300,8 @@ class Vector4
         return *this;
     }
 
-    Vector4 &mul(Vector2 const &v1, Vector2 const &v2)
+    template <arithmetic V21, arithmetic V22>
+    Vector4 &mul(Vector2<V21> const &v1, Vector2<V22> const &v2)
     {
         x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(v1.x()));
         y_ = static_cast<V>(static_cast<double>(y_) * static_cast<double>(v1.y()));
@@ -306,8 +310,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A>
-    Vector4 &mul(Vector3 const &v, A w)
+    template <arithmetic A, arithmetic V3>
+    Vector4 &mul(Vector3<V3> const &v, A w)
     {
         x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(v.x()));
         y_ = static_cast<V>(static_cast<double>(y_) * static_cast<double>(v.y()));
@@ -316,8 +320,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A>
-    Vector4 &mul(A x, Vector3 const &v)
+    template <arithmetic A, arithmetic V3>
+    Vector4 &mul(A x, Vector3<V3> const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) * static_cast<double>(v.x()));
@@ -345,8 +349,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A, arithmetic B>
-    Vector4 &div(Vector2 const &v, A z, B w)
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &div(Vector2<V2> const &v, A z, B w)
     {
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(v.x()));
         y_ = static_cast<V>(static_cast<double>(y_) / static_cast<double>(v.y()));
@@ -355,8 +359,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A, arithmetic B>
-    Vector4 &div(A x, Vector2 const &v, B z)
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &div(A x, Vector2<V2> const &v, B z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) / static_cast<double>(v.x()));
@@ -365,8 +369,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A, arithmetic B>
-    Vector4 &div(A x, B y, Vector2 const &v)
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &div(A x, B y, Vector2<V2> const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) / static_cast<double>(y));
@@ -375,7 +379,8 @@ class Vector4
         return *this;
     }
 
-    Vector4 &div(Vector2 const &v1, Vector2 const &v2)
+    template <arithmetic V21, arithmetic V22>
+    Vector4 &div(Vector2<V21> const &v1, Vector2<V22> const &v2)
     {
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(v1.x()));
         y_ = static_cast<V>(static_cast<double>(y_) / static_cast<double>(v1.y()));
@@ -384,8 +389,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A>
-    Vector4 &div(Vector3 const &v, A w)
+    template <arithmetic A, arithmetic V3>
+    Vector4 &div(Vector3<V3> const &v, A w)
     {
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(v.x()));
         y_ = static_cast<V>(static_cast<double>(y_) / static_cast<double>(v.y()));
@@ -394,8 +399,8 @@ class Vector4
         return *this;
     }
 
-    template <arithmetic A>
-    Vector4 &div(A x, Vector3 const &v)
+    template <arithmetic A, arithmetic V3>
+    Vector4 &div(A x, Vector3<V3> const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) / static_cast<double>(v.x()));

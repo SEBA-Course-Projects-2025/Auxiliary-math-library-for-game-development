@@ -11,22 +11,19 @@ template <typename V>
 class Vector3
 {
    public:
-    template <typename A, typename B, typename C>
-        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B> && std::is_arithmetic_v<C>)
+    template <arithmetic A, arithmetic B, arithmetic C>
     Vector3(A x, B y, C z)
         : x_(static_cast<V>(x)), y_(static_cast<V>(y)), z_(static_cast<V>(z))
     {
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     Vector3(Vector2 const &v, T z) noexcept
         : x_(static_cast<V>(v.x())), y_(static_cast<V>(v.y())), z_(static_cast<V>(z))
     {
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     Vector3(T x, Vector2 const &v)
         : x_(static_cast<V>(x)), y_(static_cast<V>(v.x())), z_(static_cast<V>(v.y()))
     {
@@ -36,22 +33,19 @@ class Vector3
     float y() const { return y_; }
     float z() const { return z_; }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     void setX(T x)
     {
         x_ = static_cast<V>(x);
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     void setY(T y)
     {
         y_ = static_cast<V>(y);
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     void setZ(T z)
     {
         z_ = static_cast<V>(z);
@@ -65,8 +59,7 @@ class Vector3
         return *this;
     }
 
-    template <typename A, typename B, typename C>
-        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B> && std::is_arithmetic_v<C>)
+    template <arithmetic A, arithmetic B, arithmetic C>
     Vector3 &add(A x, B y, C z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) + static_cast<double>(x));
@@ -75,8 +68,7 @@ class Vector3
         return *this;
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     Vector3 &add(Vector2 const &v, T z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) + static_cast<double>(v.x()));
@@ -85,8 +77,7 @@ class Vector3
         return *this;
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     Vector3 &add(T x, Vector2 const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) + static_cast<double>(x));
@@ -103,8 +94,7 @@ class Vector3
         return *this;
     }
 
-    template <typename A, typename B, typename C>
-        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B> && std::is_arithmetic_v<C>)
+    template <arithmetic A, arithmetic B, arithmetic C>
     Vector3 &sub(A x, B y, C z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) - static_cast<double>(x));
@@ -113,8 +103,7 @@ class Vector3
         return *this;
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     Vector3 &sub(Vector2 const &v, T z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) - static_cast<double>(v.x()));
@@ -123,8 +112,7 @@ class Vector3
         return *this;
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     Vector3 &sub(T x, Vector2 const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) - static_cast<double>(x));
@@ -141,8 +129,7 @@ class Vector3
         return *this;
     }
 
-    template <typename A, typename B, typename C>
-        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B> && std::is_arithmetic_v<C>)
+    template <arithmetic A, arithmetic B, arithmetic C>
     Vector3 &mul(A x, B y, C z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(x));
@@ -151,8 +138,7 @@ class Vector3
         return *this;
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     Vector3 &mul(Vector2 const &v, T z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(v.x()));
@@ -161,8 +147,7 @@ class Vector3
         return *this;
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     Vector3 &mul(T x, Vector2 const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(x));
@@ -179,8 +164,7 @@ class Vector3
         return *this;
     }
 
-    template <typename A, typename B, typename C>
-        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B> && std::is_arithmetic_v<C>)
+    template <arithmetic A, arithmetic B, arithmetic C>
     Vector3 &div(A x, B y, C z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(x));
@@ -189,8 +173,7 @@ class Vector3
         return *this;
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     Vector3 &div(Vector2 const &v, T z)
     {
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(v.x()));
@@ -199,8 +182,7 @@ class Vector3
         return *this;
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     Vector3 &div(T x, Vector2 const &v)
     {
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(x));
@@ -209,8 +191,7 @@ class Vector3
         return *this;
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     Vector3 &scale(T scalar)
     {
         x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(scalar));
@@ -297,8 +278,7 @@ class Vector3
         return static_cast<V>(std::acos(cosTheta));
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     Vector3 &mad(const Vector3 &other, T scalar)
     {
         x_ = static_cast<V>(static_cast<double>(x_) +

@@ -5,12 +5,14 @@
 
 namespace math
 {
+template <typename Ar>
+concept arithmetic = std::is_arithmetic_v<Ar>;
+
 template <typename V>
 class Vector2
 {
    public:
-    template <typename A, typename B>
-        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
+    template <arithmetic A, arithmetic B>
     Vector2(A x, B y) noexcept : x_(static_cast<V>(x)), y_(static_cast<V>(y))
     {
     }
@@ -18,15 +20,13 @@ class Vector2
     float x() const { return x_; }
     float y() const { return y_; }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     void setX(T x)
     {
         x_ = static_cast<V>(x);
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     void setY(T y)
     {
         y_ = static_cast<V>(y);
@@ -41,8 +41,7 @@ class Vector2
         return *this;
     }
 
-    template <typename A, typename B>
-        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
+    template <arithmetic A, arithmetic B>
     Vector2& add(A x, B y)
     {
         x_ = static_cast<V>(static_cast<double>(x_) + static_cast<double>(x));
@@ -57,8 +56,7 @@ class Vector2
         return *this;
     }
 
-    template <typename A, typename B>
-        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
+    template <arithmetic A, arithmetic B>
     Vector2& sub(A x, B y)
     {
         x_ = static_cast<V>(static_cast<double>(x_) - static_cast<double>(x));
@@ -73,8 +71,7 @@ class Vector2
         return *this;
     }
 
-    template <typename A, typename B>
-        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
+    template <arithmetic A, arithmetic B>
     Vector2& mul(A x, B y)
     {
         x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(x));
@@ -89,8 +86,7 @@ class Vector2
         return *this;
     }
 
-    template <typename A, typename B>
-        requires(std::is_arithmetic_v<A> && std::is_arithmetic_v<B>)
+    template <arithmetic A, arithmetic B>
     Vector2& div(A x, B y)
     {
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(x));
@@ -98,8 +94,7 @@ class Vector2
         return *this;
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     Vector2& scale(T scalar)
     {
         x_ = static_cast<V>(static_cast<double>(x_) * static_cast<double>(scalar));
@@ -180,8 +175,7 @@ class Vector2
         return static_cast<V>(std::acos(dot / (mag1 * mag2)));
     }
 
-    template <typename T>
-        requires std::is_arithmetic_v<T>
+    template <arithmetic T>
     Vector2& mad(const Vector2& other, T scalar)
     {
         x_ = static_cast<V>(static_cast<double>(x_) +

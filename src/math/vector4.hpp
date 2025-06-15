@@ -464,12 +464,12 @@ class Vector4
 
     Vector4 &normalize()
     {
-        double length = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
+        const double length = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
                                   static_cast<double>(y_) * static_cast<double>(y_) +
                                   static_cast<double>(z_) * static_cast<double>(z_) +
                                   static_cast<double>(w_) * static_cast<double>(w_));
 
-        assert(length != 0.0 && "Cannot normalize a zero-length vector");
+        assert(length > 0.0 && "Cannot normalize a zero-length vector");
 
         x_ = static_cast<float>(static_cast<double>(x_) / length);
         y_ = static_cast<float>(static_cast<double>(y_) / length);
@@ -514,43 +514,43 @@ class Vector4
 
     float cos(const Vector4 &other) const
     {
-        double dotProduct = static_cast<double>(x_) * static_cast<double>(other.x()) +
+        const double dotProduct = static_cast<double>(x_) * static_cast<double>(other.x()) +
                             static_cast<double>(y_) * static_cast<double>(other.y()) +
                             static_cast<double>(z_) * static_cast<double>(other.z()) +
                             static_cast<double>(w_) * static_cast<double>(other.w());
 
-        double mag1 = std::sqrt(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_ +
+        const double mag1 = std::sqrt(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_ +
                                 static_cast<double>(z_) * z_ + static_cast<double>(w_) * w_);
 
-        double mag2 = std::sqrt(static_cast<double>(other.x()) * other.x() +
+        const double mag2 = std::sqrt(static_cast<double>(other.x()) * other.x() +
                                 static_cast<double>(other.y()) * other.y() +
                                 static_cast<double>(other.z()) * other.z() +
                                 static_cast<double>(other.w()) * other.w());
 
-        assert(mag1 != 0.0 && mag2 != 0.0 && "Cannot compute angle with a zero-magnitude vector");
+        assert(mag1 > 0.0 && mag2 > 0.0 && "Cannot compute angle with a zero-magnitude vector");
 
-        double cosTheta = dotProduct / (mag1 * mag2);
+        const double cosTheta = dotProduct / (mag1 * mag2);
         return static_cast<float>(cosTheta);
     }
 
     float angle(const Vector4 &other) const
     {
-        double dotProduct = static_cast<double>(x_) * static_cast<double>(other.x()) +
+        const double dotProduct = static_cast<double>(x_) * static_cast<double>(other.x()) +
                             static_cast<double>(y_) * static_cast<double>(other.y()) +
                             static_cast<double>(z_) * static_cast<double>(other.z()) +
                             static_cast<double>(w_) * static_cast<double>(other.w());
 
-        double mag1 = std::sqrt(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_ +
+        const double mag1 = std::sqrt(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_ +
                                 static_cast<double>(z_) * z_ + static_cast<double>(w_) * w_);
 
-        double mag2 = std::sqrt(static_cast<double>(other.x()) * other.x() +
+        const double mag2 = std::sqrt(static_cast<double>(other.x()) * other.x() +
                                 static_cast<double>(other.y()) * other.y() +
                                 static_cast<double>(other.z()) * other.z() +
                                 static_cast<double>(other.w()) * other.w());
 
-        assert(mag1 != 0.0 && mag2 != 0.0 && "Cannot compute angle with a zero-magnitude vector");
+        assert(mag1 > 0.0 && mag2 > 0.0 && "Cannot compute angle with a zero-magnitude vector");
 
-        double cosTheta = dotProduct / (mag1 * mag2);
+        const double cosTheta = dotProduct / (mag1 * mag2);
         return static_cast<float>(std::acos(cosTheta));
     }
 

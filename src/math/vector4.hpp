@@ -604,4 +604,8 @@ class Vector4
     V z_;
     V w_;
 };
+
+using vec4f = Vector4<float>;
+using vec4d = Vector4<double>;
+using vec4l = Vector4<long double>;
 }  // namespace math

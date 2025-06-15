@@ -12,8 +12,7 @@ class Vector3
 {
    public:
     template <arithmetic A, arithmetic B, arithmetic C>
-    Vector3(A x, B y, C z)
-        : x_(static_cast<V>(x)), y_(static_cast<V>(y)), z_(static_cast<V>(z))
+    Vector3(A x, B y, C z) : x_(static_cast<V>(x)), y_(static_cast<V>(y)), z_(static_cast<V>(z))
     {
     }
 
@@ -158,6 +157,10 @@ class Vector3
 
     Vector3 &div(const Vector3 &other)
     {
+        assert(other.x() != 0 && "Division by zero in x component");
+        assert(other.y() != 0 && "Division by zero in y component");
+        assert(other.z() != 0 && "Division by zero in z component");
+
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(other.x()));
         y_ = static_cast<V>(static_cast<double>(y_) / static_cast<double>(other.y()));
         z_ = static_cast<V>(static_cast<double>(z_) / static_cast<double>(other.z()));
@@ -167,6 +170,10 @@ class Vector3
     template <arithmetic A, arithmetic B, arithmetic C>
     Vector3 &div(A x, B y, C z)
     {
+        assert(x != 0 && "Division by zero in x");
+        assert(y != 0 && "Division by zero in y");
+        assert(z != 0 && "Division by zero in z");
+
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) / static_cast<double>(y));
         z_ = static_cast<V>(static_cast<double>(z_) / static_cast<double>(z));
@@ -176,6 +183,10 @@ class Vector3
     template <arithmetic T, arithmetic V2>
     Vector3 &div(Vector2<V2> const &v, T z)
     {
+        assert(v.x() != 0 && "Division by zero in x (from Vector2)");
+        assert(v.y() != 0 && "Division by zero in y (from Vector2)");
+        assert(z != 0 && "Division by zero in z");
+
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(v.x()));
         y_ = static_cast<V>(static_cast<double>(y_) / static_cast<double>(v.y()));
         z_ = static_cast<V>(static_cast<double>(z_) / static_cast<double>(z));
@@ -185,6 +196,10 @@ class Vector3
     template <arithmetic T, arithmetic V2>
     Vector3 &div(T x, Vector2<V2> const &v)
     {
+        assert(x != 0 && "Division by zero in x");
+        assert(v.x() != 0 && "Division by zero in y (from Vector2.x)");
+        assert(v.y() != 0 && "Division by zero in z (from Vector2.y)");
+
         x_ = static_cast<V>(static_cast<double>(x_) / static_cast<double>(x));
         y_ = static_cast<V>(static_cast<double>(y_) / static_cast<double>(v.x()));
         z_ = static_cast<V>(static_cast<double>(z_) / static_cast<double>(v.y()));
@@ -205,8 +220,8 @@ class Vector3
     Vector3 &normalize()
     {
         const double length = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
-                                  static_cast<double>(y_) * static_cast<double>(y_) +
-                                  static_cast<double>(z_) * static_cast<double>(z_));
+                                        static_cast<double>(y_) * static_cast<double>(y_) +
+                                        static_cast<double>(z_) * static_cast<double>(z_));
         assert(length > 0.0 && "Cannot normalize a zero-length vector");
         x_ = static_cast<V>(static_cast<double>(x_) / length);
         y_ = static_cast<V>(static_cast<double>(y_) / length);
@@ -225,30 +240,31 @@ class Vector3
     float magnitude_sqr() const
     {
         return static_cast<V>(static_cast<double>(x_) * static_cast<double>(x_) +
-                                  static_cast<double>(y_) * static_cast<double>(y_) +
-                                  static_cast<double>(z_) * static_cast<double>(z_));
+                              static_cast<double>(y_) * static_cast<double>(y_) +
+                              static_cast<double>(z_) * static_cast<double>(z_));
     }
 
     float magnitude() const
     {
         return static_cast<V>(std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
-                                            static_cast<double>(y_) * static_cast<double>(y_) +
-                                            static_cast<double>(z_) * static_cast<double>(z_)));
+                                        static_cast<double>(y_) * static_cast<double>(y_) +
+                                        static_cast<double>(z_) * static_cast<double>(z_)));
     }
 
     float cos(const Vector3 &other) const
     {
         const double dot = static_cast<double>(x_) * static_cast<double>(other.x()) +
-                     static_cast<double>(y_) * static_cast<double>(other.y()) +
-                     static_cast<double>(z_) * static_cast<double>(other.z());
+                           static_cast<double>(y_) * static_cast<double>(other.y()) +
+                           static_cast<double>(z_) * static_cast<double>(other.z());
 
         const double mag1 = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
-                                static_cast<double>(y_) * static_cast<double>(y_) +
-                                static_cast<double>(z_) * static_cast<double>(z_));
+                                      static_cast<double>(y_) * static_cast<double>(y_) +
+                                      static_cast<double>(z_) * static_cast<double>(z_));
 
-        const double mag2 = std::sqrt(static_cast<double>(other.x()) * static_cast<double>(other.x()) +
-                                static_cast<double>(other.y()) * static_cast<double>(other.y()) +
-                                static_cast<double>(other.z()) * static_cast<double>(other.z()));
+        const double mag2 =
+            std::sqrt(static_cast<double>(other.x()) * static_cast<double>(other.x()) +
+                      static_cast<double>(other.y()) * static_cast<double>(other.y()) +
+                      static_cast<double>(other.z()) * static_cast<double>(other.z()));
 
         assert(mag1 > 0.0 && mag2 > 0.0 && "Cannot compute angle with a zero-magnitude vector");
 
@@ -260,16 +276,17 @@ class Vector3
     float angle(const Vector3 &other) const
     {
         const double dot = static_cast<double>(x_) * static_cast<double>(other.x()) +
-                     static_cast<double>(y_) * static_cast<double>(other.y()) +
-                     static_cast<double>(z_) * static_cast<double>(other.z());
+                           static_cast<double>(y_) * static_cast<double>(other.y()) +
+                           static_cast<double>(z_) * static_cast<double>(other.z());
 
         const double mag1 = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
-                                static_cast<double>(y_) * static_cast<double>(y_) +
-                                static_cast<double>(z_) * static_cast<double>(z_));
+                                      static_cast<double>(y_) * static_cast<double>(y_) +
+                                      static_cast<double>(z_) * static_cast<double>(z_));
 
-        const double mag2 = std::sqrt(static_cast<double>(other.x()) * static_cast<double>(other.x()) +
-                                static_cast<double>(other.y()) * static_cast<double>(other.y()) +
-                                static_cast<double>(other.z()) * static_cast<double>(other.z()));
+        const double mag2 =
+            std::sqrt(static_cast<double>(other.x()) * static_cast<double>(other.x()) +
+                      static_cast<double>(other.y()) * static_cast<double>(other.y()) +
+                      static_cast<double>(other.z()) * static_cast<double>(other.z()));
 
         assert(mag1 > 0.0 && mag2 > 0.0 && "Cannot compute angle with a zero-magnitude vector");
 
@@ -282,11 +299,11 @@ class Vector3
     Vector3 &mad(const Vector3 &other, T scalar)
     {
         x_ = static_cast<V>(static_cast<double>(x_) +
-                                static_cast<double>(other.x()) * static_cast<double>(scalar));
+                            static_cast<double>(other.x()) * static_cast<double>(scalar));
         y_ = static_cast<V>(static_cast<double>(y_) +
-                                static_cast<double>(other.y()) * static_cast<double>(scalar));
+                            static_cast<double>(other.y()) * static_cast<double>(scalar));
         z_ = static_cast<V>(static_cast<double>(z_) +
-                                static_cast<double>(other.z()) * static_cast<double>(scalar));
+                            static_cast<double>(other.z()) * static_cast<double>(scalar));
         return *this;
     }
 

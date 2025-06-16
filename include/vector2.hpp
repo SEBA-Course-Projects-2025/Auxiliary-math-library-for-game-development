@@ -216,4 +216,4 @@ class Vector2
 using vec2f = Vector2<float>;
 using vec2d = Vector2<double>;
 using vec2l = Vector2<long double>;
-}  // namespace math
+}  // namespace ksemath

@@ -337,4 +337,4 @@ class Vector3
 using vec3f = Vector3<float>;
 using vec3d = Vector3<double>;
 using vec3l = Vector3<long double>;
-}  // namespace math
+}  // namespace ksemath

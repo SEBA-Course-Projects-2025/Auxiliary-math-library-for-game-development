@@ -3,7 +3,6 @@ project(Auxiliary_math_library_for_game_development)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# === Додати бібліотеку ===
 add_library(Auxiliary_math_library_for_game_development
         INTERFACE
 )
@@ -13,7 +12,6 @@ target_include_directories(Auxiliary_math_library_for_game_development INTERFACE
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-# === GoogleTest через FetchContent ===
 include(FetchContent)
 FetchContent_Declare(
         googletest
@@ -23,7 +21,6 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
-
 
 add_executable(Test
         tests/vector2.cpp

@@ -1,13 +1,10 @@
 #pragma once
 #include <cassert>
 #include <cmath>
-#include <type_traits>
+#include <concepts.hpp>
 
 namespace ksemath
 {
-template <typename Ar>
-concept arithmetic = std::is_arithmetic_v<Ar>;
-
 template <typename V>
 class Vector2
 {

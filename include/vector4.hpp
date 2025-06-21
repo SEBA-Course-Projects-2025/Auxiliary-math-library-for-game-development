@@ -812,10 +812,10 @@ class Vector4<float>
                                 static_cast<float>(x));
         data_ = _mm_add_ps(data_, rhs);
 #else
-        x_ += static_cast<float>(x);
-        y_ += static_cast<float>(y);
-        z_ += static_cast<float>(z);
-        w_ += static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(y));
+        z_ = static_cast<float>(static_cast<double>(z_) + static_cast<double>(z));
+        w_ = static_cast<float>(static_cast<double>(w_) + static_cast<double>(w));
 #endif
         return *this;
     }
@@ -828,10 +828,10 @@ class Vector4<float>
                                 static_cast<float>(v.y()), static_cast<float>(v.x()));
         data_ = _mm_add_ps(data_, rhs);
 #else
-        x_ += static_cast<float>(v.x());
-        y_ += static_cast<float>(v.y());
-        z_ += static_cast<float>(z);
-        w_ += static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(v.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(v.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) + static_cast<double>(z));
+        w_ = static_cast<float>(static_cast<double>(w_) + static_cast<double>(w));
 #endif
         return *this;
     }
@@ -844,10 +844,10 @@ class Vector4<float>
                                 static_cast<float>(v.x()), static_cast<float>(x));
         data_ = _mm_add_ps(data_, rhs);
 #else
-        x_ += static_cast<float>(x);
-        y_ += static_cast<float>(v.x());
-        z_ += static_cast<float>(v.y());
-        w_ += static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(v.x()));
+        z_ = static_cast<float>(static_cast<double>(z_) + static_cast<double>(v.y()));
+        w_ = static_cast<float>(static_cast<double>(w_) + static_cast<double>(w));
 #endif
         return *this;
     }
@@ -860,10 +860,10 @@ class Vector4<float>
                                 static_cast<float>(y), static_cast<float>(x));
         data_ = _mm_add_ps(data_, rhs);
 #else
-        x_ += static_cast<float>(x);
-        y_ += static_cast<float>(y);
-        z_ += static_cast<float>(v.x());
-        w_ += static_cast<float>(v.y());
+        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(y));
+        z_ = static_cast<float>(static_cast<double>(z_) + static_cast<double>(v.x()));
+        w_ = static_cast<float>(static_cast<double>(w_) + static_cast<double>(v.y()));
 #endif
         return *this;
     }
@@ -876,10 +876,10 @@ class Vector4<float>
                                 static_cast<float>(v1.y()), static_cast<float>(v1.x()));
         data_ = _mm_add_ps(data_, rhs);
 #else
-        x_ += static_cast<float>(v1.x());
-        y_ += static_cast<float>(v1.y());
-        z_ += static_cast<float>(v2.x());
-        w_ += static_cast<float>(v2.y());
+        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(v1.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(v1.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) + static_cast<double>(v2.x()));
+        w_ = static_cast<float>(static_cast<double>(w_) + static_cast<double>(v2.y()));
 #endif
         return *this;
     }
@@ -892,10 +892,10 @@ class Vector4<float>
                                 static_cast<float>(v.y()), static_cast<float>(v.x()));
         data_ = _mm_add_ps(data_, rhs);
 #else
-        x_ += static_cast<float>(v.x());
-        y_ += static_cast<float>(v.y());
-        z_ += static_cast<float>(v.z());
-        w_ += static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(v.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(v.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) + static_cast<double>(v.z()));
+        w_ = static_cast<float>(static_cast<double>(w_) + static_cast<double>(w));
 #endif
         return *this;
     }
@@ -908,10 +908,10 @@ class Vector4<float>
                                 static_cast<float>(v.x()), static_cast<float>(x));
         data_ = _mm_add_ps(data_, rhs);
 #else
-        x_ += static_cast<float>(x);
-        y_ += static_cast<float>(v.x());
-        z_ += static_cast<float>(v.y());
-        w_ += static_cast<float>(v.z());
+        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(v.x()));
+        z_ = static_cast<float>(static_cast<double>(z_) + static_cast<double>(v.y()));
+        w_ = static_cast<float>(static_cast<double>(w_) + static_cast<double>(v.z()));
 #endif
         return *this;
     }
@@ -924,10 +924,10 @@ class Vector4<float>
                                 static_cast<float>(v.y()), static_cast<float>(v.x()));
         data_ = _mm_add_ps(data_, rhs);
 #else
-        x_ += static_cast<float>(v.x_);
-        y_ += static_cast<float>(v.y_);
-        z_ += static_cast<float>(v.z_);
-        w_ += static_cast<float>(v.w_);
+        x_ = static_cast<float>(static_cast<double>(x_) + static_cast<double>(v.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) + static_cast<double>(v.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) + static_cast<double>(v.z()));
+        w_ = static_cast<float>(static_cast<double>(w_) + static_cast<double>(v.w()));
 #endif
         return *this;
     }
@@ -940,10 +940,10 @@ class Vector4<float>
                                 static_cast<float>(x));
         data_ = _mm_sub_ps(data_, rhs);
 #else
-        x_ -= static_cast<float>(x);
-        y_ -= static_cast<float>(y);
-        z_ -= static_cast<float>(z);
-        w_ -= static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) - static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) - static_cast<double>(y));
+        z_ = static_cast<float>(static_cast<double>(z_) - static_cast<double>(z));
+        w_ = static_cast<float>(static_cast<double>(w_) - static_cast<double>(w));
 #endif
         return *this;
     }
@@ -956,10 +956,10 @@ class Vector4<float>
                                 static_cast<float>(v.y()), static_cast<float>(v.x()));
         data_ = _mm_sub_ps(data_, rhs);
 #else
-        x_ -= static_cast<float>(v.x());
-        y_ -= static_cast<float>(v.y());
-        z_ -= static_cast<float>(z);
-        w_ -= static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) - static_cast<double>(v.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) - static_cast<double>(v.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) - static_cast<double>(z));
+        w_ = static_cast<float>(static_cast<double>(w_) - static_cast<double>(w));
 #endif
         return *this;
     }
@@ -972,10 +972,10 @@ class Vector4<float>
                                 static_cast<float>(v.x()), static_cast<float>(x));
         data_ = _mm_sub_ps(data_, rhs);
 #else
-        x_ -= static_cast<float>(x);
-        y_ -= static_cast<float>(v.x());
-        z_ -= static_cast<float>(v.y());
-        w_ -= static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) - static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) - static_cast<double>(v.x()));
+        z_ = static_cast<float>(static_cast<double>(z_) - static_cast<double>(v.y()));
+        w_ = static_cast<float>(static_cast<double>(w_) - static_cast<double>(w));
 #endif
         return *this;
     }
@@ -988,10 +988,10 @@ class Vector4<float>
                                 static_cast<float>(y), static_cast<float>(x));
         data_ = _mm_sub_ps(data_, rhs);
 #else
-        x_ -= static_cast<float>(x);
-        y_ -= static_cast<float>(y);
-        z_ -= static_cast<float>(v.x());
-        w_ -= static_cast<float>(v.y());
+        x_ = static_cast<float>(static_cast<double>(x_) - static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) - static_cast<double>(y));
+        z_ = static_cast<float>(static_cast<double>(z_) - static_cast<double>(v.x()));
+        w_ = static_cast<float>(static_cast<double>(w_) - static_cast<double>(v.y()));
 #endif
         return *this;
     }
@@ -1004,10 +1004,10 @@ class Vector4<float>
                                 static_cast<float>(v1.y()), static_cast<float>(v1.x()));
         data_ = _mm_sub_ps(data_, rhs);
 #else
-        x_ -= static_cast<float>(v1.x());
-        y_ -= static_cast<float>(v1.y());
-        z_ -= static_cast<float>(v2.x());
-        w_ -= static_cast<float>(v2.y());
+        x_ = static_cast<float>(static_cast<double>(x_) - static_cast<double>(v1.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) - static_cast<double>(v1.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) - static_cast<double>(v2.x()));
+        w_ = static_cast<float>(static_cast<double>(w_) - static_cast<double>(v2.y()));
 #endif
         return *this;
     }
@@ -1020,10 +1020,10 @@ class Vector4<float>
                                 static_cast<float>(v.y()), static_cast<float>(v.x()));
         data_ = _mm_sub_ps(data_, rhs);
 #else
-        x_ -= static_cast<float>(v.x());
-        y_ -= static_cast<float>(v.y());
-        z_ -= static_cast<float>(v.z());
-        w_ -= static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) - static_cast<double>(v.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) - static_cast<double>(v.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) - static_cast<double>(v.z()));
+        w_ = static_cast<float>(static_cast<double>(w_) - static_cast<double>(w));
 #endif
         return *this;
     }
@@ -1036,10 +1036,10 @@ class Vector4<float>
                                 static_cast<float>(v.x()), static_cast<float>(x));
         data_ = _mm_sub_ps(data_, rhs);
 #else
-        x_ -= static_cast<float>(x);
-        y_ -= static_cast<float>(v.x());
-        z_ -= static_cast<float>(v.y());
-        w_ -= static_cast<float>(v.z());
+        x_ = static_cast<float>(static_cast<double>(x_) - static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) - static_cast<double>(v.x()));
+        z_ = static_cast<float>(static_cast<double>(z_) - static_cast<double>(v.y()));
+        w_ = static_cast<float>(static_cast<double>(w_) - static_cast<double>(v.z()));
 #endif
         return *this;
     }
@@ -1052,10 +1052,10 @@ class Vector4<float>
                                 static_cast<float>(v.y()), static_cast<float>(v.x()));
         data_ = _mm_sub_ps(data_, rhs);
 #else
-        x_ -= static_cast<float>(v.x_);
-        y_ -= static_cast<float>(v.y_);
-        z_ -= static_cast<float>(v.z_);
-        w_ -= static_cast<float>(v.w_);
+        x_ = static_cast<float>(static_cast<double>(x_) - static_cast<double>(v.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) - static_cast<double>(v.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) - static_cast<double>(v.z()));
+        w_ = static_cast<float>(static_cast<double>(w_) - static_cast<double>(v.w()));
 #endif
         return *this;
     }
@@ -1068,10 +1068,10 @@ class Vector4<float>
                                 static_cast<float>(x));
         data_ = _mm_mul_ps(data_, rhs);
 #else
-        x_ *= static_cast<float>(x);
-        y_ *= static_cast<float>(y);
-        z_ *= static_cast<float>(z);
-        w_ *= static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(y));
+        z_ = static_cast<float>(static_cast<double>(z_) * static_cast<double>(z));
+        w_ = static_cast<float>(static_cast<double>(w_) * static_cast<double>(w));
 #endif
         return *this;
     }
@@ -1084,10 +1084,10 @@ class Vector4<float>
                                 static_cast<float>(v.y()), static_cast<float>(v.x()));
         data_ = _mm_mul_ps(data_, rhs);
 #else
-        x_ *= static_cast<float>(v.x());
-        y_ *= static_cast<float>(v.y());
-        z_ *= static_cast<float>(z);
-        w_ *= static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(v.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(v.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) * static_cast<double>(z));
+        w_ = static_cast<float>(static_cast<double>(w_) * static_cast<double>(w));
 #endif
         return *this;
     }
@@ -1100,10 +1100,10 @@ class Vector4<float>
                                 static_cast<float>(v.x()), static_cast<float>(x));
         data_ = _mm_mul_ps(data_, rhs);
 #else
-        x_ *= static_cast<float>(x);
-        y_ *= static_cast<float>(v.x());
-        z_ *= static_cast<float>(v.y());
-        w_ *= static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(v.x()));
+        z_ = static_cast<float>(static_cast<double>(z_) * static_cast<double>(v.y()));
+        w_ = static_cast<float>(static_cast<double>(w_) * static_cast<double>(w));
 #endif
         return *this;
     }
@@ -1116,10 +1116,10 @@ class Vector4<float>
                                 static_cast<float>(y), static_cast<float>(x));
         data_ = _mm_mul_ps(data_, rhs);
 #else
-        x_ *= static_cast<float>(x);
-        y_ *= static_cast<float>(y);
-        z_ *= static_cast<float>(v.x());
-        w_ *= static_cast<float>(v.y());
+        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(y));
+        z_ = static_cast<float>(static_cast<double>(z_) * static_cast<double>(v.x()));
+        w_ = static_cast<float>(static_cast<double>(w_) * static_cast<double>(v.y()));
 #endif
         return *this;
     }
@@ -1132,10 +1132,10 @@ class Vector4<float>
                                 static_cast<float>(v1.y()), static_cast<float>(v1.x()));
         data_ = _mm_mul_ps(data_, rhs);
 #else
-        x_ *= static_cast<float>(v1.x());
-        y_ *= static_cast<float>(v1.y());
-        z_ *= static_cast<float>(v2.x());
-        w_ *= static_cast<float>(v2.y());
+        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(v1.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(v1.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) * static_cast<double>(v2.x()));
+        w_ = static_cast<float>(static_cast<double>(w_) * static_cast<double>(v2.y()));
 #endif
         return *this;
     }
@@ -1148,10 +1148,10 @@ class Vector4<float>
                                 static_cast<float>(v.y()), static_cast<float>(v.x()));
         data_ = _mm_mul_ps(data_, rhs);
 #else
-        x_ *= static_cast<float>(v.x());
-        y_ *= static_cast<float>(v.y());
-        z_ *= static_cast<float>(v.z());
-        w_ *= static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(v.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(v.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) * static_cast<double>(v.z()));
+        w_ = static_cast<float>(static_cast<double>(w_) * static_cast<double>(w));
 #endif
         return *this;
     }
@@ -1164,10 +1164,10 @@ class Vector4<float>
                                 static_cast<float>(v.x()), static_cast<float>(x));
         data_ = _mm_mul_ps(data_, rhs);
 #else
-        x_ *= static_cast<float>(x);
-        y_ *= static_cast<float>(v.x());
-        z_ *= static_cast<float>(v.y());
-        w_ *= static_cast<float>(v.z());
+        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(v.x()));
+        z_ = static_cast<float>(static_cast<double>(z_) * static_cast<double>(v.y()));
+        w_ = static_cast<float>(static_cast<double>(w_) * static_cast<double>(v.z()));
 #endif
         return *this;
     }
@@ -1180,10 +1180,10 @@ class Vector4<float>
                                 static_cast<float>(v.y()), static_cast<float>(v.x()));
         data_ = _mm_mul_ps(data_, rhs);
 #else
-        x_ *= static_cast<float>(v.x_);
-        y_ *= static_cast<float>(v.y_);
-        z_ *= static_cast<float>(v.z_);
-        w_ *= static_cast<float>(v.w_);
+        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(v.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(v.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) * static_cast<double>(v.z()));
+        w_ = static_cast<float>(static_cast<double>(w_) * static_cast<double>(v.w()));
 #endif
         return *this;
     }
@@ -1197,10 +1197,10 @@ class Vector4<float>
                                 static_cast<float>(x));
         data_ = _mm_div_ps(data_, rhs);
 #else
-        x_ /= static_cast<float>(x);
-        y_ /= static_cast<float>(y);
-        z_ /= static_cast<float>(z);
-        w_ /= static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) / static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) / static_cast<double>(y));
+        z_ = static_cast<float>(static_cast<double>(z_) / static_cast<double>(z));
+        w_ = static_cast<float>(static_cast<double>(w_) / static_cast<double>(w));
 #endif
         return *this;
     }
@@ -1214,10 +1214,10 @@ class Vector4<float>
                                 static_cast<float>(v.y()), static_cast<float>(v.x()));
         data_ = _mm_div_ps(data_, rhs);
 #else
-        x_ /= static_cast<float>(v.x());
-        y_ /= static_cast<float>(v.y());
-        z_ /= static_cast<float>(z);
-        w_ /= static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) / static_cast<double>(v.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) / static_cast<double>(v.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) / static_cast<double>(z));
+        w_ = static_cast<float>(static_cast<double>(w_) / static_cast<double>(w));
 #endif
         return *this;
     }
@@ -1231,10 +1231,10 @@ class Vector4<float>
                                 static_cast<float>(v.x()), static_cast<float>(x));
         data_ = _mm_div_ps(data_, rhs);
 #else
-        x_ /= static_cast<float>(x);
-        y_ /= static_cast<float>(v.x());
-        z_ /= static_cast<float>(v.y());
-        w_ /= static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) / static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) / static_cast<double>(v.x()));
+        z_ = static_cast<float>(static_cast<double>(z_) / static_cast<double>(v.y()));
+        w_ = static_cast<float>(static_cast<double>(w_) / static_cast<double>(w));
 #endif
         return *this;
     }
@@ -1248,10 +1248,10 @@ class Vector4<float>
                                 static_cast<float>(y), static_cast<float>(x));
         data_ = _mm_div_ps(data_, rhs);
 #else
-        x_ /= static_cast<float>(x);
-        y_ /= static_cast<float>(y);
-        z_ /= static_cast<float>(v.x());
-        w_ /= static_cast<float>(v.y());
+        x_ = static_cast<float>(static_cast<double>(x_) / static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) / static_cast<double>(y));
+        z_ = static_cast<float>(static_cast<double>(z_) / static_cast<double>(v.x()));
+        w_ = static_cast<float>(static_cast<double>(w_) / static_cast<double>(v.y()));
 #endif
         return *this;
     }
@@ -1265,10 +1265,10 @@ class Vector4<float>
                                 static_cast<float>(v1.y()), static_cast<float>(v1.x()));
         data_ = _mm_div_ps(data_, rhs);
 #else
-        x_ /= static_cast<float>(v1.x());
-        y_ /= static_cast<float>(v1.y());
-        z_ /= static_cast<float>(v2.x());
-        w_ /= static_cast<float>(v2.y());
+        x_ = static_cast<float>(static_cast<double>(x_) / static_cast<double>(v1.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) / static_cast<double>(v1.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) / static_cast<double>(v2.x()));
+        w_ = static_cast<float>(static_cast<double>(w_) / static_cast<double>(v2.y()));
 #endif
         return *this;
     }
@@ -1282,10 +1282,10 @@ class Vector4<float>
                                 static_cast<float>(v.y()), static_cast<float>(v.x()));
         data_ = _mm_div_ps(data_, rhs);
 #else
-        x_ /= static_cast<float>(v.x());
-        y_ /= static_cast<float>(v.y());
-        z_ /= static_cast<float>(v.z());
-        w_ /= static_cast<float>(w);
+        x_ = static_cast<float>(static_cast<double>(x_) / static_cast<double>(v.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) / static_cast<double>(v.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) / static_cast<double>(v.z()));
+        w_ = static_cast<float>(static_cast<double>(w_) / static_cast<double>(w));
 #endif
         return *this;
     }
@@ -1299,10 +1299,10 @@ class Vector4<float>
                                 static_cast<float>(v.x()), static_cast<float>(x));
         data_ = _mm_div_ps(data_, rhs);
 #else
-        x_ /= static_cast<float>(x);
-        y_ /= static_cast<float>(v.x());
-        z_ /= static_cast<float>(v.y());
-        w_ /= static_cast<float>(v.z());
+        x_ = static_cast<float>(static_cast<double>(x_) / static_cast<double>(x));
+        y_ = static_cast<float>(static_cast<double>(y_) / static_cast<double>(v.x()));
+        z_ = static_cast<float>(static_cast<double>(z_) / static_cast<double>(v.y()));
+        w_ = static_cast<float>(static_cast<double>(w_) / static_cast<double>(v.z()));
 #endif
         return *this;
     }
@@ -1315,10 +1315,10 @@ class Vector4<float>
                                 static_cast<float>(v.y()), static_cast<float>(v.x()));
         data_ = _mm_div_ps(data_, rhs);
 #else
-        x_ /= static_cast<float>(v.x_);
-        y_ /= static_cast<float>(v.y_);
-        z_ /= static_cast<float>(v.z_);
-        w_ /= static_cast<float>(v.w_);
+        x_ = static_cast<float>(static_cast<double>(x_) / static_cast<double>(v.x()));
+        y_ = static_cast<float>(static_cast<double>(y_) / static_cast<double>(v.y()));
+        z_ = static_cast<float>(static_cast<double>(z_) / static_cast<double>(v.z()));
+        w_ = static_cast<float>(static_cast<double>(w_) / static_cast<double>(v.w()));
 #endif
         return *this;
     }

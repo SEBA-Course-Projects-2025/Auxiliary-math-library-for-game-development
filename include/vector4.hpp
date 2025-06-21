@@ -1342,12 +1342,9 @@ class Vector4<float>
     {
 #ifdef USE_SSE
         __m128 squared = _mm_mul_ps(data_, data_);
-        __m128 shuf1 = _mm_movehdup_ps(squared);
-        __m128 sums1 = _mm_add_ps(squared, shuf1);
-        __m128 shuf2 = _mm_shuffle_ps(sums1, sums1, _MM_SHUFFLE(1, 1, 1, 1));
-        __m128 sum = _mm_add_ss(sums1, shuf2);
-
-        float length = _mm_cvtss_f32(_mm_sqrt_ss(sum));
+        __m128 temp = _mm_hadd_ps(squared, squared);
+        temp = _mm_hadd_ps(temp, temp);
+        float length = _mm_cvtss_f32(_mm_sqrt_ss(temp));
 
         assert(length > 0.0f && "Cannot normalize a zero-length vector");
 
@@ -1379,6 +1376,210 @@ class Vector4<float>
         y_ = -y_;
         z_ = -z_;
         w_ = -w_;
+#endif
+        return *this;
+    }
+
+    float magnitude_sqr() const
+    {
+#ifdef USE_SSE
+        __m128 mul = _mm_mul_ps(data_, data_);
+        __m128 sum = _mm_hadd_ps(mul, mul);
+        sum = _mm_hadd_ps(sum, sum);
+        return _mm_cvtss_f32(sum);
+#else
+        return static_cast<float>(static_cast<double>(x_) * static_cast<double>(x_) +
+                                  static_cast<double>(y_) * static_cast<double>(y_) +
+                                  static_cast<double>(z_) * static_cast<double>(z_) +
+                                  static_cast<double>(w_) * static_cast<double>(w_));
+#endif
+    }
+
+    float magnitude() const
+    {
+#ifdef USE_SSE
+        __m128 mul = _mm_mul_ps(data_, data_);
+        __m128 sum = _mm_hadd_ps(mul, mul);
+        sum = _mm_hadd_ps(sum, sum);
+        return _mm_cvtss_f32(_mm_sqrt_ss(sum));
+#else
+        return static_cast<float>(std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
+                                            static_cast<double>(y_) * static_cast<double>(y_) +
+                                            static_cast<double>(z_) * static_cast<double>(z_) +
+                                            static_cast<double>(w_) * static_cast<double>(w_)));
+#endif
+    }
+
+    float dot(const Vector4 &other) const
+    {
+#ifdef USE_SSE
+        __m128 mul = _mm_mul_ps(data_, other.data_);
+        __m128 sum = _mm_hadd_ps(mul, mul);
+        sum = _mm_hadd_ps(sum, sum);
+        return _mm_cvtss_f32(sum);
+#else
+        return static_cast<float>(static_cast<double>(x_) * static_cast<double>(other.x()) +
+                                  static_cast<double>(y_) * static_cast<double>(other.y()) +
+                                  static_cast<double>(z_) * static_cast<double>(other.z()) +
+                                  static_cast<double>(w_) * static_cast<double>(other.w()));
+#endif
+    }
+
+    float cos(const Vector4 &other) const
+    {
+#ifdef USE_SSE
+        __m128 mul = _mm_mul_ps(data_, other.data_);
+        __m128 dot = _mm_hadd_ps(mul, mul);
+        dot = _mm_hadd_ps(dot, dot);
+
+        __m128 mag1 = _mm_mul_ps(data_, data_);
+        mag1 = _mm_hadd_ps(mag1, mag1);
+        mag1 = _mm_hadd_ps(mag1, mag1);
+        mag1 = _mm_sqrt_ps(mag1);
+
+        __m128 mag2 = _mm_mul_ps(other.data_, other.data_);
+        mag2 = _mm_hadd_ps(mag2, mag2);
+        mag2 = _mm_hadd_ps(mag2, mag2);
+        mag2 = _mm_sqrt_ps(mag2);
+
+        float m1 = _mm_cvtss_f32(mag1);
+        float m2 = _mm_cvtss_f32(mag2);
+
+        assert(m1 > 0.0f && m2 > 0.0f && "Cannot compute angle with a zero-magnitude vector");
+
+        __m128 mag_product = _mm_mul_ps(mag1, mag2);
+        __m128 cos_theta = _mm_div_ps(dot, mag_product);
+
+        return _mm_cvtss_f32(cos_theta);
+#else
+        const double dotProduct = static_cast<double>(x_) * static_cast<double>(other.x()) +
+                                  static_cast<double>(y_) * static_cast<double>(other.y()) +
+                                  static_cast<double>(z_) * static_cast<double>(other.z()) +
+                                  static_cast<double>(w_) * static_cast<double>(other.w());
+
+        const double mag1 = std::sqrt(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_ +
+                                      static_cast<double>(z_) * z_ + static_cast<double>(w_) * w_);
+
+        const double mag2 = std::sqrt(static_cast<double>(other.x()) * other.x() +
+                                      static_cast<double>(other.y()) * other.y() +
+                                      static_cast<double>(other.z()) * other.z() +
+                                      static_cast<double>(other.w()) * other.w());
+
+        assert(mag1 > 0.0f && mag2 > 0.0f && "Cannot compute angle with a zero-magnitude vector");
+
+        const double cosTheta = dotProduct / (mag1 * mag2);
+        return static_cast<float>(cosTheta);
+#endif
+    }
+
+    float angle(const Vector4 &other) const
+    {
+#ifdef USE_SSE
+        __m128 mul = _mm_mul_ps(data_, other.data_);
+        __m128 dot = _mm_hadd_ps(mul, mul);
+        dot = _mm_hadd_ps(dot, dot);
+
+        __m128 mag1 = _mm_mul_ps(data_, data_);
+        mag1 = _mm_hadd_ps(mag1, mag1);
+        mag1 = _mm_hadd_ps(mag1, mag1);
+        mag1 = _mm_sqrt_ps(mag1);
+
+        __m128 mag2 = _mm_mul_ps(other.data_, other.data_);
+        mag2 = _mm_hadd_ps(mag2, mag2);
+        mag2 = _mm_hadd_ps(mag2, mag2);
+        mag2 = _mm_sqrt_ps(mag2);
+
+        float m1 = _mm_cvtss_f32(mag1);
+        float m2 = _mm_cvtss_f32(mag2);
+        assert(m1 > 0.0f && m2 > 0.0f && "Cannot compute angle with a zero-magnitude vector");
+
+        __m128 mag_product = _mm_mul_ps(mag1, mag2);
+        __m128 cos_theta = _mm_div_ps(dot, mag_product);
+
+        float cos_scalar = _mm_cvtss_f32(cos_theta);
+        return std::acos(cos_scalar);
+#else
+        const double dotProduct = static_cast<double>(x_) * static_cast<double>(other.x()) +
+                                  static_cast<double>(y_) * static_cast<double>(other.y()) +
+                                  static_cast<double>(z_) * static_cast<double>(other.z()) +
+                                  static_cast<double>(w_) * static_cast<double>(other.w());
+
+        const double mag1 = std::sqrt(static_cast<double>(x_) * x_ + static_cast<double>(y_) * y_ +
+                                      static_cast<double>(z_) * z_ + static_cast<double>(w_) * w_);
+
+        const double mag2 = std::sqrt(static_cast<double>(other.x()) * other.x() +
+                                      static_cast<double>(other.y()) * other.y() +
+                                      static_cast<double>(other.z()) * other.z() +
+                                      static_cast<double>(other.w()) * other.w());
+
+        assert(mag1 > 0.0f && mag2 > 0.0f && "Cannot compute angle with a zero-magnitude vector");
+
+        const double cosTheta = dotProduct / (mag1 * mag2);
+        return static_cast<float>(std::acos(cosTheta));
+#endif
+    }
+
+    template <arithmetic T>
+    Vector4 &mad(const Vector4 &other, T scalar)
+    {
+#ifdef USE_SSE
+        __m128 scale = _mm_set1_ps(static_cast<float>(scalar));
+        __m128 scaled = _mm_mul_ps(other.data_, scale);
+        data_ = _mm_add_ps(data_, scaled);
+#else
+        x_ = static_cast<float>(static_cast<double>(x_) +
+                                static_cast<double>(other.x()) * static_cast<double>(scalar));
+        y_ = static_cast<float>(static_cast<double>(y_) +
+                                static_cast<double>(other.y()) * static_cast<double>(scalar));
+        z_ = static_cast<float>(static_cast<double>(z_) +
+                                static_cast<double>(other.z()) * static_cast<double>(scalar));
+        w_ = static_cast<float>(static_cast<double>(w_) +
+                                static_cast<double>(other.w()) * static_cast<double>(scalar));
+#endif
+        return *this;
+    }
+
+    bool equal(const Vector4 &other) const
+    {
+        constexpr float epsilon = 1e-5f;
+#ifdef USE_SSE
+        __m128 diff = _mm_sub_ps(data_, other.data_);
+        __m128 abs_diff = _mm_andnot_ps(_mm_set1_ps(-0.0f), diff);
+        __m128 cmp = _mm_cmplt_ps(abs_diff, _mm_set1_ps(epsilon));
+        return _mm_movemask_ps(cmp) == 0xF;
+#else
+        return std::abs(static_cast<double>(x_) - static_cast<double>(other.x_)) < epsilon &&
+               std::abs(static_cast<double>(y_) - static_cast<double>(other.y_)) < epsilon &&
+               std::abs(static_cast<double>(z_) - static_cast<double>(other.z_)) < epsilon &&
+               std::abs(static_cast<double>(w_) - static_cast<double>(other.w_)) < epsilon;
+#endif
+    }
+
+    bool operator==(const Vector4 &other) const noexcept
+    {
+        constexpr float epsilon = 1e-5f;
+#ifdef USE_SSE
+        __m128 diff = _mm_sub_ps(data_, other.data_);
+        __m128 abs_diff = _mm_andnot_ps(_mm_set1_ps(-0.0f), diff);
+        __m128 cmp = _mm_cmplt_ps(abs_diff, _mm_set1_ps(epsilon));
+        return _mm_movemask_ps(cmp) == 0xF;
+#else
+        return std::abs(static_cast<double>(x_) - static_cast<double>(other.x_)) < epsilon &&
+               std::abs(static_cast<double>(y_) - static_cast<double>(other.y_)) < epsilon &&
+               std::abs(static_cast<double>(z_) - static_cast<double>(other.z_)) < epsilon &&
+               std::abs(static_cast<double>(w_) - static_cast<double>(other.w_)) < epsilon;
+#endif
+    }
+
+    Vector4 &operator=(const Vector4 &other) noexcept
+    {
+#ifdef USE_SSE
+        data_ = other.data_;
+#else
+        x_ = other.x_;
+        y_ = other.y_;
+        z_ = other.z_;
+        w_ = other.w_;
 #endif
         return *this;
     }

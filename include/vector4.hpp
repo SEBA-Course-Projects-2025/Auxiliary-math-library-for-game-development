@@ -4,6 +4,12 @@
 #include "vector2.hpp"
 #include "vector3.hpp"
 
+// #define USE_SSE
+
+#ifdef USE_SSE
+#include <immintrin.h>
+#endif
+
 namespace ksemath
 {
 template <typename V>
@@ -609,4 +615,780 @@ class Vector4
 using vec4f = Vector4<float>;
 using vec4d = Vector4<double>;
 using vec4l = Vector4<long double>;
+
+template <>
+class Vector4<float>
+{
+   public:
+    template <arithmetic A, arithmetic B, arithmetic C, arithmetic D>
+    Vector4(A x, B y, C z, D w)
+#ifdef USE_SSE
+        : data_(_mm_set_ps(static_cast<float>(w), static_cast<float>(z), static_cast<float>(y),
+                           static_cast<float>(x)))
+#else
+        : x_(static_cast<float>(x)),
+          y_(static_cast<float>(y)),
+          z_(static_cast<float>(z)),
+          w_(static_cast<float>(w))
+#endif
+    {
+    }
+
+    template <arithmetic C, arithmetic D, arithmetic V2>
+    Vector4(Vector2<V2> const &v, C z, D w) noexcept
+#ifdef USE_SSE
+        : data_(_mm_set_ps(static_cast<float>(w), static_cast<float>(z), static_cast<float>(v.y()),
+                           static_cast<float>(v.x())))
+#else
+        : x_(static_cast<float>(v.x())),
+          y_(static_cast<float>(v.y())),
+          z_(static_cast<float>(z)),
+          w_(static_cast<float>(w))
+#endif
+    {
+    }
+
+    template <arithmetic A, arithmetic D, arithmetic V2>
+    Vector4(A x, Vector2<V2> const &v, D w)
+#ifdef USE_SSE
+        : data_(_mm_set_ps(static_cast<float>(w), static_cast<float>(v.y()),
+                           static_cast<float>(v.x()), static_cast<float>(x)))
+#else
+        : x_(static_cast<float>(x)),
+          y_(static_cast<float>(v.x())),
+          z_(static_cast<float>(v.y())),
+          w_(static_cast<float>(w))
+#endif
+    {
+    }
+
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4(A x, B y, Vector2<V2> const &v)
+#ifdef USE_SSE
+        : data_(_mm_set_ps(static_cast<float>(v.y()), static_cast<float>(v.x()),
+                           static_cast<float>(y), static_cast<float>(x)))
+#else
+        : x_(static_cast<float>(x)),
+          y_(static_cast<float>(y)),
+          z_(static_cast<float>(v.x())),
+          w_(static_cast<float>(v.y()))
+#endif
+    {
+    }
+
+    template <arithmetic V21, arithmetic V22>
+    Vector4(Vector2<V21> const &v1, Vector2<V22> const &v2)
+#ifdef USE_SSE
+        : data_(_mm_set_ps(static_cast<float>(v2.y()), static_cast<float>(v2.x()),
+                           static_cast<float>(v1.y()), static_cast<float>(v1.x())))
+#else
+        : x_(static_cast<float>(v1.x())),
+          y_(static_cast<float>(v1.y())),
+          z_(static_cast<float>(v2.x())),
+          w_(static_cast<float>(v2.y()))
+#endif
+    {
+    }
+
+    template <arithmetic D, arithmetic V3>
+    Vector4(Vector3<V3> const &v, D w)
+#ifdef USE_SSE
+        : data_(_mm_set_ps(static_cast<float>(w), static_cast<float>(v.z()),
+                           static_cast<float>(v.y()), static_cast<float>(v.x())))
+#else
+        : x_(static_cast<float>(v.x())),
+          y_(static_cast<float>(v.y())),
+          z_(static_cast<float>(v.z())),
+          w_(static_cast<float>(w))
+#endif
+    {
+    }
+
+    template <arithmetic A, arithmetic V3>
+    Vector4(A x, Vector3<V3> const &v)
+#ifdef USE_SSE
+        : data_(_mm_set_ps(static_cast<float>(v.z()), static_cast<float>(v.y()),
+                           static_cast<float>(v.x()), static_cast<float>(x)))
+#else
+        : x_(static_cast<float>(x)),
+          y_(static_cast<float>(v.x())),
+          z_(static_cast<float>(v.y())),
+          w_(static_cast<float>(v.z()))
+#endif
+    {
+    }
+
+    float x() const
+    {
+#ifdef USE_SSE
+        return _mm_cvtss_f32(data_);
+#else
+        return x_;
+#endif
+    }
+
+    float y() const
+    {
+#ifdef USE_SSE
+        __m128 y_vec = _mm_shuffle_ps(data_, data_, _MM_SHUFFLE(1, 1, 1, 1));
+        return _mm_cvtss_f32(y_vec);
+#else
+        return y_;
+#endif
+    }
+
+    float z() const
+    {
+#ifdef USE_SSE
+        __m128 z_vec = _mm_shuffle_ps(data_, data_, _MM_SHUFFLE(2, 2, 2, 2));
+        return _mm_cvtss_f32(z_vec);
+#else
+        return z_;
+#endif
+    }
+
+    float w() const
+    {
+#ifdef USE_SSE
+        __m128 w_vec = _mm_shuffle_ps(data_, data_, _MM_SHUFFLE(3, 3, 3, 3));
+        return _mm_cvtss_f32(w_vec);
+#else
+        return w_;
+#endif
+    }
+
+    template <arithmetic T>
+    void setX(T x)
+    {
+#ifdef USE_SSE
+        __m128 new_x = _mm_set_ss(static_cast<float>(x));
+        data_ = _mm_move_ss(data_, new_x);
+#else
+        x_ = static_cast<float>(x);
+#endif
+    }
+
+    template <arithmetic T>
+    void setY(T y)
+    {
+#ifdef USE_SSE
+        __m128 new_y = _mm_set1_ps(static_cast<float>(y));
+        __m128 mask = _mm_castsi128_ps(_mm_set_epi32(0xFFFFFFFF, 0xFFFFFFFF, 0, 0xFFFFFFFF));
+        data_ = _mm_or_ps(_mm_and_ps(mask, data_), _mm_andnot_ps(mask, new_y));
+#else
+        y_ = static_cast<float>(y);
+#endif
+    }
+
+    template <arithmetic T>
+    void setZ(T z)
+    {
+#ifdef USE_SSE
+        __m128 new_z = _mm_set1_ps(static_cast<float>(z));
+        __m128 mask = _mm_castsi128_ps(_mm_set_epi32(0xFFFFFFFF, 0, 0xFFFFFFFF, 0xFFFFFFFF));
+        data_ = _mm_or_ps(_mm_and_ps(mask, data_), _mm_andnot_ps(mask, new_z));
+#else
+        z_ = static_cast<float>(z);
+#endif
+    }
+
+    template <arithmetic T>
+    void setW(T w)
+    {
+#ifdef USE_SSE
+        __m128 new_w = _mm_set1_ps(static_cast<float>(w));
+        __m128 mask = _mm_castsi128_ps(_mm_set_epi32(0, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF));
+        data_ = _mm_or_ps(_mm_and_ps(mask, data_), _mm_andnot_ps(mask, new_w));
+#else
+        w_ = static_cast<float>(w);
+#endif
+    }
+
+    template <arithmetic A, arithmetic B, arithmetic C, arithmetic D>
+    Vector4 &add(A x, B y, C z, D w)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(z), static_cast<float>(y),
+                                static_cast<float>(x));
+        data_ = _mm_add_ps(data_, rhs);
+#else
+        x_ += static_cast<float>(x);
+        y_ += static_cast<float>(y);
+        z_ += static_cast<float>(z);
+        w_ += static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic C, arithmetic D, arithmetic V2>
+    Vector4 &add(Vector2<V2> const &v, C z, D w)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(z),
+                                static_cast<float>(v.y()), static_cast<float>(v.x()));
+        data_ = _mm_add_ps(data_, rhs);
+#else
+        x_ += static_cast<float>(v.x());
+        y_ += static_cast<float>(v.y());
+        z_ += static_cast<float>(z);
+        w_ += static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic D, arithmetic V2>
+    Vector4 &add(A x, Vector2<V2> const &v, D w)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(v.y()),
+                                static_cast<float>(v.x()), static_cast<float>(x));
+        data_ = _mm_add_ps(data_, rhs);
+#else
+        x_ += static_cast<float>(x);
+        y_ += static_cast<float>(v.x());
+        z_ += static_cast<float>(v.y());
+        w_ += static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &add(A x, B y, Vector2<V2> const &v)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v.y()), static_cast<float>(v.x()),
+                                static_cast<float>(y), static_cast<float>(x));
+        data_ = _mm_add_ps(data_, rhs);
+#else
+        x_ += static_cast<float>(x);
+        y_ += static_cast<float>(y);
+        z_ += static_cast<float>(v.x());
+        w_ += static_cast<float>(v.y());
+#endif
+        return *this;
+    }
+
+    template <arithmetic V21, arithmetic V22>
+    Vector4 &add(Vector2<V21> const &v1, Vector2<V22> const &v2)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v2.y()), static_cast<float>(v2.x()),
+                                static_cast<float>(v1.y()), static_cast<float>(v1.x()));
+        data_ = _mm_add_ps(data_, rhs);
+#else
+        x_ += static_cast<float>(v1.x());
+        y_ += static_cast<float>(v1.y());
+        z_ += static_cast<float>(v2.x());
+        w_ += static_cast<float>(v2.y());
+#endif
+        return *this;
+    }
+
+    template <arithmetic D, arithmetic V3>
+    Vector4 &add(Vector3<V3> const &v, D w)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(v.z()),
+                                static_cast<float>(v.y()), static_cast<float>(v.x()));
+        data_ = _mm_add_ps(data_, rhs);
+#else
+        x_ += static_cast<float>(v.x());
+        y_ += static_cast<float>(v.y());
+        z_ += static_cast<float>(v.z());
+        w_ += static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic V3>
+    Vector4 &add(A x, Vector3<V3> const &v)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v.z()), static_cast<float>(v.y()),
+                                static_cast<float>(v.x()), static_cast<float>(x));
+        data_ = _mm_add_ps(data_, rhs);
+#else
+        x_ += static_cast<float>(x);
+        y_ += static_cast<float>(v.x());
+        z_ += static_cast<float>(v.y());
+        w_ += static_cast<float>(v.z());
+#endif
+        return *this;
+    }
+
+    template <arithmetic V4>
+    Vector4 &add(const Vector4<V4> &v)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v.w()), static_cast<float>(v.z()),
+                                static_cast<float>(v.y()), static_cast<float>(v.x()));
+        data_ = _mm_add_ps(data_, rhs);
+#else
+        x_ += static_cast<float>(v.x_);
+        y_ += static_cast<float>(v.y_);
+        z_ += static_cast<float>(v.z_);
+        w_ += static_cast<float>(v.w_);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic B, arithmetic C, arithmetic D>
+    Vector4 &sub(A x, B y, C z, D w)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(z), static_cast<float>(y),
+                                static_cast<float>(x));
+        data_ = _mm_sub_ps(data_, rhs);
+#else
+        x_ -= static_cast<float>(x);
+        y_ -= static_cast<float>(y);
+        z_ -= static_cast<float>(z);
+        w_ -= static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic C, arithmetic D, arithmetic V2>
+    Vector4 &sub(Vector2<V2> const &v, C z, D w)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(z),
+                                static_cast<float>(v.y()), static_cast<float>(v.x()));
+        data_ = _mm_sub_ps(data_, rhs);
+#else
+        x_ -= static_cast<float>(v.x());
+        y_ -= static_cast<float>(v.y());
+        z_ -= static_cast<float>(z);
+        w_ -= static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic D, arithmetic V2>
+    Vector4 &sub(A x, Vector2<V2> const &v, D w)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(v.y()),
+                                static_cast<float>(v.x()), static_cast<float>(x));
+        data_ = _mm_sub_ps(data_, rhs);
+#else
+        x_ -= static_cast<float>(x);
+        y_ -= static_cast<float>(v.x());
+        z_ -= static_cast<float>(v.y());
+        w_ -= static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &sub(A x, B y, Vector2<V2> const &v)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v.y()), static_cast<float>(v.x()),
+                                static_cast<float>(y), static_cast<float>(x));
+        data_ = _mm_sub_ps(data_, rhs);
+#else
+        x_ -= static_cast<float>(x);
+        y_ -= static_cast<float>(y);
+        z_ -= static_cast<float>(v.x());
+        w_ -= static_cast<float>(v.y());
+#endif
+        return *this;
+    }
+
+    template <arithmetic V21, arithmetic V22>
+    Vector4 &sub(Vector2<V21> const &v1, Vector2<V22> const &v2)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v2.y()), static_cast<float>(v2.x()),
+                                static_cast<float>(v1.y()), static_cast<float>(v1.x()));
+        data_ = _mm_sub_ps(data_, rhs);
+#else
+        x_ -= static_cast<float>(v1.x());
+        y_ -= static_cast<float>(v1.y());
+        z_ -= static_cast<float>(v2.x());
+        w_ -= static_cast<float>(v2.y());
+#endif
+        return *this;
+    }
+
+    template <arithmetic D, arithmetic V3>
+    Vector4 &sub(Vector3<V3> const &v, D w)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(v.z()),
+                                static_cast<float>(v.y()), static_cast<float>(v.x()));
+        data_ = _mm_sub_ps(data_, rhs);
+#else
+        x_ -= static_cast<float>(v.x());
+        y_ -= static_cast<float>(v.y());
+        z_ -= static_cast<float>(v.z());
+        w_ -= static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic V3>
+    Vector4 &sub(A x, Vector3<V3> const &v)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v.z()), static_cast<float>(v.y()),
+                                static_cast<float>(v.x()), static_cast<float>(x));
+        data_ = _mm_sub_ps(data_, rhs);
+#else
+        x_ -= static_cast<float>(x);
+        y_ -= static_cast<float>(v.x());
+        z_ -= static_cast<float>(v.y());
+        w_ -= static_cast<float>(v.z());
+#endif
+        return *this;
+    }
+
+    template <arithmetic V4>
+    Vector4 &sub(const Vector4<V4> &v)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v.w()), static_cast<float>(v.z()),
+                                static_cast<float>(v.y()), static_cast<float>(v.x()));
+        data_ = _mm_sub_ps(data_, rhs);
+#else
+        x_ -= static_cast<float>(v.x_);
+        y_ -= static_cast<float>(v.y_);
+        z_ -= static_cast<float>(v.z_);
+        w_ -= static_cast<float>(v.w_);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic B, arithmetic C, arithmetic D>
+    Vector4 &mul(A x, B y, C z, D w)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(z), static_cast<float>(y),
+                                static_cast<float>(x));
+        data_ = _mm_mul_ps(data_, rhs);
+#else
+        x_ *= static_cast<float>(x);
+        y_ *= static_cast<float>(y);
+        z_ *= static_cast<float>(z);
+        w_ *= static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic C, arithmetic D, arithmetic V2>
+    Vector4 &mul(Vector2<V2> const &v, C z, D w)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(z),
+                                static_cast<float>(v.y()), static_cast<float>(v.x()));
+        data_ = _mm_mul_ps(data_, rhs);
+#else
+        x_ *= static_cast<float>(v.x());
+        y_ *= static_cast<float>(v.y());
+        z_ *= static_cast<float>(z);
+        w_ *= static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic D, arithmetic V2>
+    Vector4 &mul(A x, Vector2<V2> const &v, D w)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(v.y()),
+                                static_cast<float>(v.x()), static_cast<float>(x));
+        data_ = _mm_mul_ps(data_, rhs);
+#else
+        x_ *= static_cast<float>(x);
+        y_ *= static_cast<float>(v.x());
+        z_ *= static_cast<float>(v.y());
+        w_ *= static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &mul(A x, B y, Vector2<V2> const &v)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v.y()), static_cast<float>(v.x()),
+                                static_cast<float>(y), static_cast<float>(x));
+        data_ = _mm_mul_ps(data_, rhs);
+#else
+        x_ *= static_cast<float>(x);
+        y_ *= static_cast<float>(y);
+        z_ *= static_cast<float>(v.x());
+        w_ *= static_cast<float>(v.y());
+#endif
+        return *this;
+    }
+
+    template <arithmetic V21, arithmetic V22>
+    Vector4 &mul(Vector2<V21> const &v1, Vector2<V22> const &v2)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v2.y()), static_cast<float>(v2.x()),
+                                static_cast<float>(v1.y()), static_cast<float>(v1.x()));
+        data_ = _mm_mul_ps(data_, rhs);
+#else
+        x_ *= static_cast<float>(v1.x());
+        y_ *= static_cast<float>(v1.y());
+        z_ *= static_cast<float>(v2.x());
+        w_ *= static_cast<float>(v2.y());
+#endif
+        return *this;
+    }
+
+    template <arithmetic D, arithmetic V3>
+    Vector4 &mul(Vector3<V3> const &v, D w)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(v.z()),
+                                static_cast<float>(v.y()), static_cast<float>(v.x()));
+        data_ = _mm_mul_ps(data_, rhs);
+#else
+        x_ *= static_cast<float>(v.x());
+        y_ *= static_cast<float>(v.y());
+        z_ *= static_cast<float>(v.z());
+        w_ *= static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic V3>
+    Vector4 &mul(A x, Vector3<V3> const &v)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v.z()), static_cast<float>(v.y()),
+                                static_cast<float>(v.x()), static_cast<float>(x));
+        data_ = _mm_mul_ps(data_, rhs);
+#else
+        x_ *= static_cast<float>(x);
+        y_ *= static_cast<float>(v.x());
+        z_ *= static_cast<float>(v.y());
+        w_ *= static_cast<float>(v.z());
+#endif
+        return *this;
+    }
+
+    template <arithmetic V4>
+    Vector4 &mul(const Vector4<V4> &v)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v.w()), static_cast<float>(v.z()),
+                                static_cast<float>(v.y()), static_cast<float>(v.x()));
+        data_ = _mm_mul_ps(data_, rhs);
+#else
+        x_ *= static_cast<float>(v.x_);
+        y_ *= static_cast<float>(v.y_);
+        z_ *= static_cast<float>(v.z_);
+        w_ *= static_cast<float>(v.w_);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic B, arithmetic C, arithmetic D>
+    Vector4 &div(A x, B y, C z, D w)
+    {
+        assert(x != 0 && y != 0 && z != 0 && w != 0);
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(z), static_cast<float>(y),
+                                static_cast<float>(x));
+        data_ = _mm_div_ps(data_, rhs);
+#else
+        x_ /= static_cast<float>(x);
+        y_ /= static_cast<float>(y);
+        z_ /= static_cast<float>(z);
+        w_ /= static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic C, arithmetic D, arithmetic V2>
+    Vector4 &div(Vector2<V2> const &v, C z, D w)
+    {
+        assert(v.x() != 0 && v.y() != 0 && z != 0 && w != 0);
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(z),
+                                static_cast<float>(v.y()), static_cast<float>(v.x()));
+        data_ = _mm_div_ps(data_, rhs);
+#else
+        x_ /= static_cast<float>(v.x());
+        y_ /= static_cast<float>(v.y());
+        z_ /= static_cast<float>(z);
+        w_ /= static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic D, arithmetic V2>
+    Vector4 &div(A x, Vector2<V2> const &v, D w)
+    {
+        assert(x != 0 && v.x() != 0 && v.y() != 0 && w != 0);
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(v.y()),
+                                static_cast<float>(v.x()), static_cast<float>(x));
+        data_ = _mm_div_ps(data_, rhs);
+#else
+        x_ /= static_cast<float>(x);
+        y_ /= static_cast<float>(v.x());
+        z_ /= static_cast<float>(v.y());
+        w_ /= static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic B, arithmetic V2>
+    Vector4 &div(A x, B y, Vector2<V2> const &v)
+    {
+        assert(x != 0 && y != 0 && v.x() != 0 && v.y() != 0);
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v.y()), static_cast<float>(v.x()),
+                                static_cast<float>(y), static_cast<float>(x));
+        data_ = _mm_div_ps(data_, rhs);
+#else
+        x_ /= static_cast<float>(x);
+        y_ /= static_cast<float>(y);
+        z_ /= static_cast<float>(v.x());
+        w_ /= static_cast<float>(v.y());
+#endif
+        return *this;
+    }
+
+    template <arithmetic V21, arithmetic V22>
+    Vector4 &div(Vector2<V21> const &v1, Vector2<V22> const &v2)
+    {
+        assert(v1.x() != 0 && v1.y() != 0 && v2.x() != 0 && v2.y() != 0);
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v2.y()), static_cast<float>(v2.x()),
+                                static_cast<float>(v1.y()), static_cast<float>(v1.x()));
+        data_ = _mm_div_ps(data_, rhs);
+#else
+        x_ /= static_cast<float>(v1.x());
+        y_ /= static_cast<float>(v1.y());
+        z_ /= static_cast<float>(v2.x());
+        w_ /= static_cast<float>(v2.y());
+#endif
+        return *this;
+    }
+
+    template <arithmetic D, arithmetic V3>
+    Vector4 &div(Vector3<V3> const &v, D w)
+    {
+        assert(v.x() != 0 && v.y() != 0 && v.z() != 0 && w != 0);
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(w), static_cast<float>(v.z()),
+                                static_cast<float>(v.y()), static_cast<float>(v.x()));
+        data_ = _mm_div_ps(data_, rhs);
+#else
+        x_ /= static_cast<float>(v.x());
+        y_ /= static_cast<float>(v.y());
+        z_ /= static_cast<float>(v.z());
+        w_ /= static_cast<float>(w);
+#endif
+        return *this;
+    }
+
+    template <arithmetic A, arithmetic V3>
+    Vector4 &div(A x, Vector3<V3> const &v)
+    {
+        assert(x != 0 && v.x() != 0 && v.y() != 0 && v.z() != 0);
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v.z()), static_cast<float>(v.y()),
+                                static_cast<float>(v.x()), static_cast<float>(x));
+        data_ = _mm_div_ps(data_, rhs);
+#else
+        x_ /= static_cast<float>(x);
+        y_ /= static_cast<float>(v.x());
+        z_ /= static_cast<float>(v.y());
+        w_ /= static_cast<float>(v.z());
+#endif
+        return *this;
+    }
+
+    template <arithmetic V4>
+    Vector4 &div(const Vector4<V4> &v)
+    {
+#ifdef USE_SSE
+        __m128 rhs = _mm_set_ps(static_cast<float>(v.w()), static_cast<float>(v.z()),
+                                static_cast<float>(v.y()), static_cast<float>(v.x()));
+        data_ = _mm_div_ps(data_, rhs);
+#else
+        x_ /= static_cast<float>(v.x_);
+        y_ /= static_cast<float>(v.y_);
+        z_ /= static_cast<float>(v.z_);
+        w_ /= static_cast<float>(v.w_);
+#endif
+        return *this;
+    }
+
+    template <arithmetic T>
+    Vector4 &scale(T scalar)
+    {
+#ifdef USE_SSE
+        __m128 scale = _mm_set1_ps(static_cast<float>(scalar));
+        data_ = _mm_mul_ps(data_, scale);
+#else
+        x_ = static_cast<float>(static_cast<double>(x_) * static_cast<double>(scalar));
+        y_ = static_cast<float>(static_cast<double>(y_) * static_cast<double>(scalar));
+        z_ = static_cast<float>(static_cast<double>(z_) * static_cast<double>(scalar));
+        w_ = static_cast<float>(static_cast<double>(w_) * static_cast<double>(scalar));
+#endif
+        return *this;
+    }
+
+    Vector4 &normalize()
+    {
+#ifdef USE_SSE
+        __m128 squared = _mm_mul_ps(data_, data_);
+        __m128 shuf1 = _mm_movehdup_ps(squared);
+        __m128 sums1 = _mm_add_ps(squared, shuf1);
+        __m128 shuf2 = _mm_shuffle_ps(sums1, sums1, _MM_SHUFFLE(1, 1, 1, 1));
+        __m128 sum = _mm_add_ss(sums1, shuf2);
+
+        float length = _mm_cvtss_f32(_mm_sqrt_ss(sum));
+
+        assert(length > 0.0f && "Cannot normalize a zero-length vector");
+
+        __m128 len_vec = _mm_set1_ps(length);
+        data_ = _mm_div_ps(data_, len_vec);
+#else
+        const double length = std::sqrt(static_cast<double>(x_) * static_cast<double>(x_) +
+                                        static_cast<double>(y_) * static_cast<double>(y_) +
+                                        static_cast<double>(z_) * static_cast<double>(z_) +
+                                        static_cast<double>(w_) * static_cast<double>(w_));
+
+        assert(length > 0.0 && "Cannot normalize a zero-length vector");
+
+        x_ = static_cast<float>(static_cast<double>(x_) / length);
+        y_ = static_cast<float>(static_cast<double>(y_) / length);
+        z_ = static_cast<float>(static_cast<double>(z_) / length);
+        w_ = static_cast<float>(static_cast<double>(w_) / length);
+#endif
+        return *this;
+    }
+
+    Vector4 &negate()
+    {
+#ifdef USE_SSE
+        __m128 sign_mask = _mm_set1_ps(-0.0f);
+        data_ = _mm_xor_ps(data_, sign_mask);
+#else
+        x_ = -x_;
+        y_ = -y_;
+        z_ = -z_;
+        w_ = -w_;
+#endif
+        return *this;
+    }
+
+   private:
+#ifdef USE_SSE
+    __m128 data_;
+#else
+    float x_, y_, z_, w_;
+#endif
+};
+
 }  // namespace ksemath

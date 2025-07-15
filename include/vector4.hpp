@@ -5,7 +5,7 @@
 #include "vector3.hpp"
 
 // #define USE_SSE
-#define USE_NEON
+// #define USE_NEON
 
 #ifdef USE_SSE
 #include <immintrin.h>

@@ -1782,11 +1782,13 @@ class Vector4<float>
     }
 
    private:
+#if defined(USE_NEON)
     static float32x4_t load_neon_vec(float a, float b, float c, float d)
     {
         float vals[4] = {a, b, c, d};
         return vld1q_f32(vals);
     }
+#endif
 #ifdef USE_SSE
     __m128 data_;
 #elif defined(USE_NEON)

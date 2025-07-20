@@ -22,3 +22,15 @@
 - Reload CMake project and build the project
 - Include required headers, like #include <vector2.hpp> etc.
 - Now you can use the functional of the library.
+## Full list and implemented methods and features
+### Vectors
+- Vector constructor for 3 and 4 elements supports creating a vector with smaller amount of elements than the vector you want to create.
+  For example: ksemath::Vector3<double> vec2 (vec1, 2); where vec1 is vector for 2 elements, being x and y coordinates for our vec2, and so on.
+- You can get coordinates by x(), y(), z() and w() methods accordingly;
+- You can set coordinates by setX(), setY() etc.
+- Methods add(), sub(), mul(), div() are used to add, subtract, multiply and divide vectors. As arguments it can both accept coordinates, vectors, coordinates & vectors;
+- Methods scale(), normalize(), isValid(), negate() are implemented and do according actions to their names;
+- Methods magnitude(), magnitude_sqr(), cos(), angle(), mad(), equal() and operators ==, = are implemented and do according actions to their names;
+- Vectors can be created with coordinates of any arithmetic type.
+### Matrices
+- 

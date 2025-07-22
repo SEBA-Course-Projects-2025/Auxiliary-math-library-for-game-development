@@ -24,13 +24,51 @@
 - Now you can use the functional of the library.
 ## Full list and implemented methods and features
 ### Vectors
-- Vector constructor for 3 and 4 elements supports creating a vector with smaller amount of elements than the vector you want to create.
-  For example: ksemath::Vector3<double> vec2 (vec1, 2); where vec1 is vector for 2 elements, being x and y coordinates for our vec2, and so on.
-- You can get coordinates by x(), y(), z() and w() methods accordingly;
-- You can set coordinates by setX(), setY() etc.
-- Methods add(), sub(), mul(), div() are used to add, subtract, multiply and divide vectors. As arguments it can both accept coordinates, vectors, coordinates & vectors;
-- Methods scale(), normalize(), isValid(), negate() are implemented and do according actions to their names;
-- Methods magnitude(), magnitude_sqr(), cos(), angle(), mad(), equal() and operators ==, = are implemented and do according actions to their names;
-- Vectors can be created with coordinates of any arithmetic type.
+- Vector constructors for 2, 3, and 4 elements support initialization from a smaller vector and additional values.
+  Example: `ksemath::Vector3<double> vec2(vec1, 2);` where `vec1` is a 2D vector.
+- Access coordinates via `x()`, `y()`, `z()`, and `w()` methods.
+- Modify coordinates using `setX()`, `setY()`, `setZ()`, and `setW()` methods.
+- Vector arithmetic:
+  - `add()`, `sub()`, `mul()`, `div()` methods accept both vectors and coordinate values.
+- Additional operations:
+  - `scale()` — multiply vector by scalar
+  - `normalize()` — convert vector to unit vector
+  - `isValid()` — check if coordinates are finite
+  - `negate()` — reverse vector direction
+- Geometry and utility:
+  - `magnitude()` and `magnitude_sqr()` — get length and squared length
+  - `cos()` and `angle()` — compute cosine and angle between vectors
+  - `mad()` — multiply-and-add operation
+  - `equal()` — check for approximate equality
+  - Operators: `==`, `=` implemented
+- Type aliases:
+  - `vec2f`, `vec2d`, `vec2l` — for `Vector2<float>`, `Vector2<double>`, `Vector2<long double>`
 ### Matrices
-- 
+- Matrix4x4 class template works with any arithmetic type (float, double, etc.)
+- Three constructors available:
+  - Default constructor creates identity matrix
+  - Constructor with 16 individual elements (column-major order)
+  - Constructor with four Vector4 columns
+- Access elements using:
+  - `operator[]` for column access
+  - `at(row, col)` for direct element access
+- Matrix operations (currently commented out but available for implementation):
+  - Addition, subtraction with other matrices
+  - Multiplication and division by scalar
+  - Matrix-vector multiplication
+  - Matrix-matrix multiplication
+  - Compound assignment operators (+=, -=, *=, /=)
+- Special matrix operations:
+  - `transposed()` - returns transposed matrix
+  - `determinant()` - calculates matrix determinant
+  - `inverted()` - returns inverse matrix (throws assert if not invertible)
+- Static factory methods for common transformations:
+  - `identity()` - creates identity matrix
+  - `translation(x, y, z)` - creates translation matrix
+  - `scale(x, y, z)` - creates scaling matrix
+  - `rotationX(angle)`, `rotationY(angle)`, `rotationZ(angle)` - create rotation matrices
+  - `perspective(fov, aspect, near, far)` - creates perspective projection matrix
+  - `orthographic(left, right, bottom, top, near, far)` - creates orthographic projection matrix
+- Type aliases for convenience:
+  - `mat4f` for Matrix4x4<float>
+  - `mat4d` for Matrix4x4<double>

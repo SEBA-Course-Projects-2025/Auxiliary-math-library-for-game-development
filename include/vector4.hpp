@@ -4,8 +4,7 @@
 
 #include "vector2.hpp"
 #include "vector3.hpp"
-
-// #define USE_SSE
+#define USE_SSE
 // #define USE_NEON
 
 #ifdef USE_SSE
@@ -1817,52 +1816,58 @@ class Vector4<float>
         return *this;
     }
 
-    // Add these to the public section of the Vector4<float> class
-    float &operator[](size_t index)
+    float operator[](size_t index)
     {
+#ifdef USE_SSE
+        __m128 vec;
         switch (index)
         {
             case 0:
-#ifdef USE_SSE
                 return _mm_cvtss_f32(data_);
-#elif defined(USE_NEON)
-                return vgetq_lane_f32(data_, 0);
-#else
-                return x_;
-#endif
             case 1:
-#ifdef USE_SSE
-                __m128 y_vec = _mm_shuffle_ps(data_, data_, _MM_SHUFFLE(1, 1, 1, 1));
-                return _mm_cvtss_f32(y_vec);
-#elif defined(USE_NEON)
-                return vgetq_lane_f32(data_, 1);
-#else
-                return y_;
-#endif
+                vec = _mm_shuffle_ps(data_, data_, _MM_SHUFFLE(1, 1, 1, 1));
+                return _mm_cvtss_f32(vec);
             case 2:
-#ifdef USE_SSE
-                __m128 z_vec = _mm_shuffle_ps(data_, data_, _MM_SHUFFLE(2, 2, 2, 2));
-                return _mm_cvtss_f32(z_vec);
-#elif defined(USE_NEON)
-                return vgetq_lane_f32(data_, 2);
-#else
-                return z_;
-#endif
+                vec = _mm_shuffle_ps(data_, data_, _MM_SHUFFLE(2, 2, 2, 2));
+                return _mm_cvtss_f32(vec);
             case 3:
-#ifdef USE_SSE
-                __m128 w_vec = _mm_shuffle_ps(data_, data_, _MM_SHUFFLE(3, 3, 3, 3));
-                return _mm_cvtss_f32(w_vec);
-#elif defined(USE_NEON)
-                return vgetq_lane_f32(data_, 3);
-#else
-                return w_;
-#endif
+                vec = _mm_shuffle_ps(data_, data_, _MM_SHUFFLE(3, 3, 3, 3));
+                return _mm_cvtss_f32(vec);
             default:
                 throw std::out_of_range("Vector4 index out of range");
         }
+#elif defined(USE_NEON)
+        switch (index)
+        {
+            case 0:
+                return vgetq_lane_f32(data_, 0);
+            case 1:
+                return vgetq_lane_f32(data_, 1);
+            case 2:
+                return vgetq_lane_f32(data_, 2);
+            case 3:
+                return vgetq_lane_f32(data_, 3);
+            default:
+                throw std::out_of_range("Vector4 index out of range");
+        }
+#else
+        switch (index)
+        {
+            case 0:
+                return x_;
+            case 1:
+                return y_;
+            case 2:
+                return z_;
+            case 3:
+                return w_;
+            default:
+                throw std::out_of_range("Vector4 index out of range");
+        }
+#endif
     }
 
-    const float &operator[](size_t index) const
+    const float operator[](size_t index) const
     {
         return const_cast<Vector4<float> *>(this)->operator[](index);
     }
